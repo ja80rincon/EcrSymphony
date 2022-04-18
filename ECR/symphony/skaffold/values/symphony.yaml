@@ -1,0 +1,115 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    cert-manager.io/cluster-issuer: ca-issuer
+  hosts: ["*.thesymphony.dev"]
+  paths: ["/"]
+  tls:
+    - hosts: ["*.thesymphony.dev"]
+      secretName: symphony-tls
+
+persistence:
+  database:
+    host: mysql.storage.svc.cluster.local
+    port: 3306
+    user: root
+    pass: root
+    params:
+      charset: utf8
+      interpolateParams: "true"
+      parseTime: "true"
+
+tracing:
+  enabled: true
+  jaeger:
+    agentEndpoint: localhost:6831
+    agentThriftEndpoint: localhost:6832
+
+serviceMonitor:
+  enabled: true
+
+migrate:
+  spec:
+    log:
+      level: debug
+    migrations:
+      cadence:
+        address: cadence-frontend:7933
+        extraEnvVars:
+          - name: CADENCE_RETENTION
+            value: "3"
+
+admin:
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+  spec:
+    log:
+      level: debug
+
+front:
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+  spec:
+    mysql:
+      db: auth
+      host: mysql.storage.svc.cluster.local
+      port: 3306
+      user: root
+      pass: root
+    proxy:
+      logger: log-forwarder-aggregator:9880
+    extraEnvVars:
+      - name: FB_TEST_USER
+        value: fbuser@fb.com
+
+graph:
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+  spec:
+    log:
+      level: debug
+    tenancy:
+      tenantMaxDBConn: 0
+    event:
+      url: nats://graph.event
+    extraEnvVars:
+      - name: NATS_SERVER_URL
+        value: nats://nats-cluster.nats-io.svc.cluster.local
+
+async:
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+  spec:
+    log:
+      level: debug
+    cadence:
+      address: cadence-frontend:7933
+    event:
+      pub_url: nats://graph.event
+      sub_url: nats://graph.event?queue=async
+    export:
+      bucket_prefix: exports/
+      bucket_url: s3://store.blobs?region=us-east-1
+    extraEnvVars:
+      - name: NATS_SERVER_URL
+        value: nats://nats-cluster.nats-io.svc.cluster.local
+      - name: AWS_ACCESS_KEY_ID
+        value: AKIAIOSFODNN7EXAMPLE
+      - name: AWS_SECRET_ACCESS_KEY
+        value: /wJalrXUtnFEMIK7MDENG/bPxRfiCYEXAMPLEKEY
+
+store:
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+  spec:
+    log:
+      level: debug
+    bucket:
+      url: s3://store.blobs?region=us-east-1&endpoint=minio.storage.svc.cluster.local:9000
+    extraEnvVars:
+      - name: AWS_ACCESS_KEY_ID
+        value: AKIAIOSFODNN7EXAMPLE
+      - name: AWS_SECRET_ACCESS_KEY
+        value: /wJalrXUtnFEMIK7MDENG/bPxRfiCYEXAMPLEKEY

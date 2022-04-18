@@ -1,0 +1,3 @@
+mutation RemoveProjectTypeMutation($id: ID!) {
+  deleteProjectType(id: $id)
+}

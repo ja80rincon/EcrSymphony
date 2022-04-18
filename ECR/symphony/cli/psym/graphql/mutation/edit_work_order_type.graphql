@@ -1,0 +1,5 @@
+mutation EditWorkOrderTypeMutation($input: EditWorkOrderTypeInput!) {
+  editWorkOrderType(input: $input) {
+    ...WorkOrderTypeFragment
+  }
+}

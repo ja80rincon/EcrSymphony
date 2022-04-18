@@ -1,0 +1,10 @@
+clusterScoped: true
+cluster:
+  size: 1
+  auth:
+    enabled: false
+metrics:
+  enabled: true
+  servicemonitor:
+    enabled: true
+

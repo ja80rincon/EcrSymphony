@@ -1,0 +1,10 @@
+query EquipmentSearchQuery($filters: [EquipmentFilterInput!]!, $limit: Int) {
+  equipments(filterBy: $filters, first: $limit) {
+    edges {
+      node {
+        ...EquipmentFragment
+      }
+    }
+    totalCount
+  }
+}

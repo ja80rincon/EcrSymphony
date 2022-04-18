@@ -1,0 +1,3176 @@
+{
+  "fb-locale": "es",
+  "translations": {
+    "b7b57131306fe3595e24cd29c8986b28": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Iniciar detección",
+          "id": 135136424,
+          "variations": {}
+        }
+      ]
+    },
+    "70a8ba830b45ff824ff877fd9d912ac1": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Guardando",
+          "id": 132089866,
+          "variations": {}
+        }
+      ]
+    },
+    "39a5b7ed92cd478583f529abf67b031b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subiendo",
+          "id": 132089869,
+          "variations": {}
+        }
+      ]
+    },
+    "5112f6b9bd88e6152edf7f439c3435da": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detener detección",
+          "id": 135136432,
+          "variations": {}
+        }
+      ]
+    },
+    "1c0107bb54657f939e0702c120a53752": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Muestras guardadas: {Number of saved cell scans}",
+          "id": 131967554,
+          "variations": {}
+        }
+      ]
+    },
+    "d6dd1ce91319c073e400e204f399e177": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Muestras recogidas: {Number of collected cell scans}",
+          "id": 135136323,
+          "variations": {}
+        }
+      ]
+    },
+    "bf0be27c1e7fcad93f9818659de6de9d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Obteniendo ubicación...",
+          "id": 136042824,
+          "variations": {}
+        }
+      ]
+    },
+    "9e44570f487d59ef472b73184b5554be": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir",
+          "id": 130898417,
+          "variations": {}
+        }
+      ]
+    },
+    "5652296e06ad19bf52cf7c1dc0c4eab0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Permite a la app acceder a la ubicación de este teléfono y leer el estado del teléfono para detectar redes celulares.",
+          "id": 131970529,
+          "variations": {}
+        }
+      ]
+    },
+    "d6c50caa18032a1798c611d6925d2cb7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Latitud: {Latitude value}; longitud: {Longitude value}",
+          "id": 131969026,
+          "variations": {}
+        }
+      ]
+    },
+    "697a45508774ac699091590452eb7ebb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No se agregó ningún equipo a este sitio.",
+          "id": 131969618,
+          "variations": {}
+        }
+      ]
+    },
+    "a66b72a6bbb1d2a235d06b87873207ba": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Identificador: {Location ID}",
+          "id": 130898422,
+          "variations": {}
+        }
+      ]
+    },
+    "0fb93d606fb59c1e60a552a2801ddbca": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Latitud: {Location latitude value}",
+          "id": 131969004,
+          "variations": {}
+        }
+      ]
+    },
+    "6bc748fe712fc5db3c90ef9325e291ba": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Longitud: {Location longitude value}",
+          "id": 131968997,
+          "variations": {}
+        }
+      ]
+    },
+    "fc94a05d7eb69c522c0d7d22dff68e13": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{number} categorías",
+          "id": 135856397,
+          "variations": {}
+        }
+      ]
+    },
+    "3a73e0788a251ff333245a362849af86": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "1 categoría",
+          "id": 135856398,
+          "variations": {}
+        }
+      ]
+    },
+    "cb434da0d71fdfa2be9861063cc6440c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{Distance value in km} km",
+          "id": 130898414,
+          "variations": {}
+        }
+      ]
+    },
+    "391d57119d4ff32555f4030108d88787": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes {number of site surveys} inspecciones del sitio y {number of work orders} órdenes de trabajo",
+          "id": 136503126,
+          "variations": {}
+        }
+      ]
+    },
+    "f1c1bc618e936928ea829f015e19f32b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes {number of site surveys} inspecciones del sitio y 1 orden de trabajo",
+          "id": 136503152,
+          "variations": {}
+        }
+      ]
+    },
+    "538dfc9bb681c7a90325419c33e64495": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes 1 inspección del sitio y {number of work orders} órdenes de trabajo",
+          "id": 136503103,
+          "variations": {}
+        }
+      ]
+    },
+    "8f3da0c975ead1588f0417af9bbcf21c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes 1 inspección del sitio y 1 orden de trabajo",
+          "id": 136503055,
+          "variations": {}
+        }
+      ]
+    },
+    "8c8187c399be703120b2faa6f85b0e0a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes {number} inspecciones del sitio",
+          "id": 136503079,
+          "variations": {}
+        }
+      ]
+    },
+    "c9260c7a21183d26c1f8a2e9d058df9f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes 1 inspección del sitio",
+          "id": 136503107,
+          "variations": {}
+        }
+      ]
+    },
+    "61a472ad12e65f2051454f4fda145dc7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes {work orders} órdenes de trabajo",
+          "id": 136503090,
+          "variations": {}
+        }
+      ]
+    },
+    "55aaf735a0d373bdb54024e9f399698d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tienes 1 orden de trabajo",
+          "id": 136503128,
+          "variations": {}
+        }
+      ]
+    },
+    "1b7b5e0b58d46b74fa8829bbfe346fdd": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Inspección del sitio",
+          "id": 135136489,
+          "variations": {}
+        }
+      ]
+    },
+    "4f9d2c221a655bf93129e145eebfa52f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Permite a la app acceder a la ubicación de este teléfono para que la lista se ordene por proximidad.",
+          "id": 137201035,
+          "variations": {}
+        }
+      ]
+    },
+    "3eedf37678d20f4b177d94319cd70aec": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No tienes órdenes de trabajo asignadas para hoy.",
+          "id": 157556734,
+          "variations": {}
+        }
+      ]
+    },
+    "77630d922ed0adac5561012daf3ce785": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Fotos",
+          "id": 136496051,
+          "variations": {}
+        }
+      ]
+    },
+    "4366ea12c16d5e84974b8576c7e12ec3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subiendo...",
+          "id": 130898408,
+          "variations": {}
+        }
+      ]
+    },
+    "6cb3fd3c902f06f4496671e7c10de87d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir",
+          "id": 130898384,
+          "variations": {}
+        }
+      ]
+    },
+    "65378dfee398fc28916d303bbdbaceb7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se cerró tu sesión. Reinicia la app y vuelve a iniciar sesión.",
+          "id": 132349039,
+          "variations": {}
+        }
+      ]
+    },
+    "2264b9691afa0a044eeb8cd9a36a0596": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Órdenes de trabajo",
+          "id": 156094027,
+          "variations": {}
+        }
+      ]
+    },
+    "794b8d1d0df829cb4a1d063ff8268fda": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Órdenes de trabajo cerradas",
+          "id": 157837234,
+          "variations": {}
+        }
+      ]
+    },
+    "f999035927f172e0ba02baae61e99432": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Sitios cerca",
+          "id": 132349688,
+          "variations": {}
+        }
+      ]
+    },
+    "dfb5c025ca1e1f09394f2dfc6f7db4a2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Configuración de la cuenta",
+          "id": 130898404,
+          "variations": {}
+        }
+      ]
+    },
+    "38edb9fcb30762c0d069d8e0289ac993": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cerrar sesión",
+          "id": 130898387,
+          "variations": {}
+        }
+      ]
+    },
+    "9c07d80dac46d29474481c4dcb069e4b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al cerrar la sesión. Vuelve a intentarlo más tarde.",
+          "id": 132349312,
+          "variations": {}
+        }
+      ]
+    },
+    "62b0b925e203d7c1b7be39f73e43a126": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Versión: {App version value}",
+          "id": 130898419,
+          "variations": {}
+        }
+      ]
+    },
+    "a1055553ef3ab6ec65b8afa09d228367": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{number} preguntas",
+          "id": 130898413,
+          "variations": {}
+        }
+      ]
+    },
+    "a5c3c41e9980907a1504d4e0d5705556": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "1 pregunta",
+          "id": 130898400,
+          "variations": {}
+        }
+      ]
+    },
+    "edf88e2e909623c407aae114d90caa86": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{number} categorías",
+          "id": 135478401,
+          "variations": {}
+        }
+      ]
+    },
+    "59cc32e5dc1c20a656a23b575c6258fc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "1 categoría",
+          "id": 135569799,
+          "variations": {}
+        }
+      ]
+    },
+    "e93e7ff8f3acc5ff7c2c99f5484809d5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Creada el {Date value}",
+          "id": 157556801,
+          "variations": {}
+        }
+      ]
+    },
+    "ce78e3e714731d6bba00fb983ba276dc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subida el {Date value}",
+          "id": 131968677,
+          "variations": {}
+        }
+      ]
+    },
+    "beeec5f0623f75287c45d16138ca4d01": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Este campo del formulario no se admite en este momento.",
+          "id": 131967378,
+          "variations": {}
+        }
+      ]
+    },
+    "1da214788f6b2f5f839406d7500af81e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "ND",
+          "id": 148499652,
+          "variations": {}
+        }
+      ]
+    },
+    "f7d7f5b8255abae15a670caa03e990c4": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Eliminar",
+          "id": 157733906,
+          "variations": {}
+        }
+      ]
+    },
+    "0873260177982ee5c8ca5eff6503f613": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Estás seguro de que quieres eliminar este elemento?",
+          "id": 158084905,
+          "variations": {}
+        }
+      ]
+    },
+    "8442b186996018fe59506e04c52f8010": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cancelar",
+          "id": 20705721,
+          "variations": {}
+        }
+      ]
+    },
+    "89b104a516738c5aa2fe538af888c960": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Eliminar",
+          "id": 27490865,
+          "variations": {}
+        }
+      ]
+    },
+    "4355822fdf243ef326addc20cbdfd721": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Copiar",
+          "id": 157028396,
+          "variations": {}
+        }
+      ]
+    },
+    "2601bcf5fdaa8f9bd32ba1ab4dda60d4": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Cuántas copias quieres crear?",
+          "id": 157556984,
+          "variations": {}
+        }
+      ]
+    },
+    "62af2ab62bef3cad86cc707c43412bbf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Copiar",
+          "id": 157028394,
+          "variations": {}
+        }
+      ]
+    },
+    "106e9e27b772447e3c893bce254ca133": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Borrar",
+          "id": 139642448,
+          "variations": {}
+        }
+      ]
+    },
+    "f8d4f8f29ca1dff1a3743bb2c328e4a3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Guardar",
+          "id": 20705775,
+          "variations": {}
+        }
+      ]
+    },
+    "f61096eff2c57e7ce2c3df9a03ef5676": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Sí",
+          "id": 140123885,
+          "variations": {}
+        }
+      ]
+    },
+    "88c07735254640f146c41e152a29c815": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No",
+          "id": 140123880,
+          "variations": {}
+        }
+      ]
+    },
+    "5fc882ded6c9f0658f34115b65668575": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Listo",
+          "id": 148079061,
+          "variations": {}
+        }
+      ]
+    },
+    "6b6165e6e9b1d92a45163180e3087888": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Sin completar",
+          "id": 148079059,
+          "variations": {}
+        }
+      ]
+    },
+    "3f3a3e9a718ddf89351b95bc6143b9a0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al enviar el comentario",
+          "id": 142531332,
+          "variations": {}
+        }
+      ]
+    },
+    "c9ead87df10db05d6fc46fe4fd0de051": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al enviar el comentario. Vuelve a intentarlo más tarde.",
+          "id": 142531367,
+          "variations": {}
+        }
+      ]
+    },
+    "a36cb476f8b6e3f2f83fda23117bf663": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Escribe un comentario...",
+          "id": 140732033,
+          "variations": {}
+        }
+      ]
+    },
+    "db2bb1fad6a001b80ce7dbfb6b0df0e9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Enviar",
+          "id": 140732032,
+          "variations": {}
+        }
+      ]
+    },
+    "b45269bba1965d4f95f9598bf3b775f2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Persona a la que se asigna la tarea",
+          "id": 143274421,
+          "variations": {}
+        }
+      ]
+    },
+    "7dd76ea6d1f311f193676d0e7a0aebd9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Pausar orden de trabajo",
+          "id": 156093745,
+          "variations": {}
+        }
+      ]
+    },
+    "ac9d34b52a895ca7e6ea436ad2d86988": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Enviar orden de trabajo",
+          "id": 156093734,
+          "variations": {}
+        }
+      ]
+    },
+    "81640ac1d8cecb0eb567c880a893580b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Reportar como bloqueada",
+          "id": 156094020,
+          "variations": {}
+        }
+      ]
+    },
+    "eac31f58cb8aef28853a5d839bcafd81": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Seleccionar tipo de salida",
+          "id": 157881692,
+          "variations": {}
+        }
+      ]
+    },
+    "08487844f2fe069e7f075d67e3ba6550": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Indica un motivo por no completar la lista de comprobación",
+          "id": 150866230,
+          "variations": {}
+        }
+      ]
+    },
+    "0b07c683390ff8fd79c12b6a7ef0bc80": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Indica un motivo para reportar esta orden de trabajo como bloqueada",
+          "id": 156094052,
+          "variations": {}
+        }
+      ]
+    },
+    "747a48e19d0f50cb6aa8799f36b977ba": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Por ejemplo, faltaba el equipo X...",
+          "id": 150866293,
+          "variations": {}
+        }
+      ]
+    },
+    "c3f3c3d48c3ae97b82c6ac335d060c70": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cancelar",
+          "id": 155506088,
+          "variations": {}
+        }
+      ]
+    },
+    "a1ffbf9ee0ecaf4048ec0bec2b992d4f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Siguiente",
+          "id": 155506092,
+          "variations": {}
+        }
+      ]
+    },
+    "49067284cd3ce636e32f4b60d297a2eb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Enviar",
+          "id": 155506089,
+          "variations": {}
+        }
+      ]
+    },
+    "36816eb5603eb90d0f0e9e2fbf7c6708": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Comentarios",
+          "id": 138300090,
+          "variations": {}
+        }
+      ]
+    },
+    "bc6e21a592b4c34da16f117043ff6e9a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Ver todos los comentarios",
+          "id": 138300089,
+          "variations": {}
+        }
+      ]
+    },
+    "3d40676fbb5768361e1594719fc154eb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Creada el",
+          "id": 157556879,
+          "variations": {}
+        }
+      ]
+    },
+    "b95145975ff1ce78a5f6a6bcf3292c9a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Fecha de vencimiento",
+          "id": 157028385,
+          "variations": {}
+        }
+      ]
+    },
+    "b04b9ca9e7907efdf5f94160419c1a47": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Descripción",
+          "id": 136011130,
+          "variations": {}
+        }
+      ]
+    },
+    "b57960a0ce3d8362c08b2833db7ba481": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detalles",
+          "id": 136011133,
+          "variations": {}
+        }
+      ]
+    },
+    "72ef31837e5d0b72b26846eb4abdd0a2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cerrar",
+          "id": 150323246,
+          "variations": {}
+        }
+      ]
+    },
+    "b62f5becda46f7b943dced5bc8aa091b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Acércate",
+          "id": 156094008,
+          "variations": {}
+        }
+      ]
+    },
+    "d926f5d508567477525b64ed714aa817": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Registrar entrada de todos modos?",
+          "id": 157881643,
+          "variations": {}
+        }
+      ]
+    },
+    "bfe31412e9a91317b4e6734d29a42b3e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Registrar salida de todos modos?",
+          "id": 157881595,
+          "variations": {}
+        }
+      ]
+    },
+    "aaade22cb9f4961dc4bb80081aecacdc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Acércate a la ubicación de esta orden de trabajo y vuelve a intentarlo.",
+          "id": 156094233,
+          "variations": {}
+        }
+      ]
+    },
+    "61813739e90ccba380d047da4c20519c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Aún estás lejos de la ubicación de esta orden de trabajo.",
+          "id": 156093955,
+          "variations": {}
+        }
+      ]
+    },
+    "dcfa6b98ec9eaf502d94317ac4e8acaa": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cómo llegar",
+          "id": 136329435,
+          "variations": {}
+        }
+      ]
+    },
+    "75e2b1038dbaf2d199eb4e0c44f75d1b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Ubicación",
+          "id": 136329271,
+          "variations": {}
+        }
+      ]
+    },
+    "6725c7dcb8c4677201af779b4eadafdd": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Proyecto",
+          "id": 136496054,
+          "variations": {}
+        }
+      ]
+    },
+    "fad21a25449f7b69ef182fa81cf78e76": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al subir",
+          "id": 140677576,
+          "variations": {}
+        }
+      ]
+    },
+    "9e9445c778dc051a69ca9ffb16673330": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Comprueba tu conexión a internet y vuelve a intentarlo.",
+          "id": 140677640,
+          "variations": {}
+        }
+      ]
+    },
+    "9221099a4b96e68a4cea544d2dffe309": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Registrar entrada",
+          "id": 157874090,
+          "variations": {}
+        }
+      ]
+    },
+    "fc2396e913a91edc6709f7f078962691": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Registrar salida",
+          "id": 157874169,
+          "variations": {}
+        }
+      ]
+    },
+    "d0265d105a43f301f95dc6be8a136f20": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Inspección del sitio de {Location name}",
+          "id": 135136408,
+          "variations": {}
+        }
+      ]
+    },
+    "b95df8822098de3236e9936ad9697064": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al cambiar las preferencias del usuario",
+          "id": 153985258,
+          "variations": {}
+        }
+      ]
+    },
+    "b36a45a268a5059c7cdff899530aafdc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al cambiar las preferencias del usuario. Vuelve a intentarlo más tarde.",
+          "id": 153985376,
+          "variations": {}
+        }
+      ]
+    },
+    "380c8d4991e90e9dbe60188faecba331": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Kilómetro",
+          "id": 153587430,
+          "variations": {}
+        }
+      ]
+    },
+    "01b67e42549c0c2321cd46c7bfea6504": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Milla",
+          "id": 153587431,
+          "variations": {}
+        }
+      ]
+    },
+    "8b2370164cd10cda28021570ff3e3b2a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Menú no disponible",
+          "id": 131968989,
+          "variations": {}
+        }
+      ]
+    },
+    "56745994fecf4c89f7e8a8bbe52d7db3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Configuración de la cuenta",
+          "id": 130898388,
+          "variations": {}
+        }
+      ]
+    },
+    "51f10005e90ffacaf499775922566821": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Unidad de distancia",
+          "id": 152979994,
+          "variations": {}
+        }
+      ]
+    },
+    "4f772fa5b2164ba1b507ed1c2ac038ae": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Aplicar configuración",
+          "id": 153220896,
+          "variations": {}
+        }
+      ]
+    },
+    "4bc641423eb5d5a85ea59cac297c0d0f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Desactivar cuenta",
+          "id": 153220947,
+          "variations": {}
+        }
+      ]
+    },
+    "0c2754d666b8afe53cf0d30db6d350fb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Menú no disponible",
+          "id": 131969372,
+          "variations": {}
+        }
+      ]
+    },
+    "28d89e43208f970cb86dec811bc21820": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Órdenes de trabajo cerradas",
+          "id": 157837255,
+          "variations": {}
+        }
+      ]
+    },
+    "c41ffd6fc40396c20503aabe70bb8c94": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando órdenes de trabajo cerradas...",
+          "id": 157837247,
+          "variations": {}
+        }
+      ]
+    },
+    "3cbcabe4393ecae8a227ad94660992ab": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al desactivar la cuenta",
+          "id": 149165638,
+          "variations": {}
+        }
+      ]
+    },
+    "5d03fb0157e46d7fa576a681fa162cd2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al desactivar esta cuenta. Vuelve a intentarlo más tarde.",
+          "id": 149165656,
+          "variations": {}
+        }
+      ]
+    },
+    "184c07cacdc2a0d585d03c4bc2463f97": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Desactivar tu cuenta",
+          "id": 157028391,
+          "variations": {}
+        }
+      ]
+    },
+    "36ce6c1dbcf7eb798206b10be8664722": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Al hacer clic en el botón \"Desactivar\" debajo, comenzará el proceso de desactivación de la cuenta. Una vez que la hayas desactivado, ya no podrás iniciar sesión en la app para celulares ni el sitio web.",
+          "id": 149165708,
+          "variations": {}
+        }
+      ]
+    },
+    "b3bd5f318f0358aa02bd1d69e622f588": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Lo que también deberías saber",
+          "id": 149165737,
+          "variations": {}
+        }
+      ]
+    },
+    "184e04b2663ad8d02ffc9358e0ff1179": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Aunque desactives la cuenta, no se eliminarán tus datos ni las actividades que se guardaron anteriormente. Si desactivas la cuenta, puedes ponerte en contacto con un administrador para que la recupere.",
+          "id": 149165610,
+          "variations": {}
+        }
+      ]
+    },
+    "3b2768c57d7db822cd3a6bedd48b5dc0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Desactivar cuenta",
+          "id": 152979995,
+          "variations": {}
+        }
+      ]
+    },
+    "b47f88dfcc7fc4fe3b72ccc19239bc22": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Ranuras",
+          "id": 131969034,
+          "variations": {}
+        }
+      ]
+    },
+    "5d8f8f539852380a471022e0a8584ce3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando posiciones...",
+          "id": 145454248,
+          "variations": {}
+        }
+      ]
+    },
+    "34838b52b42c5774d71c31a98e16f98c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Propiedades",
+          "id": 130171173,
+          "variations": {}
+        }
+      ]
+    },
+    "3ed6772b1ac29b882a10a964f3db4ef5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando propiedades...",
+          "id": 145454319,
+          "variations": {}
+        }
+      ]
+    },
+    "4daabe3a47f13ccf92052bcabab7eed7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando equipos...",
+          "id": 132349238,
+          "variations": {}
+        }
+      ]
+    },
+    "22ce0233c996a15aa2cb1ee89436825e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Identificador: {Equipment ID}",
+          "id": 131969505,
+          "variations": {}
+        }
+      ]
+    },
+    "7c280dbb85856ed5f06398955e08759d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Propiedades",
+          "id": 130898390,
+          "variations": {}
+        }
+      ]
+    },
+    "bf5a61b7119378b7ab3395f652f55ccf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Ranuras",
+          "id": 132344694,
+          "variations": {}
+        }
+      ]
+    },
+    "77ba42c46ab696527a3d9b29b532eb80": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detección de redes celulares",
+          "id": 135136584,
+          "variations": {}
+        }
+      ]
+    },
+    "44106f653cd8c675ae09f9dc9b92228f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Equipos",
+          "id": 132349235,
+          "variations": {}
+        }
+      ]
+    },
+    "ef64b9f79198d005389dc3ab681957e4": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando equipos...",
+          "id": 144049817,
+          "variations": {}
+        }
+      ]
+    },
+    "d79e5e5275509dc1a45ff3e0fdc72817": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Archivos adjuntos",
+          "id": 130898410,
+          "variations": {}
+        }
+      ]
+    },
+    "c0f527f9b012e928966a41279adc2d5a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando documentos...",
+          "id": 145454331,
+          "variations": {}
+        }
+      ]
+    },
+    "665fd600d1b187358ab8873fce045c34": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Propiedades",
+          "id": 130898389,
+          "variations": {}
+        }
+      ]
+    },
+    "bf9e12538c06171a3a9efd3399172497": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando propiedades...",
+          "id": 145454266,
+          "variations": {}
+        }
+      ]
+    },
+    "2e3c4f04884347805a4434d5e984d267": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Buscar órdenes de trabajo…",
+          "id": 157556816,
+          "variations": {}
+        }
+      ]
+    },
+    "acfb6974efab10d54e1ac35677b5a996": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Inspección del sitio",
+          "id": 135136490,
+          "variations": {}
+        }
+      ]
+    },
+    "7cfc7794b0a0e16f35b74f55b0edc4a2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando inspecciones del sitio...",
+          "id": 145454327,
+          "variations": {}
+        }
+      ]
+    },
+    "9df96df7b87ea34ff5b9dce20c4e5792": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Más recientes",
+          "id": 132346113,
+          "variations": {}
+        }
+      ]
+    },
+    "a5cb8be9321641496260fb8bef9b994f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando respuestas de la inspección del sitio...",
+          "id": 135136459,
+          "variations": {}
+        }
+      ]
+    },
+    "01abae015c2d1d2bdbeb2f324e8b38fe": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando categorías de inspección...",
+          "id": 135136453,
+          "variations": {}
+        }
+      ]
+    },
+    "42ca1afa01b9d8343d6e7a302e0ca983": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error de navegación. Vuelve a intentarlo o reinicia la app.",
+          "id": 131968971,
+          "variations": {}
+        }
+      ]
+    },
+    "742f96b65a36c707ccd6e676473312f5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Listo",
+          "id": 24410164,
+          "variations": {}
+        }
+      ]
+    },
+    "a5eebbb76c443bd3222195e7f08e9db3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al subir la inspección",
+          "id": 138412730,
+          "variations": {}
+        }
+      ]
+    },
+    "d5ad7761e827091c2fb881ccb9e2ecf1": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al subir la inspección. Vuelve a intentarlo más tarde.",
+          "id": 135136468,
+          "variations": {}
+        }
+      ]
+    },
+    "e4173eeea1ec285022b5606fc3ff567c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Completado",
+          "id": 136096640,
+          "variations": {}
+        }
+      ]
+    },
+    "deda90da098fe1e76e628efaaf385062": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Gracias por completar la inspección del sitio. Puedes subir los resultados ahora o más tarde.",
+          "id": 136096585,
+          "variations": {}
+        }
+      ]
+    },
+    "fc650fe8d087c5ba69bb6caa394977d9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir más tarde",
+          "id": 135898652,
+          "variations": {}
+        }
+      ]
+    },
+    "3e6c0d2a4962b8431585d0255f4957cf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subiendo...",
+          "id": 135898651,
+          "variations": {}
+        }
+      ]
+    },
+    "6a2ac23ed7947c16c821c2b930f678d5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir ahora",
+          "id": 136096589,
+          "variations": {}
+        }
+      ]
+    },
+    "da13de9ae947fa1396dda76152e2d7a7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando categoría de inspección...",
+          "id": 135136448,
+          "variations": {}
+        }
+      ]
+    },
+    "c7050817afab332746550c0d0246d25e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Atrás",
+          "id": 36333338,
+          "variations": {}
+        }
+      ]
+    },
+    "5cff4c15d5200ff22d611e9712b43db7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando ubicación...",
+          "id": 132345858,
+          "variations": {}
+        }
+      ]
+    },
+    "bd52c95a7e2a664d4dbeca893cc3f018": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Equipos",
+          "id": 132349220,
+          "variations": {}
+        }
+      ]
+    },
+    "92605961b5a22aa9a8ff9fb2c28115dd": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Archivos adjuntos",
+          "id": 130898416,
+          "variations": {}
+        }
+      ]
+    },
+    "67691fd2cc5847bf3e4ac49c4e513829": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Inspección del sitio",
+          "id": 135136487,
+          "variations": {}
+        }
+      ]
+    },
+    "07f719d7acdc0e04c5eb311d66adf834": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detección de redes celulares",
+          "id": 135136588,
+          "variations": {}
+        }
+      ]
+    },
+    "dc87668ef9c4ef1286875e6d8b7f2f7c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Sitios cerca",
+          "id": 132349690,
+          "variations": {}
+        }
+      ]
+    },
+    "522cfb60d6bb988e9fa6891c463b806d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Permite a la app acceder a la ubicación de este teléfono para detectar redes celulares.",
+          "id": 131969580,
+          "variations": {}
+        }
+      ]
+    },
+    "f205e089a94ade5795327534be8902b2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al obtener las coordenadas GPS. Vuelve a intentarlo.",
+          "id": 131970316,
+          "variations": {}
+        }
+      ]
+    },
+    "32bc0dbe4a31ed0ba350e02875335c74": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Intentar de nuevo",
+          "id": 130461531,
+          "variations": {}
+        }
+      ]
+    },
+    "03f6548853bd2cc564d806ca460e6f54": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Buscando ubicación...",
+          "id": 131968543,
+          "variations": {}
+        }
+      ]
+    },
+    "b654fed07c7d8582a9ed2c8041b0eadf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando ubicaciones...",
+          "id": 145454250,
+          "variations": {}
+        }
+      ]
+    },
+    "fb9e563c2f26d716b5be216568906f95": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No hay sitios cerca",
+          "id": 131968324,
+          "variations": {}
+        }
+      ]
+    },
+    "85c6f7d0b1324a56e7cac7cdc9ba0d61": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{Distance value in mi} mi",
+          "id": 157028384,
+          "variations": {}
+        }
+      ]
+    },
+    "1759af2cb29035c44248caa8bf40f0bf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Nombre de la ubicación...",
+          "id": 131968536,
+          "variations": {}
+        }
+      ]
+    },
+    "9f4376318eb87c14f7c4024a5572a789": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Empieza a escribir para buscar ubicaciones por nombre",
+          "id": 132348901,
+          "variations": {}
+        }
+      ]
+    },
+    "7fabbc7957ff225c812839b5a2074150": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No hay resultados de búsqueda",
+          "id": 131966904,
+          "variations": {}
+        }
+      ]
+    },
+    "d27c474678b769f74ab938441465060b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Búsqueda de ubicaciones",
+          "id": 142531392,
+          "variations": {}
+        }
+      ]
+    },
+    "278b60645f9327c521e21389a8ac39a8": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Órdenes de trabajo",
+          "id": 157028390,
+          "variations": {}
+        }
+      ]
+    },
+    "e3eabf7b8bf806944020348ef8edfffa": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando tareas...",
+          "id": 145454274,
+          "variations": {}
+        }
+      ]
+    },
+    "a3ee8b5e2b95397b10888b8bf71213a1": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error",
+          "id": 138178718,
+          "variations": {}
+        }
+      ]
+    },
+    "9b01a4afdc40dc88e266229acec8219d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error de navegación. Reinicia la app y vuelve a intentarlo.",
+          "id": 131968825,
+          "variations": {}
+        }
+      ]
+    },
+    "8099a74747d1973a922cf2be96850ab9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Todos los campos son obligatorios",
+          "id": 138412561,
+          "variations": {}
+        }
+      ]
+    },
+    "27c95d26ff6504863d22b5c77a18e38d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Verifica que ingresaste los datos correctos en los campos de correo electrónico, contraseña y empresa.",
+          "id": 138412766,
+          "variations": {}
+        }
+      ]
+    },
+    "cc5f22d4c211ca6d72713084a53a1818": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al iniciar sesión. Vuelve a intentarlo.",
+          "id": 130898412,
+          "variations": {}
+        }
+      ]
+    },
+    "74a886b7df1a25b7b626d66f43c378c2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Correo electrónico",
+          "id": 129877855,
+          "variations": {}
+        }
+      ]
+    },
+    "c81ad6a2570656339ea710d2a224fed5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Iniciar sesión",
+          "id": 152078940,
+          "variations": {}
+        }
+      ]
+    },
+    "72db5506015430c477741bf8493f33ed": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al iniciar sesión",
+          "id": 138178719,
+          "variations": {}
+        }
+      ]
+    },
+    "d9b8d81ca85aa0424d69eb8a9c50e627": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Comprueba tus credenciales y vuelve a intentarlo.",
+          "id": 138412577,
+          "variations": {}
+        }
+      ]
+    },
+    "df2e446fc7a4d42b99a4b52faf0e8a20": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Iniciar sesión",
+          "id": 21178333,
+          "variations": {}
+        }
+      ]
+    },
+    "a84650142d7a4a770c9d8d015e108422": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se requiere la empresa",
+          "id": 150866318,
+          "variations": {}
+        }
+      ]
+    },
+    "d584b5b581b4b4cb4c72025e85bc6135": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Comprueba que el campo de empresa se haya completado correctamente.",
+          "id": 150866389,
+          "variations": {}
+        }
+      ]
+    },
+    "c802eb3d9da3884f7a235b347aa3a687": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Problema de red",
+          "id": 153567372,
+          "variations": {}
+        }
+      ]
+    },
+    "fa2a8e4cc956de5a64281e5da88d3cec": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error de comunicación con el servidor. Verifica la conexión de tu cuenta y vuelve a intentarlo.",
+          "id": 153567493,
+          "variations": {}
+        }
+      ]
+    },
+    "6a63ee44b9d20bcc67cc90bd09100e2a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Empresa",
+          "id": 130898396,
+          "variations": {}
+        }
+      ]
+    },
+    "b7c807f2bba3581b31ac7ea92be77c6b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Siguiente",
+          "id": 150619151,
+          "variations": {}
+        }
+      ]
+    },
+    "3a655524aebe14f9a7ef1e0d8b4d5322": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Inspecciones del sitio",
+          "id": 135136496,
+          "variations": {}
+        }
+      ]
+    },
+    "b72cd5790ba0e7d487d9a08cc98817a0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Aún no hay inspecciones para este sitio.",
+          "id": 135136380,
+          "variations": {}
+        }
+      ]
+    },
+    "ad37ae14cb445c6336c0da4cac938939": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{number} formularios",
+          "id": 131969350,
+          "variations": {}
+        }
+      ]
+    },
+    "096a6b4154d33dcd08a84bc33b656410": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "1 formulario",
+          "id": 132028297,
+          "variations": {}
+        }
+      ]
+    },
+    "fbd686c68cba94a98bab6f24f645b510": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Desliza el dedo hacia la derecha para hacer una copia de un elemento",
+          "id": 157557073,
+          "variations": {}
+        }
+      ]
+    },
+    "5fb7605ae418f52f915cf282332c9bd0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Guardar",
+          "id": 143092227,
+          "variations": {}
+        }
+      ]
+    },
+    "df8b5ff12cae93e27eb8fad92fe798c9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Este formulario tiene preguntas obligatorias.",
+          "id": 157556899,
+          "variations": {}
+        }
+      ]
+    },
+    "71bcc90a7562250fa8fb51c8ea0f83e2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No hay elementos de la lista de comprobación para esta categoría",
+          "id": 137792176,
+          "variations": {}
+        }
+      ]
+    },
+    "fdf34c6f9a5cf57e02f55107281f66c9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando categorías...",
+          "id": 145454258,
+          "variations": {}
+        }
+      ]
+    },
+    "c25d269dfdd2dafc62df6799071d7ec5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al obtener categoría",
+          "id": 137792302,
+          "variations": {}
+        }
+      ]
+    },
+    "13b3c7d99003a28afa5b865e00caecb3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Lista de comprobación",
+          "id": 157199934,
+          "variations": {}
+        }
+      ]
+    },
+    "6b1e4110891c7fdb22119fb1c98de9e2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Completaste todos los elementos",
+          "id": 140944248,
+          "variations": {}
+        }
+      ]
+    },
+    "a7123d6545ec1c56e98a256f751aff02": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Te falta completar {number of incomplete items} elementos",
+          "id": 140944292,
+          "variations": {}
+        }
+      ]
+    },
+    "be2df08ed46697ec9cfd3c5ea156a195": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Te falta completar 1 elemento",
+          "id": 140944303,
+          "variations": {}
+        }
+      ]
+    },
+    "17f390daeb3edeb43e7879ff0b425d7c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando tareas…",
+          "id": 157556576,
+          "variations": {}
+        }
+      ]
+    },
+    "2ea84ecedcca386b70f9be455632fd64": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error al obtener categorías",
+          "id": 137792306,
+          "variations": {}
+        }
+      ]
+    },
+    "f8e407db8f812ba9920e03b6c1c13d8d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Lista de comprobación",
+          "id": 137505848,
+          "variations": {}
+        }
+      ]
+    },
+    "e43d479a7a34cd27969ee927307c4510": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando comentarios...",
+          "id": 144049816,
+          "variations": {}
+        }
+      ]
+    },
+    "50ae30011904bf2f7c7389ca138fb3eb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Comentarios",
+          "id": 141870026,
+          "variations": {}
+        }
+      ]
+    },
+    "7a4cf48446f9d63fc9bfb907b210058a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando archivos adjuntos...",
+          "id": 145454347,
+          "variations": {}
+        }
+      ]
+    },
+    "22ac3cb3600218e0035758461169b48a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando propiedades...",
+          "id": 145454317,
+          "variations": {}
+        }
+      ]
+    },
+    "73e3425b5d3219edc9f68772bf76f7f2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando orden de trabajo...",
+          "id": 136096647,
+          "variations": {}
+        }
+      ]
+    },
+    "1a8af22d8cb89635008931accdbb4899": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Entrada registrada correctamente",
+          "id": 157882286,
+          "variations": {}
+        }
+      ]
+    },
+    "43eee3b910f5f7cfd9706d76aeb1e88e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "La orden de trabajo se subió correctamente",
+          "id": 140944260,
+          "variations": {}
+        }
+      ]
+    },
+    "7ee27c4472c295a65ed4a0c88ce15b5a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Propiedades",
+          "id": 136182801,
+          "variations": {}
+        }
+      ]
+    },
+    "d0e0a5619c1c9c4ca2c2e89ca8cbfca3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Archivos adjuntos",
+          "id": 136690799,
+          "variations": {}
+        }
+      ]
+    },
+    "3cd4706df63529a952906e0f88fde132": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Estado",
+          "id": 157028393,
+          "variations": {}
+        }
+      ]
+    },
+    "369718c3210d088fcac62a1adec1850e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{status value}",
+          "id": 149708571,
+          "variations": {}
+        }
+      ]
+    },
+    "97fc8b7caa4d03ace5d44983b62ccb3f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{status value}",
+          "id": 149291217,
+          "variations": {}
+        }
+      ]
+    },
+    "aea531b8bfddaff11b6f5344dc56e88b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Prioridad",
+          "id": 157489434,
+          "variations": {}
+        }
+      ]
+    },
+    "165c429f415a685e25cf4b11d7fb04da": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{priority value}",
+          "id": 149708402,
+          "variations": {}
+        }
+      ]
+    },
+    "407c9abc96ecacbb01a161653daf742a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "{priority value}",
+          "id": 149708573,
+          "variations": {}
+        }
+      ]
+    },
+    "219fa8ac6efcdd2db5087fd5c37374b5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Ordenar por",
+          "id": 157028397,
+          "variations": {}
+        }
+      ]
+    },
+    "e96e754971bae8b61dc803ce95b48501": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Nombre",
+          "id": 157028395,
+          "variations": {}
+        }
+      ]
+    },
+    "b61338b99529ff24337fdb3c2ae7eb2c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Estado",
+          "id": 157028386,
+          "variations": {}
+        }
+      ]
+    },
+    "6a8a0db32ae641e7d4d87ad92d75e17b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Estado",
+          "id": 157028382,
+          "variations": {}
+        }
+      ]
+    },
+    "77d8c59ef6d5ad24de395d70576243a9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Prioridad",
+          "id": 157028383,
+          "variations": {}
+        }
+      ]
+    },
+    "622e8a13a4b87e7f23f40e2242f80879": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Filtrar",
+          "id": 149008900,
+          "variations": {}
+        }
+      ]
+    },
+    "4102455fb1f7af7e0ef74b907476c8ea": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Filtro avanzado",
+          "id": 149708521,
+          "variations": {}
+        }
+      ]
+    },
+    "3c3a4f9cbe188fc9e7064b26dc5e474f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Buscar órdenes de trabajo…",
+          "id": 157556845,
+          "variations": {}
+        }
+      ]
+    },
+    "26c7b939dfeb9b9b67afafcdd13e1893": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Filtro avanzado",
+          "id": 149708601,
+          "variations": {}
+        }
+      ]
+    },
+    "689bfa56ef2e4bdec95aae8e868ed40e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Empieza a escribir para buscar órdenes de trabajo por nombre",
+          "id": 147826104,
+          "variations": {}
+        }
+      ]
+    },
+    "9c1599bd014434dbad8c4257777ed2c9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cargando órdenes de trabajo...",
+          "id": 147826085,
+          "variations": {}
+        }
+      ]
+    },
+    "7272eddd9f9aa720565757ad508e1509": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Búsqueda de orden de trabajo",
+          "id": 147826064,
+          "variations": {}
+        }
+      ]
+    },
+    "035eab0a3ef49ec2848761e04044c190": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No se pueden actualizar los tokens. Reinicia la app y vuelve a intentarlo.",
+          "id": 152294949,
+          "variations": {}
+        }
+      ]
+    },
+    "6ed221ba2742095d56c94068a68cd14f": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tu sesión caducó. Vuelve a iniciar sesión.",
+          "id": 152295002,
+          "variations": {}
+        }
+      ]
+    },
+    "5837b49b37cf195a92e8bb15be810839": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Escanear código QR",
+          "id": 129877867,
+          "variations": {}
+        }
+      ]
+    },
+    "a6f6852d3f5270c727606337f176847d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al cargar los datos. Vuelve a intentarlo.",
+          "id": 145454363,
+          "variations": {}
+        }
+      ]
+    },
+    "6ec9f1cdc2782f7da5865d37bf5fabea": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Reintentar",
+          "id": 111204899,
+          "variations": {}
+        }
+      ]
+    },
+    "ffc368b34e57347cb52ed6ad006f4599": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Todos",
+          "id": 131968743,
+          "variations": {}
+        }
+      ]
+    },
+    "e203353c85e5c57490c6ee2d1d3ccb33": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Latitud",
+          "id": 132008433,
+          "variations": {}
+        }
+      ]
+    },
+    "ddf25193d9c8121b44817580c7a0f5b7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Longitud",
+          "id": 132008435,
+          "variations": {}
+        }
+      ]
+    },
+    "d748347d56cd18f3857ff4bfb9efdcdb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Mi ubicación",
+          "id": 134216832,
+          "variations": {}
+        }
+      ]
+    },
+    "beb8d03a983207f089630f72e5df782e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error en el tipo de número entero",
+          "id": 145834977,
+          "variations": {}
+        }
+      ]
+    },
+    "b5e0c6877e0b393b226fcc0bd8bf7c27": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Solo se permiten dígitos en el campo de números enteros.",
+          "id": 145834959,
+          "variations": {}
+        }
+      ]
+    },
+    "aa5efdda73b58deca83c407fea997e75": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Información",
+          "id": 141826434,
+          "variations": {}
+        }
+      ]
+    },
+    "4fc404344b1ba7432cf0f0b39cd53925": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Alcanzaste el número máximo de fotos permitidas.",
+          "id": 142531307,
+          "variations": {}
+        }
+      ]
+    },
+    "f36b072cc8dd7cf6bfbb7f4a8cfbf5b9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir",
+          "id": 141826437,
+          "variations": {}
+        }
+      ]
+    },
+    "dbbc7860311a33d324cf5a51519591e9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Subir contenido multimedia",
+          "id": 142531413,
+          "variations": {}
+        }
+      ]
+    },
+    "356751c32f370069a0dd84fe35596900": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Tomar una foto",
+          "id": 136530806,
+          "variations": {}
+        }
+      ]
+    },
+    "3002cba6e8b52147ace1adc81adbd6b2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Elegir de la galería",
+          "id": 136530805,
+          "variations": {}
+        }
+      ]
+    },
+    "9375fca957521b1f0b7781d532b7afc9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Agregar una foto",
+          "id": 136530807,
+          "variations": {}
+        }
+      ]
+    },
+    "f1797c32e923790b5fd8739b78ef42eb": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Eliminar foto?",
+          "id": 141826435,
+          "variations": {}
+        }
+      ]
+    },
+    "ec25611e4b594a48e0486ac7abe931a5": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "¿Seguro que quieres eliminar este archivo? Esta acción no se puede deshacer.",
+          "id": 142531348,
+          "variations": {}
+        }
+      ]
+    },
+    "eb2ed521067d06c61e35c2172724d15d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Pie de foto",
+          "id": 146775420,
+          "variations": {}
+        }
+      ]
+    },
+    "c0aa2d73fcaad9e50645940f0e90d784": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Pie de foto",
+          "id": 146775421,
+          "variations": {}
+        }
+      ]
+    },
+    "e9a901dc82d142e2c3d6fcaa92ff89d9": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Redes celulares",
+          "id": 131967151,
+          "variations": {}
+        }
+      ]
+    },
+    "92cc53cdb4830b2d35ebb601843f5e81": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detectar",
+          "id": 132348680,
+          "variations": {}
+        }
+      ]
+    },
+    "346863c387396009400bc0d1dbfcc77d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se encontraron {number} redes celulares",
+          "id": 160203687,
+          "variations": {}
+        }
+      ]
+    },
+    "866c6d645ead3038eb1104935f3f14bc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se encontró una red celular",
+          "id": 160203688,
+          "variations": {}
+        }
+      ]
+    },
+    "598beb1117cc1c46aef299db425361ea": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Volver a detectar",
+          "id": 141734039,
+          "variations": {}
+        }
+      ]
+    },
+    "498a638ec51f10c029eb9159edca3c58": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Wifi desactivada",
+          "id": 139121034,
+          "variations": {}
+        }
+      ]
+    },
+    "d657576e336379fc51ca0a61eb03acf8": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Activa la conexión wifi en tu dispositivo para permitir la detección de redes wifi",
+          "id": 146958289,
+          "variations": {}
+        }
+      ]
+    },
+    "843f06c0e73d04ecc831f081f3e187fc": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "No compatible",
+          "id": 139121036,
+          "variations": {}
+        }
+      ]
+    },
+    "eed3692e2be898a8cf1eb6d470d6f458": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Esta función no se admite en este dispositivo",
+          "id": 140077867,
+          "variations": {}
+        }
+      ]
+    },
+    "76c117d927def6dcd55bfd126b8bc52e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error de búsqueda",
+          "id": 140077888,
+          "variations": {}
+        }
+      ]
+    },
+    "bf5c891cd734eb076f58031cd0caecc6": {
+      "tokens": [],
+      "types": [],
+      "translations": []
+    },
+    "4b87c7bf61da5adde338c72253e9bde3": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "redes wifi",
+          "id": 132346339,
+          "variations": {}
+        }
+      ]
+    },
+    "ce1f0cef432743772ee8535c92258fd7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se encontraron {number} redes wifi",
+          "id": 131969431,
+          "variations": {}
+        }
+      ]
+    },
+    "e62f83e4a0d9e36aa5860c67940b76b0": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se encontró una red wifi",
+          "id": 131969947,
+          "variations": {}
+        }
+      ]
+    },
+    "c8dcf557cae18f4b0f07ebbad79b92a8": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Volver a detectar",
+          "id": 141157496,
+          "variations": {}
+        }
+      ]
+    },
+    "6f8c403ef97385beee66f14cb00a3d2a": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Dirección de correo electrónico no válida",
+          "id": 153138805,
+          "variations": {}
+        }
+      ]
+    },
+    "2f17fb105db417edf460901ff30d19df": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Número de teléfono no válido",
+          "id": 153138806,
+          "variations": {}
+        }
+      ]
+    },
+    "0c5601a1c088ed7ee98808472f27c7fd": {
+      "tokens": [],
+      "types": [],
+      "translations": []
+    },
+    "66340308382e25ca8e53bb91e2306a65": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Sin conectividad - usando datos almacenados en caché",
+          "id": 142627116,
+          "variations": {}
+        }
+      ]
+    },
+    "ece566a20270b0d9bb90da33dd0891fd": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Contraseña",
+          "id": 130898401,
+          "variations": {}
+        }
+      ]
+    },
+    "cf4a0bd7beefa8d42342126c44b261b7": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Urgente",
+          "id": 160203685,
+          "variations": {}
+        }
+      ]
+    },
+    "5f3ae9b08c6eb832a165452b5559f6f8": {
+      "tokens": [],
+      "types": [],
+      "translations": []
+    },
+    "544072347d6eb865ff758a4553cd1a00": {
+      "tokens": [],
+      "types": [],
+      "translations": []
+    },
+    "4b84367bc999761cd7e9777528709307": {
+      "tokens": [],
+      "types": [],
+      "translations": []
+    },
+    "f488bc7557754f39c02140c46f53f653": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Planificado",
+          "id": 160203683,
+          "variations": {}
+        }
+      ]
+    },
+    "00c0717cea4d08000de700fb20b8267e": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "En curso",
+          "id": 155506086,
+          "variations": {}
+        }
+      ]
+    },
+    "9db8a4b52e58b2138eb18e43170f60d4": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Enviada",
+          "id": 156093857,
+          "variations": {}
+        }
+      ]
+    },
+    "140baa40889759b5ca4c8466c2f0b1e8": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Cerrada",
+          "id": 156093970,
+          "variations": {}
+        }
+      ]
+    },
+    "46e908f72077633aa1602b733c9c52ce": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Bloqueada",
+          "id": 155506087,
+          "variations": {}
+        }
+      ]
+    },
+    "10ee99164c7566643fbf848239c87588": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Pendiente",
+          "id": 155506093,
+          "variations": {}
+        }
+      ]
+    },
+    "7ee6208c11237f528e2073ac08fd2d6d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Terminada",
+          "id": 136096670,
+          "variations": {}
+        }
+      ]
+    },
+    "aaca315602dbcc9cbd41857c299bbcba": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Error en captura de pantalla",
+          "id": 138337949,
+          "variations": {}
+        }
+      ]
+    },
+    "41b403e4db8cb5f1bc72453c122e71bf": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Se produjo un error al hacer una captura de pantalla del informe de error. Vuelve a intentarlo más tarde.",
+          "id": 138338026,
+          "variations": {}
+        }
+      ]
+    },
+    "2ddd93043307ab65ac125a4cbcc6af2b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Actualizar",
+          "id": 137094252,
+          "variations": {}
+        }
+      ]
+    },
+    "34d64e6004d02f8f8c83671570e762c2": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Reportar error",
+          "id": 137201051,
+          "variations": {}
+        }
+      ]
+    },
+    "67e8b733781091350715af2a3c3df24c": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Detalles",
+          "id": 137094254,
+          "variations": {}
+        }
+      ]
+    },
+    "b078fbe83fb9821e6c651c8984a8e0dd": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Describe el error que observaste.",
+          "id": 138122254,
+          "variations": {}
+        }
+      ]
+    },
+    "2fd40eadcbe56ddea4ddb84caaeb9af1": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Captura de pantalla",
+          "id": 137094253,
+          "variations": {}
+        }
+      ]
+    },
+    "8965022b742ae3185d551f35d678f332": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Informe de error enviado",
+          "id": 137822587,
+          "variations": {}
+        }
+      ]
+    },
+    "00a03380ed8d1a7c8ae6b2ffc5c7963b": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Gracias por reportar este error. Nuestro equipo lo revisará tan pronto como sea posible.",
+          "id": 138122292,
+          "variations": {}
+        }
+      ]
+    },
+    "a853366a80795460c7cc60a0ae08ccef": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Enviar",
+          "id": 137822586,
+          "variations": {}
+        }
+      ]
+    },
+    "c71af1e0d13f0e5ad3fc9325a833e023": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Informe de error",
+          "id": 140818123,
+          "variations": {}
+        }
+      ]
+    },
+    "1dedc7ad7886b518248e43a425b74144": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Hoy",
+          "id": 136398459,
+          "variations": {}
+        }
+      ]
+    },
+    "34181ad9123d9272067282db5fe1b671": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "Mañana",
+          "id": 136398460,
+          "variations": {}
+        }
+      ]
+    }
+  }
+}

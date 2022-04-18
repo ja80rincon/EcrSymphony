@@ -1,0 +1,31 @@
+"""
+Position within a pagination.
+"""
+scalar Cursor
+  @goModel(model: "github.com/facebookincubator/symphony/pkg/ent.Cursor")
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo
+  @goModel(model: "github.com/facebookincubator/symphony/pkg/ent.PageInfo") {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  startCursor: Cursor
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  endCursor: Cursor
+}

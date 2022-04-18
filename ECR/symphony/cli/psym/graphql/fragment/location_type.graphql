@@ -1,0 +1,13 @@
+fragment LocationTypeFragment on LocationType {
+  id
+  name
+  mapType
+  isSite
+  mapZoomLevel
+  propertyTypes {
+    ...PropertyTypeFragment
+  }
+  documentCategories {
+    ...DocumentCategoryFragment
+  }
+}

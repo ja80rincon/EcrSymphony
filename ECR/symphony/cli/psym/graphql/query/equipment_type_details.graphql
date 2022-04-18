@@ -1,0 +1,7 @@
+query EquipmentTypeDetailsQuery($id: ID!) {
+  equipmentType: node(id: $id) {
+    ... on EquipmentType {
+      ...EquipmentTypeFragment
+    }
+  }
+}

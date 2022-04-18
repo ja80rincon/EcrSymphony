@@ -1,0 +1,31 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- if .Values.ingress.enabled -}}
+apiVersion: {{ template "storybook.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ template "storybook.fullname" . }}
+  labels: {{- include "storybook.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ template "storybook.fullname" $ }}
+              servicePort: http
+        {{- end }}
+  {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls: {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,57 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "symphony.store.fullname" . }}
+  labels: {{- include "symphony.store.metaLabels" . | nindent 4}}
+  {{- with .Values.store.deploymentAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.store.updateStrategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.store.replicas }}
+  selector:
+    matchLabels: {{- include "symphony.store.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "symphony.store.selectorLabels" . | nindent 8 }}
+      {{- with .Values.store.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "symphony.store.serviceAccountName" . }}
+      {{- with .Values.store.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.store.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.store.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.store.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" . | indent 6 }}
+      containers:
+        - name: store
+          image: {{ default (print .Values.global.image.registry "/store") .Values.store.image.repository }}:{{ default .Values.global.image.tag .Values.store.image.tag }}
+          imagePullPolicy: {{ default .Values.global.image.pullPolicy .Values.store.image.pullPolicy }}
+          args:
+            {{- include "symphony.listenArgs" .Values.store | nindent 12 }}
+            - --bucket-url={{  required ".Values.store.spec.bucket.url is required" .Values.store.spec.bucket.url }}
+          env:
+            {{- include "symphony.loggingEnv" .Values.store | nindent 12 }}
+            {{- include "symphony.tracingEnv" . | nindent 12 }}
+            {{- with .Values.store.spec.extraEnvVars }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          ports: {{- include "symphony.containerPorts" .Values.store | nindent 12 }}
+          {{- include "symphony.probes" .Values.store | indent 10 }}
+          resources: {{- toYaml .Values.store.resources | nindent 12 }}

@@ -1,0 +1,22 @@
+fragment ProjectFragment on Project {
+    id
+    name
+    description
+    priority
+    createdBy{
+        id
+    }
+    type{
+        id
+        name
+    }
+    location{
+        id
+    }
+    workOrders {
+        ...WorkOrderFragment
+    }
+    properties{
+        ...PropertyFragment
+    }
+}

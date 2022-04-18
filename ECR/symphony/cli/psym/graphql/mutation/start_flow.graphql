@@ -1,0 +1,6 @@
+mutation StartFlowMutation($input: StartFlowInput!) {
+  startFlow(input: $input) {
+    id
+    status
+  }
+}

@@ -1,0 +1,954 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 54,
+  "iteration": 1585978107355,
+  "links": [],
+  "panels": [
+    {
+      "columns": [],
+      "datasource": null,
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {},
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Tenant",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "viewer_tenant",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Client",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "viewer_user_agent",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Count",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "sort(sum by (viewer_tenant, viewer_user_agent) (increase(graphql_server_resolve_count_by_object_field{graphql_object=\"$Object\", graphql_field=\"$Field\"}[$Interval])) != 0)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{viewer_tenant}},{{viewer_user_agent}},{{viewer_user_agent}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Is Endpoint used ?",
+      "transform": "table",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": true,
+          "text": "7d",
+          "value": "7d"
+        },
+        "hide": 0,
+        "label": "Interval",
+        "name": "Interval",
+        "options": [
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": true,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "Mutation",
+          "value": "Mutation"
+        },
+        "datasource": "Prometheus",
+        "definition": "query_result(count by (graphql_object)(count_over_time(graphql_server_resolve_count_by_object_field[$Interval])))",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Object",
+        "options": [
+          {
+            "selected": false,
+            "text": "EquipmentPortDefinitionEdge",
+            "value": "EquipmentPortDefinitionEdge"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPort",
+            "value": "EquipmentPort"
+          },
+          {
+            "selected": false,
+            "text": "ProjectType",
+            "value": "ProjectType"
+          },
+          {
+            "selected": false,
+            "text": "CustomerConnection",
+            "value": "CustomerConnection"
+          },
+          {
+            "selected": false,
+            "text": "UsersGroupConnection",
+            "value": "UsersGroupConnection"
+          },
+          {
+            "selected": false,
+            "text": "UsersGroup",
+            "value": "UsersGroup"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPortDefinitionConnection",
+            "value": "EquipmentPortDefinitionConnection"
+          },
+          {
+            "selected": false,
+            "text": "UserConnection",
+            "value": "UserConnection"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrder",
+            "value": "WorkOrder"
+          },
+          {
+            "selected": false,
+            "text": "Comment",
+            "value": "Comment"
+          },
+          {
+            "selected": false,
+            "text": "LinkSearchResult",
+            "value": "LinkSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "ServiceTypeEdge",
+            "value": "ServiceTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderConnection",
+            "value": "WorkOrderConnection"
+          },
+          {
+            "selected": false,
+            "text": "Customer",
+            "value": "Customer"
+          },
+          {
+            "selected": false,
+            "text": "PythonPackage",
+            "value": "PythonPackage"
+          },
+          {
+            "selected": false,
+            "text": "SearchEntryEdge",
+            "value": "SearchEntryEdge"
+          },
+          {
+            "selected": false,
+            "text": "SurveyTemplateCategory",
+            "value": "SurveyTemplateCategory"
+          },
+          {
+            "selected": false,
+            "text": "PortSearchResult",
+            "value": "PortSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "SearchNodesConnection",
+            "value": "SearchNodesConnection"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderTypeConnection",
+            "value": "WorkOrderTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "TopologyLink",
+            "value": "TopologyLink"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPortType",
+            "value": "EquipmentPortType"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentType",
+            "value": "EquipmentType"
+          },
+          {
+            "selected": false,
+            "text": "Location",
+            "value": "Location"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPortTypeConnection",
+            "value": "EquipmentPortTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "LocationTypeConnection",
+            "value": "LocationTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "LocationType",
+            "value": "LocationType"
+          },
+          {
+            "selected": false,
+            "text": "ServiceEndpoint",
+            "value": "ServiceEndpoint"
+          },
+          {
+            "selected": false,
+            "text": "CheckListItem",
+            "value": "CheckListItem"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderEdge",
+            "value": "WorkOrderEdge"
+          },
+          {
+            "selected": false,
+            "text": "Service",
+            "value": "Service"
+          },
+          {
+            "selected": false,
+            "text": "LocationConnection",
+            "value": "LocationConnection"
+          },
+          {
+            "selected": false,
+            "text": "PageInfo",
+            "value": "PageInfo"
+          },
+          {
+            "selected": false,
+            "text": "NetworkTopology",
+            "value": "NetworkTopology"
+          },
+          {
+            "selected": true,
+            "text": "Mutation",
+            "value": "Mutation"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentSearchResult",
+            "value": "EquipmentSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderSearchResult",
+            "value": "WorkOrderSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "SearchEntry",
+            "value": "SearchEntry"
+          },
+          {
+            "selected": false,
+            "text": "Link",
+            "value": "Link"
+          },
+          {
+            "selected": false,
+            "text": "UserSearchResult",
+            "value": "UserSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "LocationTypeEdge",
+            "value": "LocationTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderTypeEdge",
+            "value": "WorkOrderTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentTypeConnection",
+            "value": "EquipmentTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "Viewer",
+            "value": "Viewer"
+          },
+          {
+            "selected": false,
+            "text": "Subscription",
+            "value": "Subscription"
+          },
+          {
+            "selected": false,
+            "text": "ProjectTypeEdge",
+            "value": "ProjectTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPositionDefinition",
+            "value": "EquipmentPositionDefinition"
+          },
+          {
+            "selected": false,
+            "text": "LatestPythonPackageResult",
+            "value": "LatestPythonPackageResult"
+          },
+          {
+            "selected": false,
+            "text": "CustomerEdge",
+            "value": "CustomerEdge"
+          },
+          {
+            "selected": false,
+            "text": "SearchNodeEdge",
+            "value": "SearchNodeEdge"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPortDefinition",
+            "value": "EquipmentPortDefinition"
+          },
+          {
+            "selected": false,
+            "text": "ServiceTypeConnection",
+            "value": "ServiceTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "Query",
+            "value": "Query"
+          },
+          {
+            "selected": false,
+            "text": "ReportFilter",
+            "value": "ReportFilter"
+          },
+          {
+            "selected": false,
+            "text": "SurveyQuestion",
+            "value": "SurveyQuestion"
+          },
+          {
+            "selected": false,
+            "text": "GeneralFilter",
+            "value": "GeneralFilter"
+          },
+          {
+            "selected": false,
+            "text": "UserEdge",
+            "value": "UserEdge"
+          },
+          {
+            "selected": false,
+            "text": "ServiceType",
+            "value": "ServiceType"
+          },
+          {
+            "selected": false,
+            "text": "SurveyCellScan",
+            "value": "SurveyCellScan"
+          },
+          {
+            "selected": false,
+            "text": "Property",
+            "value": "Property"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderType",
+            "value": "WorkOrderType"
+          },
+          {
+            "selected": false,
+            "text": "SearchEntriesConnection",
+            "value": "SearchEntriesConnection"
+          },
+          {
+            "selected": false,
+            "text": "UsersGroupEdge",
+            "value": "UsersGroupEdge"
+          },
+          {
+            "selected": false,
+            "text": "User",
+            "value": "User"
+          },
+          {
+            "selected": false,
+            "text": "Hyperlink",
+            "value": "Hyperlink"
+          },
+          {
+            "selected": false,
+            "text": "Survey",
+            "value": "Survey"
+          },
+          {
+            "selected": false,
+            "text": "LocationSearchResult",
+            "value": "LocationSearchResult"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentTypeEdge",
+            "value": "EquipmentTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "ProjectTypeConnection",
+            "value": "ProjectTypeConnection"
+          },
+          {
+            "selected": false,
+            "text": "WorkOrderDefinition",
+            "value": "WorkOrderDefinition"
+          },
+          {
+            "selected": false,
+            "text": "Equipment",
+            "value": "Equipment"
+          },
+          {
+            "selected": false,
+            "text": "SurveyTemplateQuestion",
+            "value": "SurveyTemplateQuestion"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPosition",
+            "value": "EquipmentPosition"
+          },
+          {
+            "selected": false,
+            "text": "File",
+            "value": "File"
+          },
+          {
+            "selected": false,
+            "text": "CheckListCategory",
+            "value": "CheckListCategory"
+          },
+          {
+            "selected": false,
+            "text": "EquipmentPortTypeEdge",
+            "value": "EquipmentPortTypeEdge"
+          },
+          {
+            "selected": false,
+            "text": "LocationEdge",
+            "value": "LocationEdge"
+          },
+          {
+            "selected": false,
+            "text": "PropertyType",
+            "value": "PropertyType"
+          },
+          {
+            "selected": false,
+            "text": "Project",
+            "value": "Project"
+          },
+          {
+            "selected": false,
+            "text": "ServiceSearchResult",
+            "value": "ServiceSearchResult"
+          }
+        ],
+        "query": "query_result(count by (graphql_object)(count_over_time(graphql_server_resolve_count_by_object_field[$Interval])))",
+        "refresh": 0,
+        "regex": ".*graphql_object=\"([A-Za-z]+)\".*",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "editProject",
+          "value": "editProject"
+        },
+        "datasource": "Prometheus",
+        "definition": "query_result(count by (graphql_field)(count_over_time(graphql_server_resolve_count_by_object_field{graphql_object=\"$Object\"}[$Interval])))",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Field",
+        "options": [
+          {
+            "selected": false,
+            "text": "createProjectType",
+            "value": "createProjectType"
+          },
+          {
+            "selected": true,
+            "text": "editProject",
+            "value": "editProject"
+          },
+          {
+            "selected": false,
+            "text": "editWorkOrder",
+            "value": "editWorkOrder"
+          },
+          {
+            "selected": false,
+            "text": "moveEquipmentToPosition",
+            "value": "moveEquipmentToPosition"
+          },
+          {
+            "selected": false,
+            "text": "removeService",
+            "value": "removeService"
+          },
+          {
+            "selected": false,
+            "text": "removeServiceType",
+            "value": "removeServiceType"
+          },
+          {
+            "selected": false,
+            "text": "removeWorkOrder",
+            "value": "removeWorkOrder"
+          },
+          {
+            "selected": false,
+            "text": "addEquipmentType",
+            "value": "addEquipmentType"
+          },
+          {
+            "selected": false,
+            "text": "addLink",
+            "value": "addLink"
+          },
+          {
+            "selected": false,
+            "text": "addUsersGroup",
+            "value": "addUsersGroup"
+          },
+          {
+            "selected": false,
+            "text": "deleteProject",
+            "value": "deleteProject"
+          },
+          {
+            "selected": false,
+            "text": "deleteReportFilter",
+            "value": "deleteReportFilter"
+          },
+          {
+            "selected": false,
+            "text": "editEquipmentPort",
+            "value": "editEquipmentPort"
+          },
+          {
+            "selected": false,
+            "text": "editLocationTypeSurveyTemplateCategories",
+            "value": "editLocationTypeSurveyTemplateCategories"
+          },
+          {
+            "selected": false,
+            "text": "removeWorkOrderType",
+            "value": "removeWorkOrderType"
+          },
+          {
+            "selected": false,
+            "text": "technicianWorkOrderCheckIn",
+            "value": "technicianWorkOrderCheckIn"
+          },
+          {
+            "selected": false,
+            "text": "addLocation",
+            "value": "addLocation"
+          },
+          {
+            "selected": false,
+            "text": "addReportFilter",
+            "value": "addReportFilter"
+          },
+          {
+            "selected": false,
+            "text": "editLocationType",
+            "value": "editLocationType"
+          },
+          {
+            "selected": false,
+            "text": "addHyperlink",
+            "value": "addHyperlink"
+          },
+          {
+            "selected": false,
+            "text": "addWorkOrderType",
+            "value": "addWorkOrderType"
+          },
+          {
+            "selected": false,
+            "text": "editReportFilter",
+            "value": "editReportFilter"
+          },
+          {
+            "selected": false,
+            "text": "addImage",
+            "value": "addImage"
+          },
+          {
+            "selected": false,
+            "text": "addWorkOrder",
+            "value": "addWorkOrder"
+          },
+          {
+            "selected": false,
+            "text": "editEquipment",
+            "value": "editEquipment"
+          },
+          {
+            "selected": false,
+            "text": "editLocationTypesIndex",
+            "value": "editLocationTypesIndex"
+          },
+          {
+            "selected": false,
+            "text": "editEquipmentType",
+            "value": "editEquipmentType"
+          },
+          {
+            "selected": false,
+            "text": "addLocationType",
+            "value": "addLocationType"
+          },
+          {
+            "selected": false,
+            "text": "editEquipmentPortType",
+            "value": "editEquipmentPortType"
+          },
+          {
+            "selected": false,
+            "text": "editWorkOrderType",
+            "value": "editWorkOrderType"
+          },
+          {
+            "selected": false,
+            "text": "addComment",
+            "value": "addComment"
+          },
+          {
+            "selected": false,
+            "text": "createSurvey",
+            "value": "createSurvey"
+          },
+          {
+            "selected": false,
+            "text": "editServiceType",
+            "value": "editServiceType"
+          },
+          {
+            "selected": false,
+            "text": "addServiceLink",
+            "value": "addServiceLink"
+          },
+          {
+            "selected": false,
+            "text": "deleteImage",
+            "value": "deleteImage"
+          },
+          {
+            "selected": false,
+            "text": "editLink",
+            "value": "editLink"
+          },
+          {
+            "selected": false,
+            "text": "editUser",
+            "value": "editUser"
+          },
+          {
+            "selected": false,
+            "text": "removeEquipmentPortType",
+            "value": "removeEquipmentPortType"
+          },
+          {
+            "selected": false,
+            "text": "addEquipmentPortType",
+            "value": "addEquipmentPortType"
+          },
+          {
+            "selected": false,
+            "text": "editLocation",
+            "value": "editLocation"
+          },
+          {
+            "selected": false,
+            "text": "editProjectType",
+            "value": "editProjectType"
+          },
+          {
+            "selected": false,
+            "text": "editService",
+            "value": "editService"
+          },
+          {
+            "selected": false,
+            "text": "removeServiceLink",
+            "value": "removeServiceLink"
+          },
+          {
+            "selected": false,
+            "text": "markSiteSurveyNeeded",
+            "value": "markSiteSurveyNeeded"
+          },
+          {
+            "selected": false,
+            "text": "removeEquipmentType",
+            "value": "removeEquipmentType"
+          },
+          {
+            "selected": false,
+            "text": "removeLocationType",
+            "value": "removeLocationType"
+          },
+          {
+            "selected": false,
+            "text": "addEquipment",
+            "value": "addEquipment"
+          },
+          {
+            "selected": false,
+            "text": "createProject",
+            "value": "createProject"
+          },
+          {
+            "selected": false,
+            "text": "removeEquipmentFromPosition",
+            "value": "removeEquipmentFromPosition"
+          },
+          {
+            "selected": false,
+            "text": "technicianWorkOrderUploadData",
+            "value": "technicianWorkOrderUploadData"
+          },
+          {
+            "selected": false,
+            "text": "addService",
+            "value": "addService"
+          },
+          {
+            "selected": false,
+            "text": "addServiceEndpoint",
+            "value": "addServiceEndpoint"
+          },
+          {
+            "selected": false,
+            "text": "addServiceType",
+            "value": "addServiceType"
+          },
+          {
+            "selected": false,
+            "text": "deleteProjectType",
+            "value": "deleteProjectType"
+          },
+          {
+            "selected": false,
+            "text": "removeLocation",
+            "value": "removeLocation"
+          },
+          {
+            "selected": false,
+            "text": "removeServiceEndpoint",
+            "value": "removeServiceEndpoint"
+          },
+          {
+            "selected": false,
+            "text": "deleteHyperlink",
+            "value": "deleteHyperlink"
+          }
+        ],
+        "query": "query_result(count by (graphql_field)(count_over_time(graphql_server_resolve_count_by_object_field{graphql_object=\"$Object\"}[$Interval])))",
+        "refresh": 0,
+        "regex": ".*graphql_field=\"([A-Za-z]+)\".*",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Symphony GraphQL Endpoint Usage",
+  "uid": "e7J0xMjWz",
+  "version": 3
+}

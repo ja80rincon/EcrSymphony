@@ -1,0 +1,87 @@
+run:
+  timeout: 20m
+  build-tags:
+    - integration
+    - nolibfb
+  skip-dirs:
+    - cli
+    - docs
+    - infra
+
+linters-settings:
+  errcheck:
+    ignore: fmt:.*,Read|Write|Close|Stop|Shutdown,io:Copy
+  dupl:
+    threshold: 400
+  funlen:
+    lines: 100
+    statements: 70
+  goheader:
+    template: |-
+      Copyright (c) 2004-present Facebook All rights reserved.
+      Use of this source code is governed by a BSD-style
+      license that can be found in the LICENSE file.
+  nolintlint:
+    # Enable to ensure that nolint directives are all used. Default is true.
+    allow-unused: true
+    # Disable to ensure that nolint directives don't have a leading space. Default is true.
+    allow-leading-space: true
+    # Exclude following linters from requiring an explanation.  Default is [].
+    allow-no-explanation: []
+    # Enable to require an explanation of nonzero length after each nolint directive. Default is false.
+    require-explanation: false
+    # Enable to require nolint directives to mention the specific linter being suppressed. Default is false.
+    require-specific: true
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exportloopref
+    - funlen
+    - gocritic
+    - gofmt
+    - goheader
+    - goimports
+    - golint
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - interfacer
+    - misspell
+    - nolintlint
+    - rowserrcheck
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unused
+    - varcheck
+    - whitespace
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        - gosec
+        - funlen
+    - text: duplicate struct tag "choice"
+      linters:
+        - staticcheck
+    - path: (^|/)importer($|/)
+      linters:
+        - funlen
+    - text: "can be `fmt.Stringer`"
+      linters:
+        - interfacer
+    - text: Profiling endpoint is automatically exposed on /debug/pprof
+      linters:
+        - gosec

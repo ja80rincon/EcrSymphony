@@ -1,0 +1,5 @@
+mutation AddWorkOrderMutation($input: AddWorkOrderInput!) {
+  addWorkOrder(input: $input) {
+    ...WorkOrderFragment
+  }
+}

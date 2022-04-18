@@ -1,0 +1,7 @@
+query LocationTypeDetailsQuery($id: ID!) {
+  locationType: node(id: $id) {
+    ... on LocationType {
+      ...LocationTypeFragment
+    }
+  }
+}

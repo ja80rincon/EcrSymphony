@@ -1,0 +1,44 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- range $_, $job := .Values.jobrunner.jobs }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $.Release.Name }}-{{ $job.name }}-jobrunner
+  labels: {{- include "symphony.jobrunner.metaLabels" $ | nindent 4 }}
+spec:
+  concurrencyPolicy: "Forbid"
+  schedule: {{ $job.schedule }}
+  jobTemplate:
+    metadata:
+      name: {{ $.Release.Name }}-{{ $job.name }}-jobrunner
+      labels: {{- include "symphony.jobrunner.metaLabels" $ | nindent 8 }}
+    spec:
+      template:
+        metadata:
+          labels: {{- include "symphony.admin.clientLabel" $ | nindent 12 }}
+        spec:
+          securityContext:
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+            fsGroup: 65534
+          {{- include "symphony.imagePullSecrets" $ | indent 10 }}
+          containers:
+            - name: jobrunner
+              image: {{ default (print $.Values.global.image.registry "/jobrunner") $.Values.jobrunner.image.repository }}:{{ default $.Values.global.image.tag $.Values.jobrunner.image.tag }}
+              imagePullPolicy: {{ default $.Values.global.image.pullPolicy $.Values.jobrunner.image.pullPolicy }}
+              args:
+                - {{ $job.name }}
+              env:
+                - name: GRAPH_HOST
+                  value: {{ include "symphony.graph.fullname" $ | quote }}
+                - name: ADMIN_HOST
+                  value: {{ include "symphony.admin.fullname" $ | quote }}
+              resources: {{- toYaml $.Values.jobrunner.resources | nindent 16 }}
+          restartPolicy: OnFailure
+{{- end }}

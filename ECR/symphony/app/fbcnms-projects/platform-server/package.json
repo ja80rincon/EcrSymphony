@@ -1,0 +1,30 @@
+{
+  "name": "@fbcnms/platform-server-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "createOrganization": "node -r '@fbcnms/babel-register' scripts/createOrganization.js",
+    "enableAllNetworkIDsForOrganization": "node -r '@fbcnms/babel-register' scripts/enableAllNetworkIDsForOrganization.js",
+    "start": "yarn run start:prod",
+    "start:dev": "nodemon scripts/server",
+    "start:prod": "NODE_ENV=production node -r @fbcnms/babel-register scripts/server",
+    "setAdminPassword": "node -r '@fbcnms/babel-register' scripts/setPassword.js"
+  },
+  "dependencies": {
+    "@fbcnms/babel-register": "^0.1.0",
+    "@fbcnms/platform-server": "file:../../@fbcnms/platform-server",
+    "@fbcnms/projects": "file:../../@fbcnms/projects",
+    "@opencensus/core": "^0.0.22",
+    "@opencensus/exporter-jaeger": "^0.0.22",
+    "@opencensus/exporter-prometheus": "^0.0.22",
+    "@opencensus/nodejs": "^0.0.22",
+    "@opencensus/propagation-b3": "^0.0.22",
+    "dotenv": "^6.0.0",
+    "graphql": "^15.0.0",
+    "graphql-request": "^3.3.0",
+    "http-proxy-middleware": "^0.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}

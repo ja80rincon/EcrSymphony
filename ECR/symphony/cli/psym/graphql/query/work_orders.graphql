@@ -1,0 +1,9 @@
+query WorkOrdersQuery {
+  workOrders {
+    edges {
+      node {
+        ...WorkOrderFragment
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+query WorkOrderTypeDetailsQuery($id: ID!) {
+  workOrderType: node(id: $id) {
+    ... on WorkOrderType {
+      ...WorkOrderTypeFragment
+    }
+  }
+}

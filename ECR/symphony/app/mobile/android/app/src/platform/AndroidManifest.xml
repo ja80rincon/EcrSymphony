@@ -1,0 +1,11 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fbc">
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Could only be granted on rooted device, used for full cell scan -->
+    <uses-permission
+        android:name="android.permission.MODIFY_PHONE_STATE"
+        tools:ignore="ProtectedPermissions"/>
+</manifest>

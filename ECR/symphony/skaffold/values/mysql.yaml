@@ -1,0 +1,14 @@
+imageTag: 8
+mysqlRootPassword: root
+mysqlDatabase: auth
+args: ["--default-authentication-plugin=mysql_native_password"]
+initializationFiles:
+  init.sql: |-
+    CREATE DATABASE IF NOT EXISTS `tenant_fb-test` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_bin;
+    CREATE DATABASE IF NOT EXISTS `cadence`;
+    CREATE DATABASE IF NOT EXISTS `cadence_visibility`;
+testFramework:
+  enabled: false
+persistence:
+  enabled: false
+

@@ -1,0 +1,16 @@
+fragment ProjectTypeFragment on ProjectType {
+    id
+    name
+    description
+    properties {
+      ...PropertyTypeFragment
+    }
+    workOrders {
+        id
+        index
+        type {
+            id
+            name
+        }
+    }
+}

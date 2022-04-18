@@ -1,0 +1,23 @@
+FROM node:12.18-alpine
+
+# Install dependencies required by some node modules
+RUN apk add --no-cache curl python g++ make libx11 glew-dev libxi-dev
+
+# Create app directory
+WORKDIR /app
+
+# Copy package dependencies
+COPY package.json yarn.lock babel.config.js ./
+COPY fbcnms-projects/inventory/package.json fbcnms-projects/inventory/
+COPY @fbcnms /app/@fbcnms
+
+# Install shared dependencies
+COPY fbcnms-packages fbcnms-packages
+RUN yarn install --frozen-lockfile --network-timeout 600000 && yarn cache clean
+
+# Copy app source
+WORKDIR /app/fbcnms-projects/inventory
+COPY fbcnms-projects/inventory .
+
+# Start app
+CMD yarn dev

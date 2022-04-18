@@ -1,0 +1,6 @@
+mutation ImportFlowDraftMutation($input: ImportFlowDraftInput!) {
+  importFlowDraft(input: $input) {
+    id
+    name
+  }
+}

@@ -1,0 +1,26 @@
+fragment WorkOrderFragment on WorkOrder {
+    id
+    name
+    description
+    workOrderType{
+        id
+        name
+    }
+    location{
+        id
+    }
+    project{
+        id
+    }
+    properties{
+        ...PropertyFragment
+    }
+    owner{
+        id
+    }
+    assignedTo{
+        id
+    }
+    status
+    priority
+}

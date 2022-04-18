@@ -1,0 +1,236 @@
+"""
+A feature is a gatekeeper of a functionality.
+"""
+type Feature implements Node
+  @goModel(
+    model: "github.com/facebookincubator/symphony/admin/graphql/model.Feature"
+  ) {
+  """
+  The id of the feature.
+  """
+  id: ID!
+
+  """
+  The name of the feature.
+  """
+  name: String!
+
+  """
+  The state of the feature.
+  """
+  enabled: Boolean!
+
+  """
+  The description of the feature.
+  """
+  description: String
+
+  """
+  The tenant of the feature.
+  """
+  tenant: Tenant
+}
+
+"""
+Ways in which to filter list of features.
+"""
+input FeatureFilters {
+  """
+  A List of names to filter the features by.
+  """
+  names: [String!]
+
+  """
+  The state to filter the features by.
+  """
+  enabled: Boolean
+}
+
+extend type Tenant {
+  """
+  A list of tenant features.
+  """
+  features(
+    """
+    Filtering options for features returned.
+    """
+    filterBy: FeatureFilters
+  ): [Feature!]! @goField(forceResolver: true)
+}
+
+"""
+Input type of createFeature.
+"""
+input CreateFeatureInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The name of the feature.
+  """
+  name: String!
+
+  """
+  The state of the feature.
+  """
+  enabled: Boolean! = false
+
+  """
+  The description of the feature.
+  """
+  description: String
+
+  """
+  A list of tenants to create the feature for, defaults to all tenants.
+  """
+  tenants: [ID!] @tenantType
+}
+
+"""
+Output type of createFeature.
+"""
+type CreateFeaturePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  A list of created features.
+  """
+  features: [Feature!]!
+}
+
+"""
+Input type of upsertFeature.
+"""
+input UpsertFeatureInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The name of the feature.
+  """
+  name: String!
+
+  """
+  The state of the feature.
+  """
+  enabled: Boolean
+
+  """
+  The description of the feature.
+  """
+  description: String
+
+  """
+  A list of tenants to upsert the feature for, defaults to all tenants.
+  """
+  tenants: [ID!] @tenantType
+}
+
+"""
+Output type of upsertFeature.
+"""
+type UpsertFeaturePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  A list of upserted features.
+  """
+  features: [Feature!]!
+}
+
+"""
+Input type of updateFeature.
+"""
+input UpdateFeatureInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The id of the feature.
+  """
+  id: ID!
+
+  """
+  The state of the feature.
+  """
+  enabled: Boolean
+
+  """
+  The description of the feature.
+  """
+  description: String
+}
+
+"""
+Output type of updateFeature.
+"""
+type UpdateFeaturePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The updated feature.
+  """
+  feature: Feature
+}
+
+"""
+Input type of deleteFeature.
+"""
+input DeleteFeatureInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The id of the feature.
+  """
+  id: ID!
+}
+
+"""
+Output type of deleteFeature.
+"""
+type DeleteFeaturePayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
+
+extend type Mutation {
+  """
+  Create a new feature.
+  """
+  createFeature(input: CreateFeatureInput!): CreateFeaturePayload
+
+  """
+  Upsert a feature.
+  """
+  upsertFeature(input: UpsertFeatureInput!): UpsertFeaturePayload
+
+  """
+  Update a feature.
+  """
+  updateFeature(input: UpdateFeatureInput!): UpdateFeaturePayload
+
+  """
+  Delete a feature.
+  """
+  deleteFeature(input: DeleteFeatureInput!): DeleteFeaturePayload
+}

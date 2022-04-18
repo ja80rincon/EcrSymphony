@@ -1,0 +1,192 @@
+# Copyright (c) 2004-present Facebook All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - ${PORT:-443}:443
+    networks:
+      default:
+        aliases:
+          - fb-test.thesymphony.cloud
+    volumes:
+      - ./nginx/ci.nginx:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs/cert.pem:/etc/nginx/ssl/tls.crt:ro
+      - ./nginx/certs/key.pem:/etc/nginx/ssl/tls.key:ro
+    healthcheck:
+      test: curl -Ifk https://localhost/healthz
+    restart: on-failure
+
+  front:
+    build:
+      context: ../app
+      dockerfile: fbcnms-projects/platform-server/Dockerfile.prod
+    env_file:
+      - conf/front.env
+    depends_on:
+      - mysql
+    healthcheck:
+      test: "curl -If -H 'Host: fb-test.localhost' localhost/healthz"
+      interval: 10s
+      timeout: 3s
+    restart: on-failure
+
+  admin:
+    build:
+      context: ..
+      dockerfile: admin/Dockerfile
+    env_file:
+      - conf/db.env
+      - conf/log.env
+    depends_on:
+      - mysql
+    healthcheck: &healthcheck
+      test: curl -If localhost/healthz/liveness
+    restart: on-failure
+
+  graph:
+    build:
+      context: ..
+      dockerfile: graph/Dockerfile
+    env_file:
+      - conf/graph.env
+      - conf/db.env
+      - conf/log.env
+    environment:
+      - WS_AUTH_URL=http://front/user/me
+    depends_on:
+      - migrate-graph
+      - mysql
+      - nats
+      - async
+    healthcheck: *healthcheck
+    restart: on-failure
+
+  cadence:
+    image: ubercadence/server:0.14.1-auto-setup
+    ports:
+      - 7933:7933
+      - 7934:7934
+      - 7935:7935
+      - 7939:7939
+      - 9090:9090
+    env_file:
+      - conf/cadence.env
+    depends_on:
+      - mysql
+
+  migrate-graph:
+    build:
+      context: ..
+      dockerfile: migrate/Dockerfile
+    image: integration_migrate
+    env_file:
+      - conf/log.env
+    command:
+      - "graph"
+      - "--db-url=mysql://root:root@mysql:3306/?charset=utf8&parseTime=true&interpolateParams=true"
+      - "--wait-for-db"
+      - "--tenant=fb-test"
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  migrate-cadence:
+    build:
+      context: ..
+      dockerfile: migrate/Dockerfile
+    image: integration_migrate
+    env_file:
+      - conf/log.env
+      - conf/cadence_client.env
+    command:
+      - "cadence"
+    depends_on:
+      - cadence
+    restart: on-failure
+
+  async:
+    build:
+      context: ..
+      dockerfile: async/Dockerfile
+    env_file:
+      - conf/async.env
+      - conf/db.env
+      - conf/log.env
+      - conf/cadence_client.env
+    environment:
+      - FEATURES_URL=http://front:1030/features
+    depends_on:
+      - migrate-graph
+      - migrate-cadence
+      - mysql
+      - nats
+      - front
+    healthcheck: *healthcheck
+    restart: on-failure
+
+  store:
+    build:
+      context: ..
+      dockerfile: store/Dockerfile
+    env_file:
+      - conf/store.env
+      - conf/log.env
+    healthcheck: *healthcheck
+    restart: on-failure
+  
+  docs:
+    build:
+      context: ../docs
+      dockerfile: Dockerfile
+    ports:
+      - 8090:80
+    healthcheck:
+      test: curl -Ifk http://localhost/healthz
+    restart: on-failure
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: auth
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: mysqladmin ping -proot
+    restart: always
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ROOT_USER: AKIAIOSFODNN7EXAMPLE
+      MINIO_ROOT_PASSWORD: /wJalrXUtnFEMIK7MDENG/bPxRfiCYEXAMPLEKEY
+    entrypoint: sh
+    command: -c 'mkdir -p /data/store.blobs && minio server /data'
+
+  nats:
+    image: nats
+    restart: on-failure
+
+  tests:
+    build:
+      context: ..
+      dockerfile: integration/tests/Dockerfile
+    volumes:
+      - ..:/src/symphony:delegated
+
+  pytests:
+    build:
+      context: ..
+      dockerfile: cli/tests/Dockerfile
+    volumes:
+      - ..:/src/symphony:delegated
+    environment:
+      PLATFORM_SERVER_HEALTH_CHECK_URL: http://front/healthz

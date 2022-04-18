@@ -1,0 +1,54 @@
+import Link from '../../components/Link';
+import {Meta, Preview, Story} from '@storybook/addon-docs/blocks';
+import {STORY_CATEGORIES} from '../storybookUtils';
+
+<Meta title={`${STORY_CATEGORIES.COMPONENTS}/Link`} />
+
+# Link
+
+```js
+import Link from '@symphony/design-system/components/Link';
+```
+
+Link is an `anchor` tag, wrapping a `Text` component.
+
+props affecting anchor:
+
+`inNewTab`: `true`/ `false`
+
+`href`
+
+`className`
+
+props affecting Text:
+
+`variant` supports: `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `subtitle1`, `subtitle2`, `subtitle3`, `body1`, `body2`, `caption`, `overline`.
+
+`color` supports: `light`, `regular`, `primary`, `error`, `gray`, `warning`,
+
+`hoverColor` supports: `light`, `regular`, `primary`, `error`, `gray`, `warning`,
+
+`textClassName`
+
+### Default values
+
+<Preview>
+  <Story name="Default">
+    <Link href="www.fb.com">fb.com link with default colors</Link>
+  </Story>
+</Preview>
+
+### Setting Styles
+
+<Preview>
+  <Story name="Other colors">
+    <Link
+      variant="h4"
+      color="error"
+      hoverColor="warning"
+      href="www.fb.com"
+      inNewTab={true}>
+      fb.com link with variant, color and hoverColor
+    </Link>
+  </Story>
+</Preview>

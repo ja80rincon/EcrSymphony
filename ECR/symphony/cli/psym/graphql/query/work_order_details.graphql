@@ -1,0 +1,7 @@
+query WorkOrderDetailsQuery($id: ID!) {
+  workOrder: node(id: $id) {
+    ... on WorkOrder {
+      ...WorkOrderFragment
+    }
+  }
+} 

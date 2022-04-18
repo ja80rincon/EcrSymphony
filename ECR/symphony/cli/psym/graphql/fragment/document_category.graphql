@@ -1,0 +1,5 @@
+fragment DocumentCategoryFragment on DocumentCategory {
+  id
+  name
+  index
+}

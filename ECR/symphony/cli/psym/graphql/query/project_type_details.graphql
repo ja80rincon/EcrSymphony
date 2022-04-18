@@ -1,0 +1,7 @@
+query ProjectTypeDetailsQuery($id: ID!) {
+  projectType: node(id: $id) {
+    ... on ProjectType {
+      ...ProjectTypeFragment
+    }
+  }
+}

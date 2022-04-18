@@ -1,0 +1,25 @@
+server:
+  config:
+    persistence:
+      default:
+        driver: sql
+        sql:
+          pluginName: mysql
+          host: mysql.storage.svc.cluster.local
+          port: 3306
+          database: cadence
+          user: root
+          password: root
+      visibility:
+        driver: sql
+        sql:
+          pluginName: mysql
+          host: mysql.storage.svc.cluster.local
+          port: 3306
+          database: cadence_visibility
+          user: root
+          password: root
+web:
+  enabled: false
+cassandra:
+  enabled: false

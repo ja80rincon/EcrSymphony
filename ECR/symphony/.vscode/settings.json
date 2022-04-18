@@ -1,0 +1,17 @@
+{
+    "eslint.packageManager": "yarn",
+    "eslint.alwaysShowStatus": true,
+    "eslint.workingDirectories": [
+        "./app"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.definitionLinkOpensInPeek": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+    "javascript.format.enable": false,
+    "typescript.validate.enable": false,
+}

@@ -1,0 +1,19 @@
+alertmanager:
+  enabled: false
+grafana:
+  service:
+    type: NodePort
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+      org_role: Admin
+  testFramework:
+    enabled: false
+prometheus:
+  service:
+    type: NodePort
+  prometheusSpec:
+    prometheusExternalLabelNameClear: true
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+

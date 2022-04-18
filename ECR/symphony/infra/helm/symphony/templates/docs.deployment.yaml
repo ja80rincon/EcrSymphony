@@ -1,0 +1,63 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "symphony.docs.fullname" . }}
+  labels: {{- include "symphony.docs.metaLabels" . | nindent 4 }}
+  {{- with .Values.docs.deploymentAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.docs.updateStrategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.docs.replicas }}
+  selector:
+    matchLabels: {{- include "symphony.docs.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "symphony.docs.selectorLabels" . | nindent 8 }}
+      {{- with .Values.docs.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "symphony.docs.serviceAccountName" . }}
+      {{- with .Values.docs.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.docs.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.docs.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.docs.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" . | indent 6 }}
+      containers:
+        - name: docs
+          image: {{ default (print .Values.global.image.registry "/docs") .Values.docs.image.repository }}:{{ default .Values.global.image.tag .Values.docs.image.tag }}
+          imagePullPolicy: {{ default .Values.global.image.pullPolicy .Values.docs.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.docs.service.targetPort }}
+              name: http
+          {{- with .Values.docs.probes.liveness }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.docs.probes.readiness }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources: {{- toYaml .Values.docs.resources | nindent 12 }}

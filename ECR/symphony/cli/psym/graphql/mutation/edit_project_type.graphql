@@ -1,0 +1,5 @@
+mutation EditProjectTypeMutation($input: EditProjectTypeInput!) {
+  editProjectType(input: $input) {
+    ...ProjectTypeFragment
+  }
+}

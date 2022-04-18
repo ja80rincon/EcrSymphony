@@ -1,0 +1,6 @@
+mutation PublishFlowMutation($input: PublishFlowInput!) {
+  publishFlow(input: $input) {
+    id
+    name
+  }
+}

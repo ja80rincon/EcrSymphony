@@ -1,0 +1,40 @@
+name: "Package and Upload Helm Charts"
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - infra/helm/**
+  pull_request:
+    branches:
+      - master
+    paths:
+      - infra/helm/**
+
+defaults:
+  run:
+    working-directory: infra/helm
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/setup-helm@v1
+      - name: Lint charts
+        run: helm lint --strict *
+  upload:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: azure/setup-helm@v1
+      - uses: jfrog/setup-jfrog-cli@v1
+        env:
+          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET }}
+      - name: Package & Upload
+        run: |
+          helm package *
+          jfrog rt upload '*.tgz' symphony-charts

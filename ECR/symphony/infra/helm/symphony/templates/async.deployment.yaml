@@ -1,0 +1,76 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "symphony.async.fullname" . }}
+  labels: {{- include "symphony.async.metaLabels" . | nindent 4 }}
+  {{- with .Values.async.deploymentAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.async.updateStrategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.async.replicas }}
+  selector:
+    matchLabels: {{- include "symphony.async.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "symphony.async.selectorLabels" . | nindent 8 }}
+      {{- with .Values.async.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "symphony.async.serviceAccountName" . }}
+      {{- with .Values.async.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.async.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.async.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.async.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" . | indent 6 }}
+      containers:
+        - name: async
+          image: {{ default (print .Values.global.image.registry "/async") .Values.async.image.repository }}:{{ default .Values.global.image.tag .Values.async.image.tag }}
+          imagePullPolicy: {{ default .Values.global.image.pullPolicy .Values.async.image.pullPolicy }}
+          args: {{- include "symphony.listenArgs" .Values.async | nindent 12 }}
+          env:
+            - name: EVENT_PUB_URL
+              value: {{ required ".Values.async.spec.event.pub_url is required" .Values.async.spec.event.pub_url | quote }}
+            - name: EVENT_SUB_URL
+              value: {{ required ".Values.async.spec.event.sub_url is required" .Values.async.spec.event.sub_url | quote }}
+            - name: EXPORT_BUCKET_URL
+              value: {{ required ".Values.async.spec.export.bucket_url is required" .Values.async.spec.export.bucket_url | quote }}
+            {{- with .Values.async.spec.export.bucket_prefix }}
+            - name: EXPORT_BUCKET_PREFIX
+              value: {{ . | quote }}
+            {{- end }}
+            {{- with .Values.async.spec.tenancy.tenantMaxDBConn }}
+            - name: TENANCY_DB_MAX_CONN
+              value: {{ . | quote }}
+            {{- end }}
+            - name: CADENCE_ADDR
+              value: {{ required ".Values.async.spec.cadence.address is required" .Values.async.spec.cadence.address | quote }}
+            - name: FEATURES_URL
+              value: "http://{{ template "symphony.front.fullname" . }}:{{ .Values.front.service.internal.port }}/features"
+            {{- include "symphony.loggingEnv" .Values.async | nindent 12 }}
+            {{- include "symphony.tracingEnv" . | nindent 12 }}
+            {{- with .Values.async.spec.extraEnvVars }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ template "symphony.database.secretName" . }}
+          ports: {{- include "symphony.containerPorts" .Values.async | nindent 12 }}
+          {{- include "symphony.probes" .Values.async | indent 10 }}
+          resources: {{- toYaml .Values.async.resources | nindent 12 }}

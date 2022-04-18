@@ -1,0 +1,8 @@
+node_modules
+yarn-error.log
+**/.env
+coverage
+fbcnms-projects/tgnms/.settings/*.json
+fbcnms-packages/symphony-design-system/build
+fbcnms-packages/symphony-design-system/build-storybook.log
+fbcnms-packages/symphony-design-system/storybook-static

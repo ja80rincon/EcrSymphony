@@ -1,0 +1,24 @@
+query LocationDocumentsQuery($id: ID!) {
+  location: node(id: $id) {
+    ... on Location {
+      files {
+        id
+        fileName
+        category
+        documentCategory {
+          id
+          name
+        }
+      }
+      images {
+        id
+        fileName
+        category
+        documentCategory {
+          id
+          name
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+mutation AddProjectTypeMutation($input: AddProjectTypeInput!) {
+  createProjectType(input: $input) {
+    ...ProjectTypeFragment
+  }
+}

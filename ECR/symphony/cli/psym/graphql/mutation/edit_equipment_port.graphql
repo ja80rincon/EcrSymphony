@@ -1,0 +1,5 @@
+mutation EditEquipmentPortMutation($input: EditEquipmentPortInput!) {
+  editEquipmentPort(input: $input) {
+    ...EquipmentPortFragment
+  }
+}

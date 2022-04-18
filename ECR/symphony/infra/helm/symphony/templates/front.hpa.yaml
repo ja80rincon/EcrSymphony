@@ -1,0 +1,20 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- if .Values.front.autoscaling.enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "symphony.front.fullname" . }}
+  labels: {{- include "symphony.front.metaLabels" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "symphony.front.fullname" . }}
+  minReplicas: {{ .Values.front.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.front.autoscaling.maxReplicas }}
+  metrics: {{- toYaml .Values.front.autoscaling.metrics | nindent 4 }}
+{{- end }}

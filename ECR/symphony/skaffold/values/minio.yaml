@@ -1,0 +1,10 @@
+accessKey: AKIAIOSFODNN7EXAMPLE
+secretKey: /wJalrXUtnFEMIK7MDENG/bPxRfiCYEXAMPLEKEY
+defaultBucket:
+  enabled: true
+  name: store.blobs
+service:
+  type: NodePort
+persistence:
+  enabled: false
+

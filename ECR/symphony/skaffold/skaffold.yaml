@@ -1,0 +1,132 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+build:
+  artifacts:
+    - image: front
+      context: ../app
+      docker:
+        dockerfile: fbcnms-projects/platform-server/Dockerfile.prod
+    - image: graph
+      context: ..
+      docker:
+        dockerfile: graph/Dockerfile
+    - image: async
+      context: ..
+      docker:
+        dockerfile: async/Dockerfile
+    - image: store
+      context: ..
+      docker:
+        dockerfile: store/Dockerfile
+    - image: admin
+      context: ..
+      docker:
+        dockerfile: admin/Dockerfile
+    - image: migrate
+      context: ..
+      docker:
+        dockerfile: migrate/Dockerfile
+    - image: jobrunner
+      context: ..
+      docker:
+        dockerfile: jobrunner/Dockerfile
+    - image: docs
+      context: ../docs
+    - image: storybook
+      context: ../app
+      docker:
+        dockerfile: fbcnms-projects/storybook/Dockerfile
+  local:
+    push: false
+    useBuildkit: true
+    useDockerCLI: true
+deploy:
+  kubeContext: minikube
+  kubectl:
+    manifests:
+      - manifests/*
+  helm:
+    releases:
+      - name: mysql
+        chartPath: stable/mysql
+        remote: true
+        namespace: storage
+        createNamespace: true
+        valuesFiles:
+          - values/mysql.yaml
+      - name: cert-manager
+        chartPath: jetstack/cert-manager
+        remote: true
+        namespace: cert-manager
+        createNamespace: true
+        setValues:
+          installCRDs: true
+      - name: kube-prometheus-stack
+        chartPath: prometheus-community/kube-prometheus-stack
+        remote: true
+        namespace: monitoring
+        createNamespace: true
+        valuesFiles:
+          - values/prometheus.yaml
+      - name: jaeger-operator
+        chartPath: jaegertracing/jaeger-operator
+        remote: true
+        namespace: observability
+        createNamespace: true
+        valuesFiles:
+          - values/jaeger.yaml
+      - name: cadence
+        chartPath: banzaicloud-stable/cadence
+        remote: true
+        valuesFiles:
+          - values/cadence.yaml
+      - name: minio
+        chartPath: minio/minio
+        remote: true
+        namespace: storage
+        createNamespace: true
+        valuesFiles:
+          - values/minio.yaml
+      - name: nats-operator
+        chartPath: nats/nats-operator
+        remote: true
+        namespace: nats-io
+        createNamespace: true
+        valuesFiles:
+          - values/nats-operator.yaml
+      - name: symphony
+        chartPath: ../infra/helm/symphony
+        artifactOverrides:
+          front:
+            image: front
+          graph:
+            image: graph
+          async:
+            image: async
+          store:
+            image: store
+          admin:
+            image: admin
+          migrate:
+            image: migrate
+          jobrunner:
+            image: jobrunner
+          docs:
+            image: docs
+        imageStrategy:
+          helm: {}
+        valuesFiles:
+          - values/symphony.yaml
+      - name: log-forwarder
+        chartPath: bitnami/fluentd
+        remote: true
+        valuesFiles:
+          - values/log-forwarder.yaml
+      - name: storybook
+        chartPath: ../infra/helm/storybook
+        artifactOverrides:
+          image: storybook
+        imageStrategy:
+          helm: {}
+        valuesFiles:
+          - values/storybook.yaml

@@ -1,0 +1,9 @@
+query ProjectTypesQuery {
+  projectTypes {
+    edges {
+      node {
+        ...ProjectTypeFragment
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- if and .Values.store.podDisruptionBudget.enabled (gt (int .Values.store.replicas) 1) }}
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "symphony.store.fullname" . }}
+  labels: {{- include "symphony.store.metaLabels" . | nindent 4 }}
+spec:
+  {{- with .Values.store.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ . }}
+  {{- end }}
+  {{- with .Values.store.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ . }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "symphony.store.selectorLabels" . | nindent 6 }}
+{{- end }}

@@ -1,0 +1,66 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "symphony.graph.fullname" . }}
+  labels: {{- include "symphony.graph.metaLabels" . | nindent 4 }}
+  {{- with .Values.graph.deploymentAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.graph.updateStrategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.graph.replicas }}
+  selector:
+    matchLabels: {{- include "symphony.graph.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "symphony.graph.selectorLabels" . | nindent 8 }}
+      {{- with .Values.graph.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "symphony.graph.serviceAccountName" . }}
+      {{- with .Values.graph.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.graph.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.graph.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.graph.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" . | indent 6 }}
+      containers:
+        - name: graph
+          image: {{ default (print .Values.global.image.registry "/graph") .Values.graph.image.repository }}:{{ default .Values.global.image.tag .Values.graph.image.tag }}
+          imagePullPolicy: {{ default .Values.global.image.pullPolicy .Values.graph.image.pullPolicy }}
+          args: {{- include "symphony.listenArgs" .Values.graph | nindent 12 }}
+          env:
+            - name: WS_AUTH_URL
+              value: {{ printf "http://%s:%d/user/me" (include "symphony.front.fullname" .) (int .Values.front.service.port) | quote }}
+            - name: EVENT_PUBSUB_URL
+              value: {{ required ".Values.graph.spec.event.url is required" .Values.graph.spec.event.url | quote }}
+            {{- with .Values.graph.spec.tenancy.tenantMaxDBConn }}
+            - name: TENANCY_DB_MAX_CONN
+              value: {{ . | quote }}
+            {{- end }}
+            {{- include "symphony.loggingEnv" .Values.graph | nindent 12 }}
+            {{- include "symphony.tracingEnv" . | nindent 12 }}
+            {{- with .Values.graph.spec.extraEnvVars }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ template "symphony.database.secretName" . }}
+          ports: {{- include "symphony.containerPorts" .Values.graph | nindent 12 }}
+          {{- include "symphony.probes" .Values.graph | indent 10 }}
+          resources: {{- toYaml .Values.graph.resources | nindent 12 }}

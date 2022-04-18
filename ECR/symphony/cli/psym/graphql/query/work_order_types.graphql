@@ -1,0 +1,9 @@
+query WorkOrderTypesQuery {
+  workOrderTypes {
+    edges {
+      node {
+        ...WorkOrderTypeFragment
+      }
+    }
+  }
+}

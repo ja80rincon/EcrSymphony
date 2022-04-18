@@ -1,0 +1,55 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "symphony.admin.fullname" . }}
+  labels: {{- include "symphony.admin.metaLabels" . | nindent 4}}
+  {{- with .Values.admin.deploymentAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.admin.updateStrategy }}
+  strategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ .Values.admin.replicas }}
+  selector:
+    matchLabels: {{- include "symphony.admin.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "symphony.admin.selectorLabels" . | nindent 8 }}
+      {{- with .Values.admin.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+    {{- end }}
+    spec:
+      serviceAccountName: {{ template "symphony.admin.serviceAccountName" . }}
+      {{- with .Values.admin.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.admin.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.admin.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.admin.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" . | indent 6 }}
+      containers:
+        - name: admin
+          image: {{ default (print .Values.global.image.registry "/admin") .Values.admin.image.repository }}:{{ default .Values.global.image.tag .Values.admin.image.tag }}
+          imagePullPolicy: {{ default .Values.global.image.pullPolicy .Values.admin.image.pullPolicy }}
+          args: {{- include "symphony.listenArgs" .Values.admin | nindent 12 }}
+          env:
+          {{- include "symphony.loggingEnv" .Values.admin | nindent 12 }}
+          {{- include "symphony.tracingEnv" . | nindent 12 }}
+          envFrom:
+            - secretRef:
+                name: {{ template "symphony.database.secretName" . }}
+          ports: {{- include "symphony.containerPorts" .Values.admin | nindent 12 }}
+          {{- include "symphony.probes" .Values.admin | indent 10 }}
+          resources: {{- toYaml .Values.admin.resources | nindent 12 }}

@@ -1,0 +1,4 @@
+Project ID,Project Name,Project Type,Description,Country,State,City,Building,Priority,Prop_color,Prop_revenue,Prop_service,Prop_Note
+,Project 1,Incidents,Project 1,United States,Texas,Houston,2391 S Wayside,Low,black,1000,Bitstream,install new OTB
+,Project 2,Deployment,Project 2,United States,New York,Bufalo,2451 N Way,Urgent,blue,5000,PWA,
+,Project 3,Ticket Management,Project 3,United States,Massachusetts,Boston,1214 S Roosevelt,Low,red,48000,Bitstream,request authorization 

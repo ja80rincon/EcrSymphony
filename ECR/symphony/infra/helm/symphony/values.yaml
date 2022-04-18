@@ -1,0 +1,872 @@
+# Copyright (c) 2004-present Facebook All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+# Default values for symphony.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Provide a name in place of symphony for the chart name
+nameOverride: ""
+
+# Provide a name to substitute for the full names of resources
+fullnameOverride: ""
+
+global:
+  # Reference to symphony images.
+  image:
+    registry : thesymphony
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  # Reference to one or more secrets to be used when pulling images
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  imagePullSecrets: []
+  # - name: "image-pull-secret"
+
+# Ingress configuration
+ingress:
+  enabled: false
+  annotations: {}
+  labels: {}
+
+  # Hosts to use for ingress rules
+  hosts: []
+  # - symphony.domain.com
+
+  # Paths to use for ingress rules
+  paths: []
+  # - /
+
+  # Extra paths to prepend to every host
+  extraPaths: []
+  # - path: /*
+  #   backend:
+  #     serviceName: ssl-redirect
+  #     servicePort: use-annotation
+
+  # TLS configuration for symphony ingress
+  # Secret must be manually created in the namespace
+  tls: []
+  # - secretName: symphony-general-tls
+  #   hosts:
+  #   - symphony.domain.com
+
+# ServiceMonitor for prometheus operator
+# ref: https://github.com/coreos/prometheus-operator
+serviceMonitor:
+  # If the operator is installed in your cluster, set to true to create a Service Monitor Entry
+  enabled: false
+  # Used to explicitly set prometheus scraping interval
+  interval:
+  # Specify Metric Relabellings to add to the scrape endpoint
+  # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+  relabellings: []
+  # Used to pass Labels that are used by the Prometheus installed in your cluster to select Service Monitors to work with
+  # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+  additionalLabels: {}
+
+  alerting:
+    # Define individual alerting rules as required
+    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#rulegroup
+    #      https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
+    rules: []
+    # Used to pass Labels that are used by the Prometheus installed in your cluster to select Prometheus Rules to work with
+    # ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+    additionalLabels: {}
+
+# Tracing configuration
+tracing:
+  enabled: false
+  jaeger:
+    collectorEndpoint: ""
+    agentEndpoint: ""
+    agentThriftEndpoint: ""
+  excludeSpanNames: []
+
+# Configuration for front application
+front:
+  # Annotations to be added to front deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to front pods
+  podAnnotations: {}
+
+  # Configure update strategy for front
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configure pod disruption budgets for front
+  # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: ""
+
+  # Configure horizontal pod autoscale for graph
+  # ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    metrics: []
+
+  # Configuration for front service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for internal service
+    internal:
+      # Internal Service external port
+      port: 1030
+      # Internal Service target port
+      targetPort: 1030
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+
+  # Configuration for front service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # Front image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign front to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number front replicas desired
+  replicas: 1
+
+  # Settings affecting front application
+  spec:
+    # front reverse proxy configuration
+    proxy:
+      logger: ""
+
+    # Token to sign cookies with.
+    session_token: ""
+
+    # Log configuration
+    log:
+      # Log verbosity
+      level: info
+
+    # Mapbox config
+    mapbox:
+      access_token: ""
+
+    # MySQL database configuration
+    mysql:
+      db: front
+      host: localhost
+      port: 3306
+      user: root
+      pass: root
+
+    # Additional key/value pairs to be used as environment variables
+    extraEnvVars: []
+
+# Persistence configuration.
+persistence:
+  database:
+    scheme: "mysql"
+    host: ""
+    port: 3306
+    user: ""
+    pass: ""
+    params: {}
+
+# Configuration for admin application
+admin:
+  # Annotations to be added to admin deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to admin pods
+  podAnnotations: {}
+
+  # Configure update strategy for admin
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configure pod disruption budgets for admin
+  # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: ""
+
+  # Configure network policy for admin
+  # ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+  networkPolicy:
+    # Specifies whether a NetworkPolicy should be created
+    enabled: true
+    # The Policy model to apply. When set to false, only pods with the correct
+    # client label will have network access to the port admin is listening on.
+    # when true, admin will accept connections from any source.
+    allowExternal: false
+    # Allow connections from other namespaces.
+    ingressNSMatchLabels: {}
+    ingressNSPodMatchLabels: {}
+
+  # Configuration for admin service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+    # Configuration for profile service
+    profile:
+      # Profile external port
+      port: 6060
+
+  # Configuration for admin service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # Admin image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign admin to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number of admin replicas desired
+  replicas: 1
+
+  # Settings affecting admin application
+  spec:
+    # Log configuration
+    log:
+      level: info
+      format: json
+
+# Configuration for graph application
+graph:
+  # Annotations to be added to graph deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to graph pods
+  podAnnotations: {}
+
+  # Configure update strategy for graph
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configure pod disruption budgets for graph
+  # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: ""
+
+  # Configure horizontal pod autoscale for graph
+  # ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    metrics: []
+
+  # Configuration for graph service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+    # Configuration for profile service
+    profile:
+      # Profile external port
+      port: 6060
+
+  # Configuration for graph service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # Graph image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign graph to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number of graph replicas desired
+  replicas: 1
+
+  # Settings affecting graph application
+  spec:
+    # Log configuration
+    log:
+      level: info
+      format: json
+
+    # Settings for restricting resource per tenant
+    tenancy:
+      tenantMaxDBConn: 10
+
+    # Event pubsub configuration
+    # ref: https://gocloud.dev/howto/pubsub/
+    event:
+      url: ""
+
+    # Additional key/value pairs to be used as environment variables
+    extraEnvVars: []
+
+# Configuration for async application
+async:
+  # Annotations to be added to async deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to async pods
+  podAnnotations: {}
+
+  # Configure update strategy for async
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configure pod disruption budgets for async
+  # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: ""
+
+  # Configuration for async service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+    # Configuration for profile service
+    profile:
+      # Profile external port
+      port: 6060
+
+  # Configuration for async service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # async image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Resource limits & requests
+  resources: {}
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign async to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number of async replicas desired
+  replicas: 1
+
+  # Settings affecting async application
+  spec:
+    # Log configuration
+    log:
+      level: info
+      format: json
+
+    # Settings for restricting resource per tenant
+    tenancy:
+      tenantMaxDBConn: 5
+
+    # Event pubsub configuration
+    # ref: https://gocloud.dev/howto/pubsub/
+    event:
+      pub_url: ""
+      sub_url: ""
+
+    # Export configuration
+    export:
+      bucket_url: ""
+      bucket_prefix: ""
+
+    # Cadence configuration
+    cadence:
+      address: ""
+
+    # Additional key/value pairs to be used as environment variables
+    extraEnvVars: []
+
+# Configuration for migrate job
+migrate:
+  # Migrate image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Settings affecting migrate job
+  spec:
+    # Log configuration
+    log:
+      level: info
+      format: json
+
+    # Migrations configuration
+    migrations:
+      graph:
+        extraEnvVars: []
+
+      cadence:
+        address: ""
+        domains: "flow,export"
+        extraEnvVars: []
+
+# Configuration for store application
+store:
+  # Annotations to be added to store deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to store pods
+  podAnnotations: {}
+
+  # Configure update strategy for store
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configure pod disruption budgets for store
+  # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+    maxUnavailable: ""
+
+  # Configuration for store service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+    # Configuration for profile service
+    profile:
+      # Profile external port
+      port: 6060
+
+  # Configuration for store service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # Store image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsGroup: 65534
+    runAsNonRoot: true
+    runAsUser: 65534
+    fsGroup: 65534
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign store to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number of store replicas desired
+  replicas: 1
+
+  # Settings affecting store application
+  spec:
+    # Log configuration
+    log:
+      level: info
+      format: json
+
+    # Blob bucket configuration
+    # ref: https://gocloud.dev/howto/blob/
+    bucket:
+      url: ""
+
+    # Additional key/value pairs to be used as environment variables
+    extraEnvVars: []
+
+# Configuration for docs application
+docs:
+  # Annotations to be added to docs deployment
+  deploymentAnnotations: {}
+  # Annotations to be added to docs pods
+  podAnnotations: {}
+
+  # Configure update strategy for docs
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  updateStrategy:
+    type: RollingUpdate
+
+  # Configuration for docs service
+  service:
+    # Service external port
+    port: 80
+    # Service target port
+    targetPort: 8080
+    # Configuration for metrics service
+    metrics:
+      # Metrics external port
+      port: 9464
+      # Metrics target port
+      targetPort: 9464
+
+  # Configuration for docs service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # docs image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Configuration for liveness / readiness probes
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  probes:
+    liveness:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+      timeoutSeconds: 3
+      successThreshold: 1
+      failureThreshold: 5
+
+    readiness:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+
+  # SecurityContext holds pod-level security attributes and common container settings.
+  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # Define which Nodes the Pods are scheduled on.
+  # ref: https://kubernetes.io/docs/user-guide/node-selection/
+  nodeSelector: {}
+
+  # Tolerations for use with node taints
+  # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  # Assign docs to run on specific nodes
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+
+  # Number of docs replicas desired
+  replicas: 1
+
+# Configuration for jobrunner application
+jobrunner:
+  # Configuration for jobrunner service account
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+    annotations: {}
+
+  # Jobrunner image
+  image:
+    repository:
+    tag:
+    pullPolicy:
+
+  # Resource limits & requests
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  # job.name should consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character
+  jobs:
+    - name: gc
+      schedule: "0 * * * *"
+    - name: syncservices
+      schedule: "0 * * * *"

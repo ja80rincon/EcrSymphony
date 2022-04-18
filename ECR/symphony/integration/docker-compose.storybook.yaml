@@ -1,0 +1,16 @@
+# Copyright (c) 2004-present Facebook All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+version: "3.7"
+
+services:
+  storybook:
+    build:
+      context: ../app
+      dockerfile: fbcnms-projects/storybook/Dockerfile
+    networks:
+      - private
+    healthcheck:
+      test: curl -Ifk http://localhost:8080/status
+    restart: on-failure

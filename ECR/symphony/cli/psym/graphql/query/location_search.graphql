@@ -1,0 +1,10 @@
+query LocationSearchQuery($filters: [LocationFilterInput!]!, $limit: Int) {
+  locations(filterBy: $filters, first: $limit) {
+    edges {
+      node {
+        ...LocationFragment
+      }
+    }
+    totalCount
+  }
+}

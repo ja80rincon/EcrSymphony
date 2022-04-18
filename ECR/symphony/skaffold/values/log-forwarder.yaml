@@ -1,0 +1,9 @@
+nameOverride: log-forwarder
+forwarder:
+  enabled: false
+aggregator:
+  configMap: log-forwarder
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true

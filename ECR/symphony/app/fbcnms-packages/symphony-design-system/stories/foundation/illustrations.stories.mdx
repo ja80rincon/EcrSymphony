@@ -1,0 +1,41 @@
+import EducationNote from '../../illustrations/EducationNote';
+import Text from '../../components/Text';
+import {Meta} from '@storybook/addon-docs/blocks';
+import {STORY_CATEGORIES} from '../storybookUtils';
+import {makeStyles} from '@material-ui/styles';
+
+export const useStyles = makeStyles(() => ({
+  illustrationRoot: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: '16px',
+  },
+  illustrationName: {
+    marginTop: '8px',
+  },
+}));
+
+<Meta title={`${STORY_CATEGORIES.FOUNDATION}/1.5 Illustrations`} />
+
+# Illustrations
+
+```js
+import IllustrationName from '@symphony/design-system/illustrations/IllustrationName';
+```
+
+---
+
+export const Illustration = ({icon, name}) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.illustrationRoot}>
+      {icon}
+      <Text className={classes.illustrationName} variant="body1">
+        {name}
+      </Text>
+    </div>
+  );
+};
+
+<Illustration icon={<EducationNote />} name="EducationNote" />

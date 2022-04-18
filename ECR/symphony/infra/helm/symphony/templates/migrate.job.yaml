@@ -1,0 +1,59 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- range $name, $spec := .Values.migrate.spec.migrations }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "symphony.migrate.fullname" $ }}-{{ $name }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels: {{- include "symphony.migrate.metaLabels" $ | nindent 4 }}
+spec:
+  template:
+    metadata:
+      name: {{ template "symphony.migrate.fullname" $ }}-{{ $name }}
+      labels: {{- include "symphony.migrate.metaLabels" $ | nindent 8 }}
+    spec:
+      {{- with $.Values.migrate.securityContext }}
+      securityContext: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- include "symphony.imagePullSecrets" $ | indent 6 }}
+      containers:
+        - name: migrate
+          image: {{ default (print $.Values.global.image.registry "/migrate") $.Values.migrate.image.repository }}:{{ default $.Values.global.image.tag $.Values.migrate.image.tag }}
+          imagePullPolicy: {{ default $.Values.global.image.pullPolicy $.Values.migrate.image.pullPolicy }}
+          args:
+            - {{ $name }}
+            {{- if eq $name "cadence" }}
+            - --address={{ required ".Values.migrate.spec.migrations.cadence.address is required" $.Values.migrate.spec.migrations.cadence.address }}
+            - --domains={{ required ".Values.migrate.spec.migrations.cadence.domains is required" $.Values.migrate.spec.migrations.cadence.domains }}
+            {{- end }}
+          env:
+            {{- include "symphony.loggingEnv" $.Values.migrate | nindent 12 }}
+            {{- with $spec.extraEnvVars }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- if eq $name "graph" }}
+          envFrom:
+            - secretRef:
+                name: {{ template "symphony.migrate.secretName" $ }}
+          {{- end }}
+      restartPolicy: Never
+{{- end }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ template  "symphony.migrate.secretName" . }}
+  labels: {{- include "symphony.metaLabels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+type: Opaque
+stringData: {{- include "symphony.database.stringData" . | nindent 2 }}

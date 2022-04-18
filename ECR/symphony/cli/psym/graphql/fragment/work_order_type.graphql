@@ -1,0 +1,8 @@
+fragment WorkOrderTypeFragment on WorkOrderType {
+    id
+    name
+    description
+    propertyTypes {
+      ...PropertyTypeFragment
+    }
+}

@@ -1,0 +1,12 @@
+rbac:
+  clusterRole: true
+jaeger:
+  create: true
+  spec:
+    query:
+      serviceType: NodePort
+    storage:
+      options:
+        memory:
+          max-traces: 10000
+

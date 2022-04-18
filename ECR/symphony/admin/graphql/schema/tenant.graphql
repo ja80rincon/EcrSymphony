@@ -1,0 +1,151 @@
+"""
+Defines that a passed in global ID must be a tenant ID.
+"""
+directive @tenantType on INPUT_FIELD_DEFINITION
+
+"""
+A tenant encapsulates a set of resources.
+"""
+type Tenant implements Node {
+  """
+  The id of the tenant.
+  """
+  id: ID!
+
+  """
+  The name of the tenant.
+  """
+  name: String!
+}
+
+"""
+Ways in which to filter list of tenants.
+"""
+input TenantFilters {
+  """
+  A List of names to filter the tenants by.
+  """
+  names: [String!]
+}
+
+extend type Query {
+  """
+  Lookup a tenant by name.
+  """
+  tenant(
+    """
+    The name of the tenant.
+    """
+    name: String!
+  ): Tenant
+
+  """
+  Get alphabetically sorted list of tenants.
+  """
+  tenants(filterBy: TenantFilters): [Tenant!]
+}
+
+"""
+Input type of createTenant.
+"""
+input CreateTenantInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The name of the new tenant.
+  """
+  name: String!
+}
+
+"""
+Output type of createTenant.
+"""
+type CreateTenantPayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The new tenant.
+  """
+  tenant: Tenant
+}
+
+"""
+Input type of truncateTenant.
+"""
+input TruncateTenantInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The tenant name to truncate data for.
+  """
+  name: String!
+}
+
+"""
+Output type of truncateTenant.
+"""
+type TruncateTenantPayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The truncated tenant.
+  """
+  tenant: Tenant
+}
+
+"""
+Input type of deleteTenant.
+"""
+input DeleteTenantInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The tenant id to delete.
+  """
+  id: ID! @tenantType
+}
+
+"""
+Output type of deleteTenant.
+"""
+type DeleteTenantPayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
+
+"""
+The mutation root of Admin's GraphQL interface.
+"""
+type Mutation {
+  """
+  Create a new tenant.
+  """
+  createTenant(input: CreateTenantInput!): CreateTenantPayload
+
+  """
+  Truncate tenant data.
+  """
+  truncateTenant(input: TruncateTenantInput!): TruncateTenantPayload
+
+  """
+  Deletes a tenant.
+  """
+  deleteTenant(input: DeleteTenantInput!): DeleteTenantPayload
+}

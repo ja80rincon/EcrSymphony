@@ -1,0 +1,3 @@
+mutation RemoveWorkOrderTypeMutation($id: ID!) {
+  removeWorkOrderType(id: $id)
+}

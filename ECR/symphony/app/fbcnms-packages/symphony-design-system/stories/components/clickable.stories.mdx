@@ -1,0 +1,34 @@
+import Clickable from '../../components/Core/Clickable';
+import PlusIcon from '../../icons/Actions/PlusIcon';
+import {Meta, Preview, Story} from '@storybook/addon-docs/blocks';
+import {STORY_CATEGORIES} from '../storybookUtils';
+
+<Meta title={`${STORY_CATEGORIES.COMPONENTS}/Clickable`} />
+
+# Clickable
+
+```js
+import Clickable from '@symphony/design-system/components/Core/Clickable';
+```
+
+The `Clickable` component makes any child component clickable.
+
+### Clickable Icon
+
+<Preview>
+  <Story name="Clickable Icon">
+    <Clickable onClick={() => window.alert('Clicked')}>
+      <PlusIcon />
+    </Clickable>
+  </Story>
+</Preview>
+
+### Disabled Clickable Icon
+
+<Preview>
+  <Story name="Disabled Clickable Icon">
+    <Clickable onClick={() => window.alert('Clicked')} disabled>
+      <PlusIcon />
+    </Clickable>
+  </Story>
+</Preview>

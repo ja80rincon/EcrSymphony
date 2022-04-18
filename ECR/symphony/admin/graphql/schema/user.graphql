@@ -1,0 +1,164 @@
+"""
+A user is an individual's account on Symphony.
+"""
+type User implements Node
+  @goModel(
+    model: "github.com/facebookincubator/symphony/admin/graphql/model.User"
+  ) {
+  """
+  The id of the user.
+  """
+  id: ID!
+
+  """
+  The user's authentication identifier.
+  """
+  authId: String!
+
+  """
+  The role of the user.
+  """
+  role: UserRole!
+
+  """
+  The status of the user.
+  """
+  status: UserStatus!
+
+  """
+  The tenant of the user.
+  """
+  tenant: Tenant
+}
+
+"""
+The activity status of a user.
+"""
+enum UserStatus
+  @goModel(model: "github.com/facebookincubator/symphony/pkg/ent/user.Status") {
+  ACTIVE
+  DEACTIVATED
+}
+
+"""
+The role of a user.
+"""
+enum UserRole
+  @goModel(model: "github.com/facebookincubator/symphony/pkg/ent/user.Role") {
+  USER
+  ADMIN
+}
+
+"""
+Represents a user.
+"""
+type UserEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+
+  """
+  The item at the end of the edge.
+  """
+  node: User
+}
+
+"""
+The connection type for User.
+"""
+type UserConnection {
+  """
+  A list of edges.
+  """
+  edges: [UserEdge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+
+extend type Tenant {
+  """
+  A list of tenant users.
+  """
+  users(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): UserConnection! @goField(forceResolver: true)
+}
+
+"""
+Input type of upsertUser.
+"""
+input UpsertUserInput {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The user's tenant.
+  """
+  tenantId: ID! @tenantType
+
+  """
+  The user's authenication identifier.
+  """
+  authId: String!
+
+  """
+  The role of the user.
+  """
+  role: UserRole
+
+  """
+  The status of the user.
+  """
+  status: UserStatus
+}
+
+"""
+Output type of upsertUser.
+"""
+type UpsertUserPayload {
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+
+  """
+  The upserted user.
+  """
+  user: User
+}
+
+extend type Mutation {
+  """
+  Create or update a user.
+  """
+  upsertUser(input: UpsertUserInput!): UpsertUserPayload
+}

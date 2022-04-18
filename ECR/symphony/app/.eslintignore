@@ -1,0 +1,12 @@
+!.eslintrc.js
+**/*.min.js
+
+**/node_modules/**
+
+dist/**/*.js
+flow-typed/npm/**/*.js
+**/thrift/gen-nodejs/*.js
+config/webpack.*.js
+fbcnms-packages/eslint-config-fbcnms/index.js
+fbcnms-projects/inventory/**/__generated__/*.js
+mobile/**

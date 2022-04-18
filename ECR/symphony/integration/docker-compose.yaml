@@ -1,0 +1,241 @@
+# Copyright (c) 2004-present Facebook All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+version: "3.7"
+
+x-aliases:
+  - &buildctx
+    context: ..
+    args:
+      GOPROXY: ${COMPOSE_GOPROXY-}
+    network: host
+
+services:
+  platform-server:
+    build:
+      context: ../app
+      dockerfile: fbcnms-projects/platform-server/Dockerfile
+    env_file:
+      - conf/front.env
+      - conf/telemetry.env
+    networks:
+      - private
+    depends_on:
+      - mysql
+    healthcheck:
+      test: "curl -If -H \"Host: fb-test.localhost\" localhost/healthz"
+      interval: "10s"
+      timeout: "3s"
+    restart: on-failure
+
+  inventory:
+    build:
+      context: ../app
+      dockerfile: fbcnms-projects/inventory/Dockerfile
+    networks:
+      - private
+    healthcheck:
+      test: "curl -If localhost:8080"
+    restart: on-failure
+
+  admin:
+    build:
+      <<: *buildctx
+      dockerfile: admin/Dockerfile
+    env_file:
+      - conf/db.env
+      - conf/log.env
+      - conf/telemetry.env
+    networks:
+      - private
+    depends_on:
+      - mysql
+    healthcheck: &healthcheck
+      test: curl -If localhost/healthz/liveness
+    restart: on-failure
+
+  graph:
+    build:
+      <<: *buildctx
+      dockerfile: graph/Dockerfile
+    env_file:
+      - conf/graph.env
+      - conf/db.env
+      - conf/log.env
+      - conf/telemetry.env
+    networks:
+      - private
+    depends_on:
+      - migrate-graph
+      - mysql
+      - nats
+      - async
+    healthcheck: *healthcheck
+    restart: on-failure
+
+  async:
+    build:
+      <<: *buildctx
+      dockerfile: async/Dockerfile
+    env_file:
+      - conf/async.env
+      - conf/db.env
+      - conf/log.env
+      - conf/telemetry.env
+      - conf/cadence_client.env
+    networks:
+      - private
+    depends_on:
+      - migrate-graph
+      - migrate-cadence
+      - mysql
+      - nats
+      - platform-server
+    healthcheck: *healthcheck
+    restart: on-failure
+
+  migrate-graph:
+    build:
+      <<: *buildctx
+      dockerfile: migrate/Dockerfile
+    image: integration_migrate
+    env_file:
+      - conf/log.env
+    command:
+      - "graph"
+      - "--db-url=mysql://root:root@mysql:3306/?charset=utf8&parseTime=true&interpolateParams=true"
+      - "--wait-for-db"
+      - "--tenant=fb-test"
+    networks:
+      - private
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  migrate-cadence:
+    build:
+      <<: *buildctx
+      dockerfile: migrate/Dockerfile
+    image: integration_migrate
+    env_file:
+      - conf/log.env
+      - conf/cadence_client.env
+    command:
+      - "cadence"
+    networks:
+      - private
+    depends_on:
+      - cadence
+    restart: on-failure
+
+  store:
+    build:
+      <<: *buildctx
+      dockerfile: store/Dockerfile
+    env_file:
+      - conf/store.env
+      - conf/log.env
+      - conf/telemetry.env
+    networks:
+      - private
+    healthcheck: *healthcheck
+    restart: on-failure
+
+  docs:
+    build:
+      context: ../docs
+    networks:
+      - private
+    healthcheck:
+      test: curl -Ifk http://localhost:8080/status
+    restart: on-failure
+
+  fluentd:
+    build:
+      context: fluentd
+    networks:
+      - private
+    restart: on-failure
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 443:443
+      - 33060:33060
+      - 9000:9000
+    networks:
+      public:
+        aliases:
+          - fb-test.thesymphony.cloud
+      private:
+        aliases:
+          - fb-test.thesymphony.cloud
+    volumes:
+      - ./nginx/conf.nginx:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs/cert.pem:/etc/nginx/ssl/tls.crt:ro
+      - ./nginx/certs/key.pem:/etc/nginx/ssl/tls.key:ro
+    healthcheck:
+      test: curl -Ifk https://localhost/healthz
+    restart: on-failure
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: auth
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: mysqladmin ping -proot
+    networks:
+      - private
+    restart: always
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ROOT_USER: AKIAIOSFODNN7EXAMPLE
+      MINIO_ROOT_PASSWORD: /wJalrXUtnFEMIK7MDENG/bPxRfiCYEXAMPLEKEY
+    networks:
+      - private
+    entrypoint: sh
+    command: -c 'mkdir -p /data/store.blobs && minio server /data'
+    restart: on-failure
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    networks:
+      - private
+    restart: on-failure
+
+  prometheus:
+    image: prom/prometheus
+    networks:
+      - private
+    volumes:
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml:ro
+    restart: on-failure
+
+  nats:
+    image: nats
+    networks:
+      - private
+    restart: on-failure
+
+  cadence:
+    image: ubercadence/server:0.14.1-auto-setup
+    networks:
+      - private
+    env_file:
+      - conf/cadence.env
+    depends_on:
+      - mysql
+
+networks:
+  public:
+  private:
+    internal: true

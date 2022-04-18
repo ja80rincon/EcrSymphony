@@ -1,0 +1,174 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - infra/**
+      - skaffold/**
+      - tools/**
+      - app/mobile/**
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.32
+          skip-go-installation: true
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping -proot"
+          --health-interval 10s
+          --health-start-period 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.15'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+      - name: Download dependencies
+        run: go mod download
+      - name: Run tests
+        env:
+          DB_URL: mysql://root:root@localhost:3306/?charset=utf8&parseTime=true&interpolateParams=true
+        run: go test -race ./...
+
+  build:
+    name: build ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+          - image: async
+            context: .
+            file: async/Dockerfile
+          - image: store
+            context: .
+            file: store/Dockerfile
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/setup-buildx-action@v1
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-buildx-
+      - name: Log into Docker registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.JF_DEV_REGISTRY }}
+          username: ${{ secrets.JF_ARTIFACTORY_USER }}
+          password: ${{ secrets.JF_ARTIFACTORY_API_KEY }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
+          tags: ${{ secrets.JF_DEV_REGISTRY }}/${{ matrix.image }}:${{ github.sha }}
+          pull: true
+          push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+
+  integration:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      COMPOSE_FILE: integration/docker-compose.ci.yaml
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      DOCKER_BUILDKIT: 1
+      DOCKER_REGISTRY: ${{ secrets.JF_DEV_REGISTRY }}
+      TAG: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log into docker registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.JF_DEV_REGISTRY }}
+          username: ${{ secrets.JF_ARTIFACTORY_USER }}
+          password: ${{ secrets.JF_ARTIFACTORY_API_KEY }}
+      - name: Pull images
+        run: docker-compose pull
+      - name: Build services
+        run: docker-compose build --parallel
+      - name: Start services
+        run: docker-compose up -d --scale tests=0 --scale pytests=0
+      - name: Run go tests
+        run: docker-compose run --use-aliases tests
+      - name: Run python tests
+        run: docker-compose run --use-aliases pytests
+      - name: Stop services
+        if: ${{ always() }}
+        run: docker-compose down
+
+  promote:
+    name: promote ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    needs: integration
+    strategy:
+      matrix:
+        image: [graph, admin, async, store, migrate, jobrunner, front, docs, storybook]
+    env:
+      SOURCE_IMAGE: ${{ secrets.JF_DEV_REGISTRY }}/${{ matrix.image }}:${{ github.sha }}
+      TARGET_IMAGE: ${{ secrets.JF_PROD_REGISTRY }}/${{ matrix.image }}:${{ github.sha }}
+    steps:
+      - name: Log into dev registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.JF_DEV_REGISTRY }}
+          username: ${{ secrets.JF_ARTIFACTORY_USER }}
+          password: ${{ secrets.JF_ARTIFACTORY_API_KEY }}
+      - name: Log into prod registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.JF_PROD_REGISTRY }}
+          username: ${{ secrets.JF_ARTIFACTORY_USER }}
+          password: ${{ secrets.JF_ARTIFACTORY_API_KEY }}
+      - name: Pull image
+        run: docker pull $SOURCE_IMAGE
+      - name: Tag image
+        run: docker tag $SOURCE_IMAGE $TARGET_IMAGE
+      - name: Push image
+        run: docker push $TARGET_IMAGE

@@ -1,0 +1,14 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "symphony.admin.fullname" . }}
+  labels: {{- include "symphony.admin.metaLabels" . | nindent 4 }}
+spec:
+  selector: {{- include "symphony.admin.selectorLabels" . | nindent 4 }}
+  type: ClusterIP
+  ports: {{- include "symphony.servicePorts" .Values.admin | nindent 4 }}

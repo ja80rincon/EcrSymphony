@@ -1,0 +1,40 @@
+import SideBar from '../../components/View/SideBar';
+import {Meta, Preview, Story} from '@storybook/addon-docs/blocks';
+import {STORY_CATEGORIES} from '../storybookUtils';
+import {makeStyles} from '@material-ui/styles';
+
+export const useStyles = makeStyles(() => ({
+  root: {
+    display: 'flex',
+    height: '100%',
+    minHeight: '400px',
+    maxHeight: '500px',
+  },
+  card: {
+    marginBottom: '16px',
+  },
+}));
+
+<Meta title={`${STORY_CATEGORIES.CONTAINERS}/SideBar`} />
+
+# SideBar
+
+```js
+import SideBar from '@symphony/design-system/components/View/SideBar';
+```
+
+<Preview>
+  <Story name="SideBar">
+    {() => {
+      const classes = useStyles();
+      return (
+        <div className={classes.root}>
+          <SideBar header="The Company">
+            Here you can see some of the company content. It could be menu, some
+            details, navigation, etc.
+          </SideBar>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>

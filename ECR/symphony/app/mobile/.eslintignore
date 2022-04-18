@@ -1,0 +1,15 @@
+.eslintrc.js
+
+babel.config.js
+
+metro.config.js
+
+jest.setup.js
+
+android/**
+
+node_modules/**/*.js
+
+flow-typed/npm/**/*.js
+
+**/__generated__/**/*.js

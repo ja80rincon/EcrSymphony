@@ -1,0 +1,51 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+{{- if .Values.ingress.enabled }}
+apiVersion: {{ template "symphony.ingress.apiVersion" . }}
+kind: Ingress
+metadata:
+  name: {{ include "symphony.fullname" . }}
+  labels: {{- include "symphony.metaLabels" . | nindent 4 }}
+  {{- with .Values.ingress.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.ingress.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  {{- if .Values.ingress.hosts }}
+  {{- range $host := .Values.ingress.hosts }}
+    - host: {{ $host | quote }}
+      http:
+        paths:
+        {{- with $.Values.ingress.extraPaths }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- range $.Values.ingress.paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ template "symphony.front.fullname" $ }}
+              servicePort: {{ $.Values.front.service.port }}
+        {{- end -}}
+  {{- end -}}
+  {{- else }}
+    - http:
+        paths:
+        {{- with .Values.ingress.extraPaths }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- range .Values.ingress.paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ template "symphony.front.fullname" $ }}
+              servicePort: {{ $.Values.front.service.port }}
+        {{- end -}}
+  {{- end -}}
+  {{- with .Values.ingress.tls }}
+  tls: {{- toYaml . | nindent 4 }}
+  {{- end -}}
+{{- end }}

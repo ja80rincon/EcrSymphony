@@ -1,0 +1,17 @@
+{{- /*
+Copyright (c) 2004-present Facebook All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/ -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "symphony.docs.fullname" . }}
+  labels: {{- include "symphony.docs.metaLabels" . | nindent 4 }}
+spec:
+  selector: {{- include "symphony.docs.selectorLabels" . | nindent 4 }}
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ .Values.docs.service.port }}
+      targetPort: http

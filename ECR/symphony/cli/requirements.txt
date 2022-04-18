@@ -1,0 +1,17 @@
+py-gql-client>=1.0.0
+tqdm>=4.32.2
+unicodecsv>=0.14.1
+requests>=2.22.0
+filetype>=1.0.5
+jsonschema
+pandas>=0.24.2
+xlsxwriter>=1.1.8
+dacite>=1.0.2
+sphinx>=3.1.2
+sphinxcontrib-napoleon
+colorama>=0.4.1
+unittest-xml-reporting>=2.5.2
+websocket-client>=0.56.0
+mypy
+black
+flake8
