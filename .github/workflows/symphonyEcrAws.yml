@@ -42,6 +42,6 @@ jobs:
       - name: docker images
         run: docker images
       - name: docker tag
-        run: docker tag integration_graph:latest 759857925977.dkr.ecr.us-east-1.amazonaws.com/symphony:latest
+        run: docker tag integration_graph:latest 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:latest
       - name: docker push
-        run: docker push 759857925977.dkr.ecr.us-east-1.amazonaws.com/symphony:latest
+        run: docker push 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:latest
