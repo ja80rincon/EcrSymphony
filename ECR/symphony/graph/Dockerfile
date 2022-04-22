@@ -14,7 +14,7 @@ RUN go env -w GOPROXY=$GOPROXY
 
 # Download dependencies
 WORKDIR /src/ECR/symphony
-COPY go.* ./
+COPY go.* ./ECR
 RUN go mod download
 
 # Copy shared components
