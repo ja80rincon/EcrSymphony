@@ -34,7 +34,7 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: docker build graph
-        run: docker build -t graph ../../ECR/symphony/graph/Dockerfile
+        run: docker build -t graph ECR/symphony/graph/Dockerfile
 
       - name: docker images
         run: docker images
