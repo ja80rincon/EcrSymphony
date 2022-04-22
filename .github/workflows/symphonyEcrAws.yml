@@ -10,17 +10,31 @@ on:
 jobs:
 
    build-artifact:
+    name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
+
     env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
       IMAGE_TAG: V1.0
-      
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials for build and deploy ECR 18
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+
+    steps:
+- uses: actions/checkout@v2
+      - uses: docker/setup-buildx-action@v1
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-buildx-
+
+      - name: Configure AWS Credentials for build and deploy ECR 19
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -32,12 +46,6 @@ jobs:
         
       - name: login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
-
-      - name: path
-        run: pwd
-
-      - name: docker build graph
-        run: docker build . --file ECR/symphony/graph/Dockerfile --tag graph 
 
       - name: docker images
         run: docker images

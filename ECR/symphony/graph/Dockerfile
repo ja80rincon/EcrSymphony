@@ -13,15 +13,15 @@ ARG GOPROXY=""
 RUN go env -w GOPROXY=$GOPROXY
 
 # Download dependencies
-WORKDIR /src/ECR/symphony
-COPY go.* .
+WORKDIR /src/symphony
+COPY go.* ./
 RUN go mod download
 
 # Copy shared components
 COPY pkg /src/symphony/pkg
 
 # Build services
-WORKDIR /src/ECR/symphony/graph
+WORKDIR /src/symphony/graph
 COPY graph .
 RUN mkdir /build && go build -o /build ./cmd/...
 
