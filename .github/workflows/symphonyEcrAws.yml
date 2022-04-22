@@ -16,7 +16,7 @@ jobs:
       ECR_REPOSITORY: symphony-ecr-aws
       IMAGE_TAG: V1.0
       
-     steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
