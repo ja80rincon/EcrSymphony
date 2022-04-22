@@ -20,7 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials for build and deploy ECR 7
+      - name: Configure AWS Credentials for build and deploy ECR 10
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -32,6 +32,9 @@ jobs:
         
       - name: login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+      - name: path
+        run: pwd
 
       - name: docker build graph
         run: docker build -t graph ECR/symphony/graph/Dockerfile
