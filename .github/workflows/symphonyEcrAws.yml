@@ -37,7 +37,7 @@ jobs:
         run: pwd
 
       - name: docker build graph
-        run: docker build -t graph ECR/symphony/graph/Dockerfile
+        run: docker build -t graph -f ECR/symphony/graph/Dockerfile
 
       - name: docker images
         run: docker images
