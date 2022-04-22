@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-   build-artifact:
+  build-artifact:
     name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
 
@@ -26,7 +26,7 @@ jobs:
             file: graph/Dockerfile
 
     steps:
-- uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - uses: docker/setup-buildx-action@v1
       - uses: actions/cache@v2
         with:
@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Configure AWS Credentials for build and deploy ECR 19
+      - name: Configure AWS Credentials for build and deploy ECR 20
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
