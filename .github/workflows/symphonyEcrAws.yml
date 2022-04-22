@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Configure AWS Credentials for build and deploy ECR 24
+      - name: Configure AWS Credentials for build and deploy ECR 25
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -60,7 +60,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: $ECR_REGISTRY/${{ matrix.image }}:${{ matrix.image }}_$IMAGE_TAG
+          tags: $ECR_REGISTRY/$IMAGE_TAG:${{ matrix.image }}_$IMAGE_TAG
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
