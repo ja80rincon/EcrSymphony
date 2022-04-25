@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Configure AWS Credentials for build and deploy ECR 36
+      - name: Configure AWS Credentials for build and deploy ECR 37
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -68,7 +68,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: 37232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v1.0
+          tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v1.0
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
