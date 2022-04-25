@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Configure AWS Credentials for build and deploy ECR 31
+      - name: Configure AWS Credentials for build and deploy ECR 32
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -44,8 +44,8 @@ jobs:
       - name: Amazon ECR "Login" Action for GitHub Actions
         uses: aws-actions/amazon-ecr-login@v1
         
-      - name: login ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+      #- name: login ECR
+      #  run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: docker images
         run: docker images
@@ -55,8 +55,8 @@ jobs:
       
       - name: docker push
         #run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:graph_$IMAGE_TAG
-
         uses: docker/build-push-action@v2
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
