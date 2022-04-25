@@ -24,7 +24,7 @@ jobs:
           - image: graph
             context: .
             file: graph/Dockerfile
-                    - image: admin
+          - image: admin
             context: .
             file: admin/Dockerfile
           - image: async
