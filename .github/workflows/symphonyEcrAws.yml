@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env: 
-      ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }} #837232691946.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
       IMAGE_TAG: V1.0
 
@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Configure AWS Credentials for build and deploy ECR 37
+      - name: Configure AWS Credentials for build and deploy ECR 39
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
@@ -52,8 +52,8 @@ jobs:
       #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       #     ecr: $ECR_REGISTRY
 
-      #- name: login ECR
-      #  run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+      - name: login ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: docker images
         run: docker images
@@ -62,13 +62,11 @@ jobs:
       #  run: docker tag graph $ECR_REGISTRY/$ECR_REPOSITORY:graph_$IMAGE_TAG
       
       - name: docker push
-        #run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:graph_$IMAGE_TAG
         uses: docker/build-push-action@v2
-        #run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v1.0
+          tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v1.0 #837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v1.0
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
