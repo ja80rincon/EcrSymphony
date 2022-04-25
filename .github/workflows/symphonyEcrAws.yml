@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env: 
-      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }} #837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
       IMAGE_TAG: V1.0
 
@@ -52,8 +52,8 @@ jobs:
       #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       #     ecr: $ECR_REGISTRY
 
-      - name: login ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+      #- name: login ECR
+      #  run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: docker images
         run: docker images
