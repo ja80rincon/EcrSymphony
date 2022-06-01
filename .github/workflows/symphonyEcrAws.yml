@@ -13,7 +13,7 @@ jobs:
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
 
-    name: build 
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -113,4 +113,5 @@ jobs:
           IMAGE_TAG: storybook-${{env.STORYBOOK_VERSION}}
         run: |
           docker build -f app/fbcnms-projects/storybook/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG        
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                  
