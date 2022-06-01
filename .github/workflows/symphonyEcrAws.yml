@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: install yq
         run: sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
@@ -39,6 +40,77 @@ jobs:
         env: 
           IMAGE_TAG: graph-${{env.GRAPH_VERSION}}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f graph/Dockerfile
-          docker images
+          docker build -f graph/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+
+      - name: extraer version admin
+        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: admin-${{env.ADMIN_VERSION}}
+        run: |
+          docker build -f admin/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
+
+      - name: extraer version async
+        run: echo "ASYNC_VERSION=$(yq eval '.version' async/version.yml)" >> $GITHUB_ENV  
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: async-${{env.ASYNC_VERSION}}
+        run: |
+          docker build -f async/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
+
+      - name: extraer version store
+        run: echo "STORE_VERSION=$(yq eval '.version' store/version.yml)" >> $GITHUB_ENV 
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: store-${{env.STORE_VERSION}}
+        run: |
+          docker build -f store/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG     
+
+      - name: extraer version migrate
+        run: echo "MIGRATE_VERSION=$(yq eval '.version' migrate/version.yml)" >> $GITHUB_ENV   
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: migrate-${{env.MIGRATE_VERSION}}
+        run: |
+          docker build -f migrate/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
+
+      - name: extraer version jobrunner
+        run: echo "JOBRUNNER_VERSION=$(yq eval '.version' jobrunner/version.yml)" >> $GITHUB_ENV 
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: jobrunner-${{env.JOBRUNNER_VERSION}}
+        run: |
+          docker build -f jobrunner/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+
+      - name: extraer version front
+        run: echo "FRONT_VERSION=$(yq eval '.version' app/fbcnms-projects/platform-server/version.yml)" >> $GITHUB_ENV             
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: front-${{env.FRONT_VERSION}}
+        run: |
+          docker build -f app/fbcnms-projects/platform-server/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
+
+      - name: extraer version docs
+        run: echo "DOCS_VERSION=$(yq eval '.version' docs/version.yml)" >> $GITHUB_ENV 
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: docs-${{env.DOCS_VERSION}}
+        run: |
+          docker build -f docs/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG   
+
+      - name: extraer version storybook
+        run: echo "STORYBOOK_VERSION=$(yq eval '.version' app/fbcnms-projects/storybook/version.yml)" >> $GITHUB_ENV  
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: storybook-${{env.STORYBOOK_VERSION}}
+        run: |
+          docker build -f app/fbcnms-projects/storybook/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG        
