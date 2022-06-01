@@ -1,0 +1,112 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+      - develop
+ 
+
+jobs:
+
+  build-artifact:
+    
+    name: build ${{ matrix.image }}
+    runs-on: ubuntu-latest
+
+    env: 
+      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REPOSITORY: symphony-ecr-aws
+      IMAGE_TAG: V1.0   
+         
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: graph/
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: admin/
+          - image: async
+            context: .
+            file: async/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: async/
+          - image: store
+            context: .
+            file: store/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: store/
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: migrate/
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: jobrunner/
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+            tag: $(${{ matrix.image }})
+            version-file: app/fbcnms-projects/platform-server/
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: docs/
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+            tag: $(${{ matrix.image }})
+            version-file: app/fbcnms-projects/storybook/
+
+    steps:
+      - uses: actions/checkout@v2
+      # - uses: docker/setup-buildx-action@v1
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: ${{ runner.os }}-buildx-
+
+      - name: install yq
+        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
+
+      - name: extraer version componentes
+        run: echo "${{ matrix.image }}=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+
+      # - name: Configure AWS Credentials for build and deploy ECR 42
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+      #     aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      # - name: Amazon ECR "Login" Action for GitHub Actions
+      #   uses: aws-actions/amazon-ecr-login@v1
+        
+      # - name: login ECR
+      #   run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+      # - name: docker images
+      #   run: docker images
+        
+      - name: imprimir matrix
+        run: echo ${{ matrix.tag }}
+      # - name: docker push
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ${{ matrix.context }}
+      #     file: ${{ matrix.file }}
+      #     tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v$(echo ${{ matrix.tag }})
+      #     pull: true
+      #     push: true
+      #     cache-from: type=local,src=/tmp/.buildx-cache
+      #     cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
