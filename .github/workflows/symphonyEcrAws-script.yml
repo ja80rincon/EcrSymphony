@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+      - develop
+
+jobs:
+
+  build-artifact:
+
+    env: 
+      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REPOSITORY: symphony-ecr-aws
+
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install yq
+        run: sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
+
+      - name: Configure AWS Credentials for build and deploy ECR 42
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Amazon ECR "Login" Action for GitHub Actions
+        uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: login ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+      - name: run script
+        run: bash script.sh  
