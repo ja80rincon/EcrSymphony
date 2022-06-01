@@ -24,39 +24,39 @@ jobs:
           - image: graph
             context: .
             file: graph/Dockerfile
-            tag: $GRAPH_VERSION
+            tag: ${{env.GRAPH_VERSION}}
           - image: admin
             context: .
             file: admin/Dockerfile
-            tag: $ADMIN_VERSION
+            tag: ${{env.ADMIN_VERSION}}
           - image: async
             context: .
             file: async/Dockerfile
-            tag: $ASYNC_VERSION
+            tag: ${{env.ASYNC_VERSION}}
           - image: store
             context: .
             file: store/Dockerfile
-            tag: $STORE_VERSION
+            tag: ${{env.STORE_VERSION}}
           - image: migrate
             context: .
             file: migrate/Dockerfile
-            tag: $MIGRATE_VERSION
+            tag: ${{env.MIGRATE_VERSION}}
           - image: jobrunner
             context: .
             file: jobrunner/Dockerfile
-            tag: $JOBBRUNNER_VERSION
+            tag: ${{env.JOBBRUNNER_VERSION}}
           - image: front
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: $FRONT_VERSION
+            tag: ${{env.FRONT_VERSION}}
           - image: docs
             context: docs
             file: docs/Dockerfile
-            tag: $DOCS_VERSION
+            tag: ${{env.DOCS_VERSION}}
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
-            tag: $STORYBOOK_VERSION
+            tag: ${{env.STORYBOOK_VERSION}}
 
     steps:
       - uses: actions/checkout@v2
