@@ -40,7 +40,7 @@ jobs:
         env: 
           IMAGE_TAG: graph-${{env.GRAPH_VERSION}}
         run: |
-          docker build -f graph/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f graph/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
       - name: extraer version admin
@@ -49,7 +49,7 @@ jobs:
         env: 
           IMAGE_TAG: admin-${{env.ADMIN_VERSION}}
         run: |
-          docker build -f admin/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f admin/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
 
       - name: extraer version async
@@ -58,7 +58,7 @@ jobs:
         env: 
           IMAGE_TAG: async-${{env.ASYNC_VERSION}}
         run: |
-          docker build -f async/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f async/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
 
       - name: extraer version store
@@ -67,7 +67,7 @@ jobs:
         env: 
           IMAGE_TAG: store-${{env.STORE_VERSION}}
         run: |
-          docker build -f store/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f store/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG     
 
       - name: extraer version migrate
@@ -76,7 +76,7 @@ jobs:
         env: 
           IMAGE_TAG: migrate-${{env.MIGRATE_VERSION}}
         run: |
-          docker build -f migrate/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f migrate/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
 
       - name: extraer version jobrunner
@@ -85,7 +85,7 @@ jobs:
         env: 
           IMAGE_TAG: jobrunner-${{env.JOBRUNNER_VERSION}}
         run: |
-          docker build -f jobrunner/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f jobrunner/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
       - name: extraer version front
@@ -94,7 +94,7 @@ jobs:
         env: 
           IMAGE_TAG: front-${{env.FRONT_VERSION}}
         run: |
-          docker build -f app/fbcnms-projects/platform-server/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f app/fbcnms-projects/platform-server/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
 
       - name: extraer version docs
@@ -103,7 +103,7 @@ jobs:
         env: 
           IMAGE_TAG: docs-${{env.DOCS_VERSION}}
         run: |
-          docker build -f docs/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f docs/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG   
 
       - name: extraer version storybook
@@ -112,5 +112,5 @@ jobs:
         env: 
           IMAGE_TAG: storybook-${{env.STORYBOOK_VERSION}}
         run: |
-          docker build -f app/fbcnms-projects/storybook/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+          docker build -f app/fbcnms-projects/storybook/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG        
