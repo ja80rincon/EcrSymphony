@@ -4,89 +4,20 @@ on:
   push:
     branches: 
       - develop
- 
 
 jobs:
-
   build-artifact:
-    
-    name: build ${{ matrix.image }}
-    runs-on: ubuntu-latest
 
-    env: 
+     env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
-      IMAGE_TAG: V1.0   
-         
-    strategy:
-      matrix:
-        include:
-          - image: graph
-            context: .
-            file: graph/Dockerfile
-            tag: ${{env.GRAPH_VERSION}}
-          - image: admin
-            context: .
-            file: admin/Dockerfile
-            tag: ${{env.ADMIN_VERSION}}
-          - image: async
-            context: .
-            file: async/Dockerfile
-            tag: ${{env.ASYNC_VERSION}}
-          - image: store
-            context: .
-            file: store/Dockerfile
-            tag: ${{env.STORE_VERSION}}
-          - image: migrate
-            context: .
-            file: migrate/Dockerfile
-            tag: ${{env.MIGRATE_VERSION}}
-          - image: jobrunner
-            context: .
-            file: jobrunner/Dockerfile
-            tag: ${{env.JOBBRUNNER_VERSION}}
-          - image: front
-            context: app
-            file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: ${{env.FRONT_VERSION}}
-          - image: docs
-            context: docs
-            file: docs/Dockerfile
-            tag: ${{env.DOCS_VERSION}}
-          - image: storybook
-            context: app
-            file: app/fbcnms-projects/storybook/Dockerfile
-            tag: ${{env.STORYBOOK_VERSION}}
 
+    name: build 
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/setup-buildx-action@v1
-      - uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-buildx-
-
       - name: install yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
-      - name: extraer version graph
-        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
-      - name: extraer version admin
-        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
-      - name: extraer version async
-        run: echo "ASYNC_VERSION=$(yq eval '.version' async/version.yml)" >> $GITHUB_ENV 
-      - name: extraer version store
-        run: echo "STORE_VERSION=$(yq eval '.version' store/version.yml)" >> $GITHUB_ENV
-      - name: extraer version migrate
-        run: echo "MIGRATE_VERSION=$(yq eval '.version' migrate/version.yml)" >> $GITHUB_ENV
-      - name: extraer version jobrunner
-        run: echo "JOBBRUNNER_VERSION=$(yq eval '.version' jobrunner/version.yml)" >> $GITHUB_ENV
-      - name: extraer version front
-        run: echo "FRONT_VERSION=$(yq eval '.version' app/fbcnms-projects/platform-server/version.yml)" >> $GITHUB_ENV
-      - name: extraer version docs
-        run: echo "DOCS_VERSION=$(yq eval '.version' docs/version.yml)" >> $GITHUB_ENV
-      - name: extraer version storybook
-        run: echo "STORYBOOK_VERSION=$(yq eval '.version' app/fbcnms-projects/storybook/version.yml)" >> $GITHUB_ENV    
+        run: sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -100,21 +31,13 @@ jobs:
         
       - name: login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
-
-      - name: docker images
-        run: docker images
-
-      #- name: docker tag
-      #  run: docker tag graph $ECR_REGISTRY/$ECR_REPOSITORY:graph_$IMAGE_TAG
-      - name: imprimir matrix
-        run: echo ${{ matrix.tag }}
-      - name: docker push
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.file }}
-          tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v${{ matrix.tag }}
-          pull: true
-          push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+      
+      - name: extraer version graph
+        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV  
+      - name: docker build  and push
+        env: 
+          IMAGE_TAG: graph-${{env.GRAPH_VERSION}}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f graph/Dockerfile
+          docker images
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
