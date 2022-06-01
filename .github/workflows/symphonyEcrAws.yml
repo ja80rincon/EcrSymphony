@@ -9,6 +9,29 @@ on:
 jobs:
 
   build-artifact:
+
+    steps:
+      - name: install yq
+        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
+      - name: extraer version graph
+        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
+      - name: extraer version admin
+        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
+      - name: extraer version async
+        run: echo "ASYNC_VERSION=$(yq eval '.version' async/version.yml)" >> $GITHUB_ENV 
+      - name: extraer version store
+        run: echo "STORE_VERSION=$(yq eval '.version' store/version.yml)" >> $GITHUB_ENV
+      - name: extraer version migrate
+        run: echo "MIGRATE_VERSION=$(yq eval '.version' migrate/version.yml)" >> $GITHUB_ENV
+      - name: extraer version jobrunner
+        run: echo "JOBBRUNNER_VERSION=$(yq eval '.version' jobrunner/version.yml)" >> $GITHUB_ENV
+      - name: extraer version front
+        run: echo "FRONT_VERSION=$(yq eval '.version' app/fbcnms-projects/platform-server/version.yml)" >> $GITHUB_ENV
+      - name: extraer version docs
+        run: echo "DOCS_VERSION=$(yq eval '.version' docs/version.yml)" >> $GITHUB_ENV
+      - name: extraer version storybook
+        run: echo "STORYBOOK_VERSION=$(yq eval '.version' app/fbcnms-projects/storybook/version.yml)" >> $GITHUB_ENV
+    
     name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
 
@@ -31,41 +54,34 @@ jobs:
           - image: async
             context: .
             file: async/Dockerfile
-            tag: 1.3
+            tag: $ASYNC_VERSION
           - image: store
             context: .
             file: store/Dockerfile
-            tag: 1.4
+            tag: $STORE_VERSION
           - image: migrate
             context: .
             file: migrate/Dockerfile
-            tag: 1.5
+            tag: $MIGRATE_VERSION
           - image: jobrunner
             context: .
             file: jobrunner/Dockerfile
-            tag: 1.6
+            tag: $JOBBRUNNER_VERSION
           - image: front
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: 1.7
+            tag: $FRONT_VERSION
           - image: docs
             context: docs
             file: docs/Dockerfile
-            tag: 1.8
+            tag: $DOCS_VERSION
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
-            tag: 1.9
+            tag: $STORYBOOK_VERSION
 
     steps:
       - uses: actions/checkout@v2
-      - name: install yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
-      - name: extraer version graph
-        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
-      - name: extraer version admin
-        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
-
       - uses: docker/setup-buildx-action@v1
       - uses: actions/cache@v2
         with:
