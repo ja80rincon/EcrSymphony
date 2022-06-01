@@ -94,7 +94,7 @@ jobs:
         env: 
           IMAGE_TAG: front-${{env.FRONT_VERSION}}
         run: |
-          docker build -f app/fbcnms-projects/platform-server/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -f app/fbcnms-projects/platform-server/Dockerfile.prod -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG    
 
       - name: extraer version docs
