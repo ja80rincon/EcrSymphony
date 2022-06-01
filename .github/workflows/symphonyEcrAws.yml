@@ -11,17 +11,12 @@ jobs:
   build-artifact:
     name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
+
     env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
       IMAGE_TAG: V1.0   
-    steps: 
-      - name: install yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
-      - name: extraer version graph
-        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
-      - name: extraer version admin
-        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV   
+         
     strategy:
       matrix:
         include:
@@ -64,6 +59,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: install yq
+        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
+      - name: extraer version graph
+        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
+      - name: extraer version admin
+        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
+
       - uses: docker/setup-buildx-action@v1
       - uses: actions/cache@v2
         with:
