@@ -24,47 +24,47 @@ jobs:
           - image: graph
             context: .
             file: graph/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $graph
             version-file: graph/
           - image: admin
             context: .
             file: admin/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $admin
             version-file: admin/
           - image: async
             context: .
             file: async/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $asycn
             version-file: async/
           - image: store
             context: .
             file: store/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $store
             version-file: store/
           - image: migrate
             context: .
             file: migrate/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $migrate
             version-file: migrate/
           - image: jobrunner
             context: .
             file: jobrunner/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $jobrunner
             version-file: jobrunner/
           - image: front
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: $(${{ matrix.image }})
+            tag: $front
             version-file: app/fbcnms-projects/platform-server/
           - image: docs
             context: docs
             file: docs/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $docs
             version-file: docs/
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
-            tag: $(${{ matrix.image }})
+            tag: $storybook
             version-file: app/fbcnms-projects/storybook/
 
     steps:
