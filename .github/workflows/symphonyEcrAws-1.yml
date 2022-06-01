@@ -80,7 +80,7 @@ jobs:
         run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
       - name: extraer version componentes
-        run: echo "${{ matrix.image }}=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+        run: echo "${{ matrix.tag }}=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -98,8 +98,8 @@ jobs:
       - name: docker images
         run: docker images
         
-      # - name: imprimir matrix
-      #   run: echo ${{ matrix.tag }}
+      - name: imprimir matrix
+        run: echo ${{ matrix.tag }}
       - name: docker push
         uses: docker/build-push-action@v2
         with:
