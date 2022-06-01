@@ -9,28 +9,6 @@ on:
 jobs:
 
   build-artifact:
-
-    steps:
-      - name: install yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
-      - name: extraer version graph
-        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
-      - name: extraer version admin
-        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
-      - name: extraer version async
-        run: echo "ASYNC_VERSION=$(yq eval '.version' async/version.yml)" >> $GITHUB_ENV 
-      - name: extraer version store
-        run: echo "STORE_VERSION=$(yq eval '.version' store/version.yml)" >> $GITHUB_ENV
-      - name: extraer version migrate
-        run: echo "MIGRATE_VERSION=$(yq eval '.version' migrate/version.yml)" >> $GITHUB_ENV
-      - name: extraer version jobrunner
-        run: echo "JOBBRUNNER_VERSION=$(yq eval '.version' jobrunner/version.yml)" >> $GITHUB_ENV
-      - name: extraer version front
-        run: echo "FRONT_VERSION=$(yq eval '.version' app/fbcnms-projects/platform-server/version.yml)" >> $GITHUB_ENV
-      - name: extraer version docs
-        run: echo "DOCS_VERSION=$(yq eval '.version' docs/version.yml)" >> $GITHUB_ENV
-      - name: extraer version storybook
-        run: echo "STORYBOOK_VERSION=$(yq eval '.version' app/fbcnms-projects/storybook/version.yml)" >> $GITHUB_ENV
     
     name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
@@ -88,6 +66,27 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: ${{ runner.os }}-buildx-
+
+      - name: install yq
+        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
+      - name: extraer version graph
+        run: echo "GRAPH_VERSION=$(yq eval '.version' graph/version.yml)" >> $GITHUB_ENV
+      - name: extraer version admin
+        run: echo "ADMIN_VERSION=$(yq eval '.version' admin/version.yml)" >> $GITHUB_ENV 
+      - name: extraer version async
+        run: echo "ASYNC_VERSION=$(yq eval '.version' async/version.yml)" >> $GITHUB_ENV 
+      - name: extraer version store
+        run: echo "STORE_VERSION=$(yq eval '.version' store/version.yml)" >> $GITHUB_ENV
+      - name: extraer version migrate
+        run: echo "MIGRATE_VERSION=$(yq eval '.version' migrate/version.yml)" >> $GITHUB_ENV
+      - name: extraer version jobrunner
+        run: echo "JOBBRUNNER_VERSION=$(yq eval '.version' jobrunner/version.yml)" >> $GITHUB_ENV
+      - name: extraer version front
+        run: echo "FRONT_VERSION=$(yq eval '.version' app/fbcnms-projects/platform-server/version.yml)" >> $GITHUB_ENV
+      - name: extraer version docs
+        run: echo "DOCS_VERSION=$(yq eval '.version' docs/version.yml)" >> $GITHUB_ENV
+      - name: extraer version storybook
+        run: echo "STORYBOOK_VERSION=$(yq eval '.version' app/fbcnms-projects/storybook/version.yml)" >> $GITHUB_ENV    
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
