@@ -106,7 +106,8 @@ jobs:
 
       #- name: docker tag
       #  run: docker tag graph $ECR_REGISTRY/$ECR_REPOSITORY:graph_$IMAGE_TAG
-      
+      - name: imprimir matrix
+        run: echo ${{ matrix.tag }}
       - name: docker push
         uses: docker/build-push-action@v2
         with:
