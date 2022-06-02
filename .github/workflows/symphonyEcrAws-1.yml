@@ -16,7 +16,6 @@ jobs:
     env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
-      #IMAGE_TAG: V1.0   
          
     strategy:
       matrix:
@@ -24,47 +23,38 @@ jobs:
           - image: graph
             context: .
             file: graph/Dockerfile
-            tag: $graph
             version-file: graph/
           - image: admin
             context: .
             file: admin/Dockerfile
-            tag: $admin
             version-file: admin/
           - image: async
             context: .
             file: async/Dockerfile
-            tag: $async
             version-file: async/
           - image: store
             context: .
             file: store/Dockerfile
-            tag: $store
             version-file: store/
           - image: migrate
             context: .
             file: migrate/Dockerfile
-            tag: $migrate
             version-file: migrate/
           - image: jobrunner
             context: .
             file: jobrunner/Dockerfile
-            tag: $jobrunner
             version-file: jobrunner/
           - image: front
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: $front
             version-file: app/fbcnms-projects/platform-server/
           - image: docs
             context: docs
             file: docs/Dockerfile
-            tag: $docs
             version-file: docs/
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
-            tag: $storybook
             version-file: app/fbcnms-projects/storybook/
 
     steps:
@@ -94,19 +84,13 @@ jobs:
         
       - name: login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
-
-      - name: docker images
-        run: docker images
-        
-      - name: imprimir matrix
-        run: echo "${{ env.TAG}}"
         
       - name: docker push
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v${{ env.TAG}}
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ matrix.image }}-v${{ env.TAG}}
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
