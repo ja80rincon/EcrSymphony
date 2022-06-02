@@ -24,47 +24,47 @@ jobs:
           - image: graph
             context: .
             file: graph/Dockerfile
-            tag: $graph
+            tag: graph
             version-file: graph/
           - image: admin
             context: .
             file: admin/Dockerfile
-            tag: $admin
+            tag: admin
             version-file: admin/
           - image: async
             context: .
             file: async/Dockerfile
-            tag: $async
+            tag: async
             version-file: async/
           - image: store
             context: .
             file: store/Dockerfile
-            tag: $store
+            tag: store
             version-file: store/
           - image: migrate
             context: .
             file: migrate/Dockerfile
-            tag: $migrate
+            tag: migrate
             version-file: migrate/
           - image: jobrunner
             context: .
             file: jobrunner/Dockerfile
-            tag: $jobrunner
+            tag: jobrunner
             version-file: jobrunner/
           - image: front
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            tag: $front
+            tag: front
             version-file: app/fbcnms-projects/platform-server/
           - image: docs
             context: docs
             file: docs/Dockerfile
-            tag: $docs
+            tag: docs
             version-file: docs/
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
-            tag: $storybook
+            tag: storybook
             version-file: app/fbcnms-projects/storybook/
 
     steps:
@@ -80,7 +80,7 @@ jobs:
         run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
       - name: extraer version componentes
-        run: echo "${{ matrix.image }}=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+        run: echo "${{ matrix.tag }}=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -100,12 +100,13 @@ jobs:
         
       - name: imprimir matrix
         run: echo ${{ matrix.tag }}
+
       - name: docker push
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v${{env.${{ matrix.image}} }}
+          tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v${{ matrix.tag }}
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
