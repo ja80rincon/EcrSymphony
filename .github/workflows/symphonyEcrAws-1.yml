@@ -106,7 +106,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           file: ${{ matrix.file }}
-          tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v${{ env.TAG}}
+          tags: 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${{ matrix.image }}_v${{ env.TAG}}
           pull: true
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
