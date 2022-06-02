@@ -101,13 +101,13 @@ jobs:
       - name: imprimir matrix
         run: echo "${{ env.TAG}}"
         
-      # - name: docker push
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ${{ matrix.context }}
-      #     file: ${{ matrix.file }}
-      #     tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v${{ env.${{ matrix.image }} }}
-      #     pull: true
-      #     push: true
-      #     cache-from: type=local,src=/tmp/.buildx-cache
-      #     cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+      - name: docker push
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
+          tags: $ECR_REGISTRY/$ECR_REPOSITORY:${{ matrix.image }}_v${{ env.TAG}}
+          pull: true
+          push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
