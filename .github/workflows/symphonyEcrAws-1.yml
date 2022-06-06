@@ -87,7 +87,7 @@ jobs:
 
       - name: env variables creating
         run: |
-          echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }})" >> $GITHUB_ENV
+          echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }} | sed 's/"//g')" >> $GITHUB_ENV
           echo "ACTUAL=${{ matrix.image }}-v$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
 
       - name: mostrando las variables
