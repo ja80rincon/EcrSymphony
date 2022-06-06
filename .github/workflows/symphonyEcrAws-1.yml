@@ -92,7 +92,7 @@ jobs:
 
       - name: mostrando las variables
         run: |
-          echo ${{ env.LATEST//"}}
+          echo ${{ env.LATEST}}
           echo ${{ env.ACTUAL}}
   
       - name: docker push
