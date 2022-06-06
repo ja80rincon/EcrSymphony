@@ -96,7 +96,7 @@ jobs:
           echo ${{ env.ACTUAL}}
   
       - name: docker push
-        if : ${{ ${{ env.LATEST}}!=${{ env.ACTUAL}} }}
+        if : 1!=1
         run: |
           echo "no es igual"
         # uses: docker/build-push-action@v2
