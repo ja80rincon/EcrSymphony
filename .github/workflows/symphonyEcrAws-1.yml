@@ -59,11 +59,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setting up buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Setting up cache buildx
-        uses: actions/cache@v2
+      - uses: docker/setup-buildx-action@v1
+      - uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
