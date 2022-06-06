@@ -85,7 +85,8 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: list image ECR
-        run: aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)|sort|.[]' | sort -r | head -1
+        run: aws ecr list-images --repository-name $ECR_REPOSITORY
+        # run: aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)|sort|.[]' | sort -r | head -1
   
       # - name: docker push
       #   uses: docker/build-push-action@v2
