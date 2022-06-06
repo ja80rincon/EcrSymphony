@@ -84,6 +84,14 @@ jobs:
       - name: login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
+
+      - name: env variables creating
+        run: |
+          echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }})" >> $GITHUB_ENV
+          echo "ACTUAL=${{ matrix.image }}-v$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+          echo $LATEST
+          echo $ACTUAL
+
       # - name: list image ECR
       #   run: |
       #     echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }})" >> $GITHUB_ENV
@@ -95,15 +103,15 @@ jobs:
       #     fi
         #| grep ${{ matrix.image }}-v${{ env.TAG}}
   
-      - name: docker push
-        if : ${{ {{ matrix.image }}-v${{ env.TAG}} == aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }} }}
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.file }}
-          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ matrix.image }}-v${{ env.TAG}}
-          pull: true
-          push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+      # - name: docker push
+      #   if : 
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ${{ matrix.context }}
+      #     file: ${{ matrix.file }}
+      #     tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ matrix.image }}-v${{ env.TAG}}
+      #     pull: true
+      #     push: true
+      #     cache-from: type=local,src=/tmp/.buildx-cache
+      #     cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
