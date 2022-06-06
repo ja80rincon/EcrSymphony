@@ -69,7 +69,7 @@ jobs:
         run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
       - name: extraer version componentes
-        run: echo "TAG=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+        run: echo "ACTUAL=${{ matrix.image }}-v$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -85,10 +85,8 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
 
-      - name: env variables creating
-        run: |
-          echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }} | sed 's/"//g')" >> $GITHUB_ENV
-          echo "ACTUAL=${{ matrix.image }}-v$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+      - name: obteniendo version del registry
+        run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }} | sed 's/"//g')" >> $GITHUB_ENV
 
       - name: mostrando las variables
         run: |
@@ -103,7 +101,7 @@ jobs:
         # with:
         #   context: ${{ matrix.context }}
         #   file: ${{ matrix.file }}
-        #   tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ matrix.image }}-v${{ env.TAG}}
+        #   tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
         #   pull: true
         #   push: true
         #   cache-from: type=local,src=/tmp/.buildx-cache
