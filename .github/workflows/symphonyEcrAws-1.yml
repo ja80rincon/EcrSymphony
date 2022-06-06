@@ -16,49 +16,49 @@ jobs:
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
          
-    # strategy:
-    #   matrix:
-    #     include:
-    #       - image: graph
-    #         context: .
-    #         file: graph/Dockerfile
-    #         version-file: graph/
-    #       - image: admin
-    #         context: .
-    #         file: admin/Dockerfile
-    #         version-file: admin/
-    #       - image: async
-    #         context: .
-    #         file: async/Dockerfile
-    #         version-file: async/
-    #       - image: store
-    #         context: .
-    #         file: store/Dockerfile
-    #         version-file: store/
-    #       - image: migrate
-    #         context: .
-    #         file: migrate/Dockerfile
-    #         version-file: migrate/
-    #       - image: jobrunner
-    #         context: .
-    #         file: jobrunner/Dockerfile
-    #         version-file: jobrunner/
-    #       - image: front
-    #         context: app
-    #         file: app/fbcnms-projects/platform-server/Dockerfile.prod
-    #         version-file: app/fbcnms-projects/platform-server/
-    #       - image: docs
-    #         context: docs
-    #         file: docs/Dockerfile
-    #         version-file: docs/
-    #       - image: storybook
-    #         context: app
-    #         file: app/fbcnms-projects/storybook/Dockerfile
-    #         version-file: app/fbcnms-projects/storybook/
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+            version-file: graph/
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+            version-file: admin/
+          - image: async
+            context: .
+            file: async/Dockerfile
+            version-file: async/
+          - image: store
+            context: .
+            file: store/Dockerfile
+            version-file: store/
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+            version-file: migrate/
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+            version-file: jobrunner/
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+            version-file: app/fbcnms-projects/platform-server/
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+            version-file: docs/
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+            version-file: app/fbcnms-projects/storybook/
 
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/setup-buildx-action@v1
+      # - uses: docker/setup-buildx-action@v1
       # - uses: actions/cache@v2
       #   with:
       #     path: /tmp/.buildx-cache
@@ -68,8 +68,8 @@ jobs:
       - name: install yq
         run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
 
-      # - name: extraer version componentes
-      #   run: echo "TAG=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+      - name: extraer version componentes
+        run: echo "TAG=$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -85,8 +85,7 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: list image ECR
-        run: aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r
-        # run: aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)|sort|.[]' | sort -r | head -1
+        run: aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }}-v${{ env.TAG}}
   
       # - name: docker push
       #   uses: docker/build-push-action@v2
