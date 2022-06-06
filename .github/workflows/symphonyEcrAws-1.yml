@@ -47,10 +47,10 @@ jobs:
             context: app
             file: app/fbcnms-projects/platform-server/Dockerfile.prod
             version-file: app/fbcnms-projects/platform-server/
-          - image: docs
-            context: docs
-            file: docs/Dockerfile
-            version-file: docs/
+          # - image: docs
+          #   context: docs
+          #   file: docs/Dockerfile
+          #   version-file: docs/
           - image: storybook
             context: app
             file: app/fbcnms-projects/storybook/Dockerfile
