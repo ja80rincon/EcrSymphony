@@ -87,7 +87,7 @@ jobs:
       - name: list image ECR
         run: |
           echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }})" >> $GITHUB_ENV
-          if ${{ matrix.image }}-v${{ env.TAG}} = $LATEST; then
+          if" ${{ matrix.image }}-v${{ env.TAG}}" = $LATEST; then
             echo "Strings are equal."
           else
             echo "Strings are not equal."
