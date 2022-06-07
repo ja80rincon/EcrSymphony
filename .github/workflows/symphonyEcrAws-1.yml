@@ -87,7 +87,7 @@ jobs:
 
       - name: Getting Lastest version in ECR
         run: |
-          aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | grep ${{ matrix.image }} | sed 's/"//g'
+          aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g'
           
       # echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag)| sort|.[]' | sort -r | grep ${{ matrix.image }} | sed 's/"//g')" >> $GITHUB_ENV
       # echo "ACTUAL=${{ matrix.image }}-v${{ env.TAG }}" >> $GITHUB_ENV
