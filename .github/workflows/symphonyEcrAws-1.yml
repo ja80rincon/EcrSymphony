@@ -59,11 +59,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Installing yq
-        run: wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq &&\chmod +x /usr/bin/yq
-
       - name: Extracting version
-        run: echo "ACTUAL=${{ matrix.image }}-v$(yq eval '.version' ${{ matrix.version-file }}version.yml)" >> $GITHUB_ENV
+        run: echo "ACTUAL=$(cat version.yaml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -79,8 +76,7 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: Getting Lastest version in ECR
-        run: |
-          echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+        run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
   
       - name: Showing Variables
         run: |
@@ -110,4 +106,3 @@ jobs:
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
-
