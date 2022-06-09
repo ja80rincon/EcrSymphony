@@ -10,7 +10,7 @@ jobs:
   build-artifact:
     
     # name: build ${{ matrix.image }}
-    # runs-on: ubuntu-latest
+     runs-on: ubuntu-latest
 
     # env: 
     #   ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
