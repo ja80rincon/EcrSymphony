@@ -109,4 +109,4 @@ jobs:
 
       - name: pasar info a values
         run: |
-          sed -i'.yml' '5,8 s/f82e4e55ec1725f342023124e95b8c258a1df1e2/TAG/g' values.yml    
+          sed -i'.yml' '4,11 s/f82e4e55ec1725f342023124e95b8c258a1df1e2/TAG/g' values.yml    
