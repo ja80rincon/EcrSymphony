@@ -87,13 +87,13 @@ jobs:
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/setup-buildx-action@v1
 
-      - name: Setting up cache
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-buildx-
+      # - name: Setting up cache
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: ${{ runner.os }}-buildx-
 
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
@@ -104,5 +104,5 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
           pull: true
           push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+          # cache-from: type=local,src=/tmp/.buildx-cache
+          # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
