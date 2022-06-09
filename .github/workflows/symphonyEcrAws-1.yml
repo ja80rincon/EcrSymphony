@@ -108,4 +108,4 @@ jobs:
 
       - name: pasar info a values
         run: |
-          sed -i'.yaml' '4,11 s/tag/TAG/g' values.yaml    
+          sed  '4,11 s/tag/TAG/gi' values.yaml    
