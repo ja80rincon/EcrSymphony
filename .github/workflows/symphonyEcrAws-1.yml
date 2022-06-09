@@ -9,83 +9,83 @@ jobs:
 
   build-artifact:
     
-    name: build ${{ matrix.image }}
-    runs-on: ubuntu-latest
+    # name: build ${{ matrix.image }}
+    # runs-on: ubuntu-latest
 
-    env: 
-      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-      ECR_REPOSITORY: symphony-ecr-aws
+    # env: 
+    #   ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    #   ECR_REPOSITORY: symphony-ecr-aws
          
-    strategy:
-      matrix:
-        include:
-          - image: graph
-            context: .
-            file: graph/Dockerfile
-            version-file: graph/
-          - image: admin
-            context: .
-            file: admin/Dockerfile
-            version-file: admin/
-          - image: async
-            context: .
-            file: async/Dockerfile
-            version-file: async/
-          - image: store
-            context: .
-            file: store/Dockerfile
-            version-file: store/
-          - image: migrate
-            context: .
-            file: migrate/Dockerfile
-            version-file: migrate/
-          - image: jobrunner
-            context: .
-            file: jobrunner/Dockerfile
-            version-file: jobrunner/
-          - image: front
-            context: app
-            file: app/fbcnms-projects/platform-server/Dockerfile.prod
-            version-file: app/fbcnms-projects/platform-server/
-          - image: docs
-            context: docs
-            file: docs/Dockerfile
-            version-file: docs/
-          - image: storybook
-            context: app
-            file: app/fbcnms-projects/storybook/Dockerfile
-            version-file: app/fbcnms-projects/storybook/
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - image: graph
+    #         context: .
+    #         file: graph/Dockerfile
+    #         version-file: graph/
+    #       - image: admin
+    #         context: .
+    #         file: admin/Dockerfile
+    #         version-file: admin/
+    #       - image: async
+    #         context: .
+    #         file: async/Dockerfile
+    #         version-file: async/
+    #       - image: store
+    #         context: .
+    #         file: store/Dockerfile
+    #         version-file: store/
+    #       - image: migrate
+    #         context: .
+    #         file: migrate/Dockerfile
+    #         version-file: migrate/
+    #       - image: jobrunner
+    #         context: .
+    #         file: jobrunner/Dockerfile
+    #         version-file: jobrunner/
+    #       - image: front
+    #         context: app
+    #         file: app/fbcnms-projects/platform-server/Dockerfile.prod
+    #         version-file: app/fbcnms-projects/platform-server/
+    #       - image: docs
+    #         context: docs
+    #         file: docs/Dockerfile
+    #         version-file: docs/
+    #       - image: storybook
+    #         context: app
+    #         file: app/fbcnms-projects/storybook/Dockerfile
+    #         version-file: app/fbcnms-projects/storybook/
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Extracting version
-        run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
+      # - name: Extracting version
+      #   run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
 
-      - name: Configure AWS Credentials for build and deploy ECR 42
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
-          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+      # - name: Configure AWS Credentials for build and deploy ECR 42
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+      #     aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Amazon ECR "Login" Action for GitHub Actions
-        uses: aws-actions/amazon-ecr-login@v1
+      # - name: Amazon ECR "Login" Action for GitHub Actions
+      #   uses: aws-actions/amazon-ecr-login@v1
         
-      - name: Login ECR
-        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+      # - name: Login ECR
+      #   run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
-      - name: Getting Lastest version in ECR
-        run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+      # - name: Getting Lastest version in ECR
+      #   run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
   
-      - name: Showing Variables
-        run: |
-          echo "Latest " ${{ env.LATEST}}
-          echo "Actual " ${{ env.ACTUAL}}
+      # - name: Showing Variables
+      #   run: |
+      #     echo "Latest " ${{ env.LATEST}}
+      #     echo "Actual " ${{ env.ACTUAL}}
 
-      - name: Setting up buildx
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        uses: docker/setup-buildx-action@v1
+      # - name: Setting up buildx
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   uses: docker/setup-buildx-action@v1
 
       # - name: Setting up cache
       #   if : ${{ env.LATEST!=env.ACTUAL }}
@@ -95,14 +95,18 @@ jobs:
       #     key: ${{ runner.os }}-buildx-${{ github.sha }}
       #     restore-keys: ${{ runner.os }}-buildx-
 
-      - name: Docker build and Push
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        uses: docker/build-push-action@v2
-        with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.file }}
-          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
-          pull: true
-          push: true
+      # - name: Docker build and Push
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: ${{ matrix.context }}
+      #     file: ${{ matrix.file }}
+      #     tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
+      #     pull: true
+      #     push: true
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+
+      - name: pasar info a values
+        run: |
+          sed -i'.yml' '5,8 s/f82e4e55ec1725f342023124e95b8c258a1df1e2/TAG/g' values.yml    
