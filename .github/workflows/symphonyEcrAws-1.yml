@@ -112,7 +112,7 @@ jobs:
 
       - name: Setting version in deployment.yaml
         run: |
-          echo $TAG
+          echo ${{ env.TAG }}
           sed -i 's/${{ matrix.image }}-tag/TAGG/' values.yaml
           cat values.yaml
 
