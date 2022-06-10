@@ -118,10 +118,14 @@ jobs:
 
   updating-yaml:
 
+    needs: build-artifact
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
       - name: Setting version in values.yaml
         run: bash script2.sh
