@@ -108,11 +108,11 @@ jobs:
           # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
       - name: Creating env TAG
-        run: echo "TAG = HOLA" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=HOLA" >> $GITHUB_ENV
 
       - name: Setting version in deployment.yaml
         run: |
-          echo ${{ env.TAG }}
+          echo ${{ env.IMAGE_TAG }}
           sed -i 's/${{ matrix.image }}-tag/TAGG/' values.yaml
           cat values.yaml
 
