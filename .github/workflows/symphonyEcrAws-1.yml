@@ -8,58 +8,58 @@ on:
 jobs:
   build-artifact:
     
-    # name: build ${{ matrix.image }}
+    name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
 
-    # env: 
-    #   ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    #   ECR_REPOSITORY: symphony-ecr-aws
+    env: 
+      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REPOSITORY: symphony-ecr-aws
          
-    # strategy:
-    #   matrix:
-    #     include:
-    #       - image: graph
-    #         context: .
-    #         file: graph/Dockerfile
-    #         version-file: graph/
-    #       - image: admin
-    #         context: .
-    #         file: admin/Dockerfile
-    #         version-file: admin/
-    #       - image: async
-    #         context: .
-    #         file: async/Dockerfile
-    #         version-file: async/
-    #       - image: store
-    #         context: .
-    #         file: store/Dockerfile
-    #         version-file: store/
-    #       - image: migrate
-    #         context: .
-    #         file: migrate/Dockerfile
-    #         version-file: migrate/
-    #       - image: jobrunner
-    #         context: .
-    #         file: jobrunner/Dockerfile
-    #         version-file: jobrunner/
-    #       - image: front
-    #         context: app
-    #         file: app/fbcnms-projects/platform-server/Dockerfile.prod
-    #         version-file: app/fbcnms-projects/platform-server/
-    #       - image: docs
-    #         context: docs
-    #         file: docs/Dockerfile
-    #         version-file: docs/
-    #       - image: storybook
-    #         context: app
-    #         file: app/fbcnms-projects/storybook/Dockerfile
-    #         version-file: app/fbcnms-projects/storybook/
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+            version-file: graph/
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+            version-file: admin/
+          - image: async
+            context: .
+            file: async/Dockerfile
+            version-file: async/
+          - image: store
+            context: .
+            file: store/Dockerfile
+            version-file: store/
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+            version-file: migrate/
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+            version-file: jobrunner/
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+            version-file: app/fbcnms-projects/platform-server/
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+            version-file: docs/
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+            version-file: app/fbcnms-projects/storybook/
 
     steps:
       - uses: actions/checkout@v2
 
-      # - name: Extracting version
-      #   run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
+      - name: Extracting version
+        run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
 
       # - name: Configure AWS Credentials for build and deploy ECR 42
       #   uses: aws-actions/configure-aws-credentials@v1
@@ -106,6 +106,8 @@ jobs:
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
-      - name: pasar info a values
+      - name: Setting version in deployment.yaml
         run: |
-          sed  '4,11 s/f82e4e55ec1725f342023124e95b8c258a1df1e2/1/gi' values.yaml    
+          cat deployment/deployment.yaml
+          sed -i 's/${{ matrix.image }}-tag/${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}/' values.yaml
+          cat values.yaml
