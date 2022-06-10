@@ -109,5 +109,5 @@ jobs:
       - name: Setting version in deployment.yaml
         run: |
           echo "TAG = ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}" >> $GITHUB_ENV
-          sed -i 's/${{ matrix.image }}-tag/${{ en.TAG }}/' values.yaml
+          sed -i 's/${{ matrix.image }}-tag/${{ env.TAG }}/' values.yaml
           cat values.yaml
