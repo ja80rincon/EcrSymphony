@@ -1,13 +1,13 @@
 USER-SUPPLIED VALUES:
-COMPUTED VALUES: null
-USER-SUPPLIED VALUES: null
+COMPUTED VALUES: *
+USER-SUPPLIED VALUES: *
 admin:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: admin-tag
   networkPolicy:
     allowExternal: false
@@ -67,8 +67,8 @@ async:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: async-tag
   nodeSelector: {}
   podAnnotations: {}
@@ -140,8 +140,8 @@ docs:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: docs-tag
   nodeSelector: {}
   podAnnotations: {}
@@ -189,8 +189,8 @@ front:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: front-tag
   nodeSelector: {}
   podAnnotations: {}
@@ -253,12 +253,6 @@ front:
   updateStrategy:
     type: RollingUpdate
 fullnameOverride: ""
-global:
-  image:
-    pullPolicy: IfNotPresent
-    registry: migfru
-    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
-  imagePullSecrets: []
 graph:
   affinity: {}
   autoscaling:
@@ -269,8 +263,8 @@ graph:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: graph-tag
   nodeSelector: {}
   podAnnotations: {}
@@ -326,8 +320,9 @@ graph:
     type: RollingUpdate
 jobrunner:
   image:
-    pullPolicy: null
-    repository: null
+    pullPolicy: IfNotPresent
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: jobrunner-tag
   jobs:
   - name: gc
@@ -345,8 +340,8 @@ jobrunner:
 migrate:
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: migrate-tag
   securityContext:
     fsGroup: 65534
@@ -391,8 +386,8 @@ store:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: store-tag
   nodeSelector: {}
   podAnnotations: {}
@@ -463,6 +458,6 @@ storybook:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: storybook-tag

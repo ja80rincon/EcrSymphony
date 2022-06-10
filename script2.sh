@@ -73,12 +73,19 @@ arr[8,2]=1.9
 arr[8,3]=app
 arr[8,4]=app/fbcnms-projects/storybook/
 
-
+####################
 
 for ((n=0;n<num_comp;n++)); do
   arr[$n,2]="$(yq eval '.version' ${arr[$n,4]}version.yml)"
 done
 
+####################
+
+sed -i "s|REGISTRY|$ECR_REGISTRY|g" values.yaml
+sed -i "s|REPOSITORY|$ECR_REPOSITORY|g" values.yaml
+
 for ((n=0;n<num_comp;n++)); do
-  /usr/bin/docker buildx build --cache-from type=local,src=/tmp/.buildx-cache --cache-to type=local,dest=/tmp/.buildx-cache,mode=max -f ${arr[$n,1]} --iidfile /tmp/docker-build-push-${arr[$n,0]}/iidfile -t 837232691946.dkr.ecr.us-east-2.amazonaws.com/symphony-ecr-aws:${arr[$n,0]}-v${arr[$n,2]} --metadata-file /tmp/docker-build-push-${arr[$n,0]}/metadata-file --pull --push ${arr[$n,3]}
+  sed -i "s|${arr[$n,0]}-tag|${arr[$n,0]}-v${arr[$n,2]}|g" values.yaml
 done
+
+cat values.yaml
