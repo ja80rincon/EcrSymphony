@@ -113,7 +113,7 @@ jobs:
       - name: Setting version in values.yaml
         run: |
           echo ${{ env.TAG}}
-          sed -i 's/${{ matrix.image }}-tag/"${{ env.TAG}}"/' values.yaml
+          sed -i 's:${{ matrix.image }}-tag:${{ env.TAG}}' values.yaml
           cat values.yaml
 
   # updating-yaml:
