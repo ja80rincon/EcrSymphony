@@ -8,6 +8,8 @@ on:
 env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
+      ACTUAL: ""
+      LASTEST: ""
 
 jobs:
 
@@ -126,6 +128,11 @@ jobs:
 
       - name: Checkout repo
         uses: actions/checkout@v2
+
+      - name: Showing Variables
+        run: |
+          echo "Latest " ${{ env.LATEST}}
+          echo "Actual " ${{ env.ACTUAL}}
 
       - name: Setting version in values.yaml
         run: bash script2.sh
