@@ -6,6 +6,7 @@ on:
       - develop
 
 jobs:
+
   build-artifact:
     
     name: build ${{ matrix.image }}
@@ -113,3 +114,20 @@ jobs:
         run: |
           sed -i 's/${{ matrix.image }}-tag/${{ env.TAG }}/' values.yaml
           cat values.yaml
+
+  # updating-yaml:
+
+  #   name: build ${{ matrix.image }}
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+
+  #     - name: Creating env TAG
+  #       run: echo "TAG = ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}" >> $GITHUB_ENV
+
+  #     - name: Setting version in deployment.yaml
+  #       run: |
+  #         sed -i 's/${{ matrix.image }}-tag/${{ env.TAG }}/' values.yaml
+  #         cat values.yaml
+
+
