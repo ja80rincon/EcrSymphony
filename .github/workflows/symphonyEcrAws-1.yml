@@ -126,8 +126,8 @@ jobs:
 
     steps:
 
-      # - name: Checkout repo
-      #   uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
       # - name: Showing Variables
       #   run: |
