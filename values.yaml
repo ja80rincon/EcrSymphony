@@ -1,6 +1,6 @@
 USER-SUPPLIED VALUES:
-COMPUTED VALUES: *
-USER-SUPPLIED VALUES: *
+COMPUTED VALUES: null
+USER-SUPPLIED VALUES: null
 admin:
   affinity: {}
   deploymentAnnotations: {}

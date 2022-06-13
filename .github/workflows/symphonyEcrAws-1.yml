@@ -137,4 +137,16 @@ jobs:
       - name: Setting version in values.yaml
         run: bash script2.sh
 
+      - name: Commit files
+        run: |
+          git config --local user.email "EMAIL_TOKEN"
+          git config --local user.name "ja80rincon"
+          git add .
+          git commit -m "cambio en values.yaml"  
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+           github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+           branch: ${{ github.ref }}  
+
 
