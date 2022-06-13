@@ -1,14 +1,14 @@
 USER-SUPPLIED VALUES:
 COMPUTED VALUES: null
 USER-SUPPLIED VALUES: null
-admin:
+admin-v1.3:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: admin-v1.3
+    tag: admin-v1.3-v1.3
   networkPolicy:
     allowExternal: false
     enabled: true
@@ -51,7 +51,7 @@ admin:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-admin
+    name: symphony-admin-v1.3
   spec:
     log:
       format: json
@@ -62,14 +62,14 @@ admin:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
-async:
+async-v1.4:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: async-v1.4
+    tag: async-v1.4-v1.4
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -107,21 +107,21 @@ async:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-async
+    name: symphony-async-v1.4
   spec:
     cadence:
-      address: cadence-frontend.cadence.svc.cluster.local:7933
+      address: cadence-front-v1.8end.cadence.svc.cluster.local:7933
     event:
-      pub_url: nats://graph.event
-      sub_url: nats://graph.event?queue=async
+      pub_url: nats://graph-v1.12.event
+      sub_url: nats://graph-v1.12.event?queue=async-v1.4
     export:
       bucket_prefix: exports/
-      bucket_url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      bucket_url: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
     - name: NATS_SERVER_URL
       value: nats://nats.nats.svc.cluster.local
     - name: AWS_ACCESS_KEY_ID
-      value: admin
+      value: admin-v1.3
     - name: AWS_SECRET_ACCESS_KEY
       value: password
     log:
@@ -135,14 +135,14 @@ async:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
-docs:
+docs-v1.11:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: docs-v1.10
+    tag: docs-v1.11-v1.10
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -175,11 +175,11 @@ docs:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-docs
+    name: symphony-docs-v1.11
   tolerations: []
   updateStrategy:
     type: RollingUpdate
-front:
+front-v1.8:
   affinity: {}
   autoscaling:
     enabled: false
@@ -191,7 +191,7 @@ front:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: front-v1.8
+    tag: front-v1.8-v1.8
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -231,7 +231,7 @@ front:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-front
+    name: symphony-front-v1.8
   spec:
     extraEnvVars:
     - name: FB_TEST_USER
@@ -253,7 +253,7 @@ front:
   updateStrategy:
     type: RollingUpdate
 fullnameOverride: ""
-graph:
+graph-v1.12:
   affinity: {}
   autoscaling:
     enabled: false
@@ -265,7 +265,7 @@ graph:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: graph-v1.12
+    tag: graph-v1.12-v1.12
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -303,10 +303,10 @@ graph:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-graph
+    name: symphony-graph-v1.12
   spec:
     event:
-      url: nats://graph.event
+      url: nats://graph-v1.12.event
     extraEnvVars:
     - name: NATS_SERVER_URL
       value: nats://nats.nats.svc.cluster.local
@@ -318,12 +318,12 @@ graph:
   tolerations: []
   updateStrategy:
     type: RollingUpdate
-jobrunner:
+jobrunner-v1.8:
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: jobrunner-v1.8
+    tag: jobrunner-v1.8-v1.8
   jobs:
   - name: gc
     schedule: 0 * * * *
@@ -337,12 +337,12 @@ jobrunner:
     annotations: {}
     create: true
     name: ""
-migrate:
+migrate-v1.6:
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: migrate-v1.6
+    tag: migrate-v1.6-v1.6
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
@@ -354,12 +354,12 @@ migrate:
       level: debug
     migrations:
       cadence:
-        address: cadence-frontend.cadence.svc.cluster.local:7933
+        address: cadence-front-v1.8end.cadence.svc.cluster.local:7933
         domains: flow,export
         extraEnvVars:
         - name: CADENCE_RETENTION
           value: "3"
-      graph:
+      graph-v1.12:
         extraEnvVars: []
 nameOverride: ""
 persistence:
@@ -381,14 +381,14 @@ serviceMonitor:
     rules: []
   enabled: false
   relabellings: []
-store:
+store-v1.5:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: store-v1.5
+    tag: store-v1.5-v1.5
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -426,17 +426,17 @@ store:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-store
+    name: symphony-store-v1.5
   spec:
     bucket:
-      url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      url: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
     - name: AWS_ACCESS_KEY_ID
-      value: admin
+      value: admin-v1.3
     - name: AWS_SECRET_ACCESS_KEY
       value: password
     - name: BUCKET_URL
-      value: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      value: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     log:
       format: json
       level: debug
@@ -453,11 +453,11 @@ tracing:
     agentEndpoint: ""
     agentThriftEndpoint: ""
     collectorEndpoint: ""
-storybook:
+storybook-v1.10:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-v1.10
+    tag: storybook-v1.10-v1.10
