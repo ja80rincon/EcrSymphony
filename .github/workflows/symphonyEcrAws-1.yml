@@ -137,14 +137,12 @@ jobs:
       #   run: bash script2.sh
 
       - name: Commit files
-        if : ${{ env.LATEST!=env.ACTUAL }}
         run: |
           git config --local user.email "EMAIL_TOKEN"
           git config --local user.name "ja80rincon"
           git add .
           git commit -m "actualizacion en values.yaml"  
       - name: Push changes
-        if : ${{ env.LATEST!=env.ACTUAL }}
         uses: ad-m/github-push-action@master
         with:
            github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

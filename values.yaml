@@ -6,8 +6,8 @@ admin:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: migfru
+    repository: null
     tag: admin-v1.3
   networkPolicy:
     allowExternal: false
@@ -51,7 +51,7 @@ admin:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-admin-v1.3
+    name: symphony-admin
   spec:
     log:
       format: json
@@ -67,9 +67,9 @@ async:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
-    tag: async-v1.4
+    registry: migfru
+    repository: null
+    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -107,21 +107,21 @@ async:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-async-v1.4
+    name: symphony-async
   spec:
     cadence:
-      address: cadence-front-v1.8end.cadence.svc.cluster.local:7933
+      address: cadence-frontend.cadence.svc.cluster.local:7933
     event:
-      pub_url: nats://graph-v1.12.event
-      sub_url: nats://graph-v1.12.event?queue=async-v1.4
+      pub_url: nats://graph.event
+      sub_url: nats://graph.event?queue=async
     export:
       bucket_prefix: exports/
-      bucket_url: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      bucket_url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
     - name: NATS_SERVER_URL
       value: nats://nats.nats.svc.cluster.local
     - name: AWS_ACCESS_KEY_ID
-      value: admin-v1.3
+      value: admin
     - name: AWS_SECRET_ACCESS_KEY
       value: password
     log:
@@ -140,9 +140,9 @@ docs:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
-    tag: docs-v1.9
+    registry: migfru
+    repository: null
+    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -175,7 +175,7 @@ docs:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-docs-v1.11
+    name: symphony-docs
   tolerations: []
   updateStrategy:
     type: RollingUpdate
@@ -189,8 +189,8 @@ front:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: migfru
+    repository: null
     tag: front-v1.8
   nodeSelector: {}
   podAnnotations: {}
@@ -231,7 +231,7 @@ front:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-front-v1.8
+    name: symphony-front
   spec:
     extraEnvVars:
     - name: FB_TEST_USER
@@ -253,6 +253,12 @@ front:
   updateStrategy:
     type: RollingUpdate
 fullnameOverride: ""
+global:
+  image:
+    pullPolicy: IfNotPresent
+    registry: migfru
+    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
+  imagePullSecrets: []
 graph:
   affinity: {}
   autoscaling:
@@ -263,8 +269,8 @@ graph:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: migfru
+    repository: null
     tag: graph-v1.12
   nodeSelector: {}
   podAnnotations: {}
@@ -303,10 +309,10 @@ graph:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-graph-v1.12
+    name: symphony-graph
   spec:
     event:
-      url: nats://graph-v1.12.event
+      url: nats://graph.event
     extraEnvVars:
     - name: NATS_SERVER_URL
       value: nats://nats.nats.svc.cluster.local
@@ -320,9 +326,8 @@ graph:
     type: RollingUpdate
 jobrunner:
   image:
-    pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    pullPolicy: null
+    repository: null
     tag: jobrunner-v1.8
   jobs:
   - name: gc
@@ -340,8 +345,8 @@ jobrunner:
 migrate:
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: migfru
+    repository: null
     tag: migrate-v1.6
   securityContext:
     fsGroup: 65534
@@ -354,12 +359,12 @@ migrate:
       level: debug
     migrations:
       cadence:
-        address: cadence-front-v1.8end.cadence.svc.cluster.local:7933
+        address: cadence-frontend.cadence.svc.cluster.local:7933
         domains: flow,export
         extraEnvVars:
         - name: CADENCE_RETENTION
           value: "3"
-      graph-v1.12:
+      graph:
         extraEnvVars: []
 nameOverride: ""
 persistence:
@@ -386,8 +391,8 @@ store:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: migfru
+    repository: null
     tag: store-v1.5
   nodeSelector: {}
   podAnnotations: {}
@@ -426,17 +431,17 @@ store:
   serviceAccount:
     annotations: {}
     create: true
-    name: symphony-store-v1.5
+    name: symphony-store
   spec:
     bucket:
-      url: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
     - name: AWS_ACCESS_KEY_ID
-      value: admin-v1.3
+      value: admin
     - name: AWS_SECRET_ACCESS_KEY
       value: password
     - name: BUCKET_URL
-      value: s3://store-v1.5.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      value: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     log:
       format: json
       level: debug
@@ -460,4 +465,4 @@ storybook:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-v1.10
+    tag: storybook-v1.10    
