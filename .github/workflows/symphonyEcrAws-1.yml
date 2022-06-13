@@ -109,13 +109,13 @@ jobs:
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
-      - name: Creating env TAG
-        run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
+      # - name: Creating env TAG
+      #   run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
 
       - name: Setting version in values.yaml
         run: |
           echo ${{ env.TAG}}
-          sed -i 's|${{ matrix.image }}-${{ env.ACTUAL}}|${{ env.TAG}}|g' values.yaml
+          sed -i 's|${{ matrix.image }}-v${{ env.ACTUAL}}|${{ matrix.image }}-v${{ env.LATEST}}|g' values.yaml
           cat values.yaml
 
   # updating-yaml:
@@ -134,8 +134,8 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      - name: Setting version in values.yaml
-        run: bash script2.sh
+      # - name: Setting version in values.yaml
+      #   run: bash script2.sh
 
       - name: Commit files
         if : ${{ env.LATEST!=env.ACTUAL }}
