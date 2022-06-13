@@ -112,10 +112,10 @@ jobs:
       # - name: Creating env TAG
       #   run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
 
-      - name: Setting version in values.yaml
-        run: |
-          sed -i 's|${{ matrix.image }}-v${{ env.LATEST}}|${{ matrix.image }}-v${{ env.ACTUAL}}|g' values.yaml
-          cat values.yaml
+      # - name: Setting version in values.yaml
+      #   run: |
+      #     sed -i 's|${{ matrix.image }}-v${{ env.LATEST}}|${{ matrix.image }}-v${{ env.ACTUAL}}|g' values.yaml
+      #     cat values.yaml
 
   # updating-yaml:
 
@@ -133,8 +133,8 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      # - name: Setting version in values.yaml
-      #   run: bash script2.sh
+      - name: Setting version in values.yaml
+        run: bash script2.sh
 
       - name: Commit files
         run: |
