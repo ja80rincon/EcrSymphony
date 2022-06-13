@@ -142,7 +142,7 @@ docs:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
+    tag: docs-v1.9
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -328,7 +328,7 @@ jobrunner:
   image:
     pullPolicy: null
     repository: null
-    tag: jobrunner-v1.8
+    tag: jobrunner-v1.7
   jobs:
   - name: gc
     schedule: 0 * * * *
