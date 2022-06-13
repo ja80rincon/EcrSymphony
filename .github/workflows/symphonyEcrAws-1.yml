@@ -85,17 +85,17 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      - name: Setting up buildx
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        uses: docker/setup-buildx-action@v1
+      # - name: Setting up buildx
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   uses: docker/setup-buildx-action@v1
 
-      - name: Setting up cache
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-buildx-
+      # - name: Setting up cache
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: ${{ runner.os }}-buildx-
 
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
@@ -109,14 +109,14 @@ jobs:
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
-      # - name: Creating env TAG
-      #   run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
+      - name: Creating env TAG
+        run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
 
-      # - name: Setting version in values.yaml
-      #   run: |
-      #     echo ${{ env.TAG}}
-      #     sed -i 's|${{ matrix.image }}-tag|${{ env.TAG}}|g' values.yaml
-      #     cat values.yaml
+      - name: Setting version in values.yaml
+        run: |
+          echo ${{ env.TAG}}
+          sed -i 's|${{ matrix.image }}-tag|${{ env.TAG}}|g' values.yaml
+          cat values.yaml
 
   # updating-yaml:
 
@@ -129,21 +129,23 @@ jobs:
   #     - name: Checkout repo
   #       uses: actions/checkout@v2
 
-      - name: Showing Variables
-        run: |
-          echo "Latest " ${{ env.LATEST}}
-          echo "Actual " ${{ env.ACTUAL}}
+      # - name: Showing Variables
+      #   run: |
+      #     echo "Latest " ${{ env.LATEST}}
+      #     echo "Actual " ${{ env.ACTUAL}}
 
-      - name: Setting version in values.yaml
-        run: bash script2.sh
+      # - name: Setting version in values.yaml
+      #   run: bash script2.sh
 
       - name: Commit files
+        if : ${{ env.LATEST!=env.ACTUAL }}
         run: |
           git config --local user.email "EMAIL_TOKEN"
           git config --local user.name "ja80rincon"
           git add .
           git commit -m "actualizacion en values.yaml"  
       - name: Push changes
+        if : ${{ env.LATEST!=env.ACTUAL }}
         uses: ad-m/github-push-action@master
         with:
            github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
