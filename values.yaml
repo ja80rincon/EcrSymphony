@@ -1,14 +1,14 @@
 USER-SUPPLIED VALUES:
 COMPUTED VALUES: null
 USER-SUPPLIED VALUES: null
-admin-v1.3:
+admin:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: admin-v1.3-v1.3
+    tag: admin-v1.3
   networkPolicy:
     allowExternal: false
     enabled: true
@@ -62,14 +62,14 @@ admin-v1.3:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
-async-v1.4:
+async:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: async-v1.4-v1.4
+    tag: async-v1.4
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -135,14 +135,14 @@ async-v1.4:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
-docs-v1.11:
+docs:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: docs-v1.11-v1.10
+    tag: docs-v1.9
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -179,7 +179,7 @@ docs-v1.11:
   tolerations: []
   updateStrategy:
     type: RollingUpdate
-front-v1.8:
+front:
   affinity: {}
   autoscaling:
     enabled: false
@@ -191,7 +191,7 @@ front-v1.8:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: front-v1.8-v1.8
+    tag: front-v1.8
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -253,7 +253,7 @@ front-v1.8:
   updateStrategy:
     type: RollingUpdate
 fullnameOverride: ""
-graph-v1.12:
+graph:
   affinity: {}
   autoscaling:
     enabled: false
@@ -265,7 +265,7 @@ graph-v1.12:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: graph-v1.12-v1.12
+    tag: graph-v1.12
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -318,12 +318,12 @@ graph-v1.12:
   tolerations: []
   updateStrategy:
     type: RollingUpdate
-jobrunner-v1.8:
+jobrunner:
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: jobrunner-v1.8-v1.8
+    tag: jobrunner-v1.8
   jobs:
   - name: gc
     schedule: 0 * * * *
@@ -337,12 +337,12 @@ jobrunner-v1.8:
     annotations: {}
     create: true
     name: ""
-migrate-v1.6:
+migrate:
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: migrate-v1.6-v1.6
+    tag: migrate-v1.6
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
@@ -381,14 +381,14 @@ serviceMonitor:
     rules: []
   enabled: false
   relabellings: []
-store-v1.5:
+store:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: store-v1.5-v1.5
+    tag: store-v1.5
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -453,11 +453,11 @@ tracing:
     agentEndpoint: ""
     agentThriftEndpoint: ""
     collectorEndpoint: ""
-storybook-v1.10:
+storybook:
   affinity: {}
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-v1.10-v1.10
+    tag: storybook-v1.10
