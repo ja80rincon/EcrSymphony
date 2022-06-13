@@ -8,7 +8,7 @@ admin:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: admin-tag
+    tag: admin-v1.3
   networkPolicy:
     allowExternal: false
     enabled: true
@@ -69,7 +69,7 @@ async:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: async-tag
+    tag: async-v1.4
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -142,7 +142,7 @@ docs:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: docs-tag
+    tag: docs-v1.11
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -191,7 +191,7 @@ front:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: front-tag
+    tag: front-v1.8
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -265,7 +265,7 @@ graph:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: graph-tag
+    tag: graph-v1.12
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -323,7 +323,7 @@ jobrunner:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: jobrunner-tag
+    tag: jobrunner-v1.9
   jobs:
   - name: gc
     schedule: 0 * * * *
@@ -342,7 +342,7 @@ migrate:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: migrate-tag
+    tag: migrate-v1.6
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
@@ -388,7 +388,7 @@ store:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: store-tag
+    tag: store-v1.5
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -460,4 +460,4 @@ storybook:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-tag
+    tag: storybook-v1.10
