@@ -8,7 +8,7 @@ admin:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: admin-v1.3
+    tag: admin-v1.2
   networkPolicy:
     allowExternal: false
     enabled: true
@@ -69,7 +69,7 @@ async:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: async-v1.4
+    tag: async-v1.3
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -142,7 +142,7 @@ docs:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: docs-v1.12
+    tag: docs-v1.8
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -191,7 +191,7 @@ front:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: front-v1.8
+    tag: front-v1.7
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -271,7 +271,7 @@ graph:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: graph-v1.12
+    tag: graph-v1.10
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -328,7 +328,7 @@ jobrunner:
   image:
     pullPolicy: null
     repository: null
-    tag: jobrunner-v1.8
+    tag: jobrunner-v1.6
   jobs:
     - name: gc
       schedule: 0 * * * *
@@ -347,7 +347,7 @@ migrate:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: migrate-v1.6
+    tag: migrate-v1.5
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
@@ -393,7 +393,7 @@ store:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: store-v1.5
+    tag: store-v1.4
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -465,4 +465,4 @@ storybook:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-v1.10
+    tag: storybook-v1.9
