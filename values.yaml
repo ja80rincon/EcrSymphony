@@ -142,7 +142,7 @@ docs:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: docs-v1.8
+    tag: docs-v1.9
   nodeSelector: {}
   podAnnotations: {}
   probes:
