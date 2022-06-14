@@ -80,10 +80,11 @@ jobs:
 
 
       - name: pull imagenes deL ECR AWS
-        run: |
-             docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
-             docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}_prod:${{ env.ACTUAL}}
-             docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}_prod:${{ env.ACTUAL}}
+        run: docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
+      - name: docker tag  
+        run:  docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}_prod:${{ env.ACTUAL}}
+      - name: push image repo prod
+        run:  docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}_prod:${{ env.ACTUAL}}
 
   #     - name: Getting Lastest version in ECR
   #       run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
