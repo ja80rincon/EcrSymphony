@@ -8,6 +8,7 @@ on:
 env: 
   ECR_REGISTRY: ${{secrets.ECR_REGISTRY}}
   ECR_REPOSITORY: symphony-ecr-aws
+  ECR_REPOSITORY_PROD: ${{secrets.ECR_REPOSITORY_PROD}}
 
 jobs:
 
@@ -79,9 +80,10 @@ jobs:
 
 
       - name: pull imagenes deL ECR AWS
-        run: docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
-      - name: imagenes
-        run: docker images  
+        run: |
+             docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}}
+             docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}_prod:${{ env.ACTUAL}}
+             docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}_prod:${{ env.ACTUAL}}
 
   #     - name: Getting Lastest version in ECR
   #       run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
