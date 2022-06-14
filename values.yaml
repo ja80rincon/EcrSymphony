@@ -6,8 +6,8 @@ admin:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: admin-v1.2
   networkPolicy:
     allowExternal: false
@@ -67,8 +67,8 @@ async:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: async-v1.3
   nodeSelector: {}
   podAnnotations: {}
@@ -140,9 +140,9 @@ docs:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
-    tag: docs-v1.11
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
+    tag: docs-v1.12
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -189,8 +189,8 @@ front:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: front-v1.7
   nodeSelector: {}
   podAnnotations: {}
@@ -269,8 +269,8 @@ graph:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: graph-v1.10
   nodeSelector: {}
   podAnnotations: {}
@@ -327,8 +327,9 @@ graph:
 jobrunner:
   image:
     pullPolicy: null
-    repository: null
+    repository: symphony-ecr-aws
     tag: jobrunner-v1.6
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
   jobs:
     - name: gc
       schedule: 0 * * * *
@@ -345,8 +346,8 @@ jobrunner:
 migrate:
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: migrate-v1.5
   securityContext:
     fsGroup: 65534
@@ -391,8 +392,8 @@ store:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: store-v1.4
   nodeSelector: {}
   podAnnotations: {}
@@ -463,6 +464,6 @@ storybook:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: REGISTRY
-    repository: REPOSITORY
+    registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+    repository: symphony-ecr-aws
     tag: storybook-v1.9
