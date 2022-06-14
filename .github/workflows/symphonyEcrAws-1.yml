@@ -119,13 +119,13 @@ jobs:
         run: echo ${{needs.build-artifact.outputs.update}}
       
       - name: Setting version in values.yaml
-        if : ${{ needs.build-artifact.outputs.update == true }}
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
         run: |
           yq --version
           bash script2.sh
 
       - name: Commit files
-        if : ${{ needs.build-artifact.outputs.update == true }}
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
         run: |
           git config --local user.email "${{ secrets.EMAIL_TOKEN }}"
           git config --local user.name "ja80rincon"
@@ -133,7 +133,7 @@ jobs:
           git commit -m "actualizacion en values.yaml" 
 
       - name: Push changes
-        if : ${{ needs.build-artifact.outputs.update == true }}
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
         uses: ad-m/github-push-action@master
         with:
            github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
