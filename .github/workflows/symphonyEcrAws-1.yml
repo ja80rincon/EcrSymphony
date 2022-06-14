@@ -109,14 +109,14 @@ jobs:
           yq --version
           bash script2.sh
 
-      # - name: Commit files
-      #   run: |
-      #     git config --local user.email "EMAIL_TOKEN"
-      #     git config --local user.name "ja80rincon"
-      #     git add .
-      #     git commit -m "actualizacion en values.yaml"  
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #      github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      #      branch: ${{ github.ref }}  
+      - name: Commit files
+        run: |
+          git config --local user.email "${{ secrets.EMAIL_TOKEN }}"
+          git config --local user.name "ja80rincon"
+          git add .
+          git commit -m "actualizacion en values.yaml"  
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+           github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+           branch: ${{ github.ref }}  
