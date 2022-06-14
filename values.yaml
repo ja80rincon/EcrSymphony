@@ -69,7 +69,7 @@ async:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: f82e4e55ec1725f342023124e95b8c258a1df1e2
+    tag: async-v1.4
   nodeSelector: {}
   podAnnotations: {}
   podDisruptionBudget:
@@ -118,12 +118,12 @@ async:
       bucket_prefix: exports/
       bucket_url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
-    - name: NATS_SERVER_URL
-      value: nats://nats.nats.svc.cluster.local
-    - name: AWS_ACCESS_KEY_ID
-      value: admin
-    - name: AWS_SECRET_ACCESS_KEY
-      value: password
+      - name: NATS_SERVER_URL
+        value: nats://nats.nats.svc.cluster.local
+      - name: AWS_ACCESS_KEY_ID
+        value: admin
+      - name: AWS_SECRET_ACCESS_KEY
+        value: password
     log:
       format: json
       level: debug
@@ -142,7 +142,7 @@ docs:
     pullPolicy: IfNotPresent
     registry: migfru
     repository: null
-    tag: docs-v1.9
+    tag: docs-v1.10
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -234,8 +234,8 @@ front:
     name: symphony-front
   spec:
     extraEnvVars:
-    - name: FB_TEST_USER
-      value: mfrutoam@emeal.nttdata.com
+      - name: FB_TEST_USER
+        value: mfrutoam@emeal.nttdata.com
     log:
       level: info
     mapbox:
@@ -314,8 +314,8 @@ graph:
     event:
       url: nats://graph.event
     extraEnvVars:
-    - name: NATS_SERVER_URL
-      value: nats://nats.nats.svc.cluster.local
+      - name: NATS_SERVER_URL
+        value: nats://nats.nats.svc.cluster.local
     log:
       format: json
       level: debug
@@ -328,12 +328,12 @@ jobrunner:
   image:
     pullPolicy: null
     repository: null
-    tag: jobrunner-v1.7
+    tag: jobrunner-v1.8
   jobs:
-  - name: gc
-    schedule: 0 * * * *
-  - name: syncservices
-    schedule: 0 * * * *
+    - name: gc
+      schedule: 0 * * * *
+    - name: syncservices
+      schedule: 0 * * * *
   resources:
     limits:
       cpu: 10m
@@ -362,8 +362,8 @@ migrate:
         address: cadence-frontend.cadence.svc.cluster.local:7933
         domains: flow,export
         extraEnvVars:
-        - name: CADENCE_RETENTION
-          value: "3"
+          - name: CADENCE_RETENTION
+            value: "3"
       graph:
         extraEnvVars: []
 nameOverride: ""
@@ -436,12 +436,12 @@ store:
     bucket:
       url: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     extraEnvVars:
-    - name: AWS_ACCESS_KEY_ID
-      value: admin
-    - name: AWS_SECRET_ACCESS_KEY
-      value: password
-    - name: BUCKET_URL
-      value: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
+      - name: AWS_ACCESS_KEY_ID
+        value: admin
+      - name: AWS_SECRET_ACCESS_KEY
+        value: password
+      - name: BUCKET_URL
+        value: s3://store.blobs?region=us-central1&endpoint=minio.telecomopennetworks.com/poc-som-cem
     log:
       format: json
       level: debug
@@ -465,4 +465,4 @@ storybook:
     pullPolicy: IfNotPresent
     registry: REGISTRY
     repository: REPOSITORY
-    tag: storybook-v1.10    
+    tag: storybook-v1.10
