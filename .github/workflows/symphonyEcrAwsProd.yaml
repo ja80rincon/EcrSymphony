@@ -1,0 +1,86 @@
+name: CD production symphony
+
+on:
+  pull_request:
+    types:
+    - closed
+    branches:    
+    - main
+
+env:
+  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+  ECR_REPOSITORY_DEV: ${{ secrets.ECR_REPOSITORY_DEV }}
+  ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
+
+jobs:
+
+  publish-image-production-and-deploy:
+
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+ 
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+            version-file: graph/
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+            version-file: admin/
+          - image: async
+            context: .
+            file: async/Dockerfile
+            version-file: async/
+          - image: store
+            context: .
+            file: store/Dockerfile
+            version-file: store/
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+            version-file: migrate/
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+            version-file: jobrunner/
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+            version-file: app/fbcnms-projects/platform-server/
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+            version-file: docs/
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+            version-file: app/fbcnms-projects/storybook/
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Extracting version
+        run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
+      
+      - name: Configure AWS Credentials for build and deploy ECR 42
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Amazon ECR "Login" Action for GitHub Actions
+        uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: Login ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+    
+      - name: pull imagenes deL ECR AWS
+        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
+      - name: docker tag  
+        run:  docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
+      - name: push image repo prod
+        run:  docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
