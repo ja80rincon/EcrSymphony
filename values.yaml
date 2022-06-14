@@ -269,8 +269,8 @@ graph:
   deploymentAnnotations: {}
   image:
     pullPolicy: IfNotPresent
-    registry: migfru
-    repository: null
+    registry: REGISTRY
+    repository: REPOSITORY
     tag: graph-v1.10
   nodeSelector: {}
   podAnnotations: {}

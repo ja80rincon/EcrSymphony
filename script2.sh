@@ -81,11 +81,10 @@ done
 
 ####################
 
-# sed -i "s|REGISTRY|$ECR_REGISTRY|g" values.yaml
-# sed -i "s|REPOSITORY|$ECR_REPOSITORY|g" values.yaml
-
 for ((n=0;n<num_comp;n++)); do
   pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
+  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
+  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
 done
 
 cat values.yaml

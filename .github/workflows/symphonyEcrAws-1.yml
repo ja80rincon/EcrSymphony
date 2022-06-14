@@ -6,8 +6,8 @@ on:
       - develop
 
 env: 
-      ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-      ECR_REPOSITORY: symphony-ecr-aws
+  ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
+  ECR_REPOSITORY: symphony-ecr-aws
 
 jobs:
 
