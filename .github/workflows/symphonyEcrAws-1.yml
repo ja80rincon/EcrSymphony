@@ -86,6 +86,7 @@ jobs:
           echo "Actual " ${{ env.ACTUAL}}
 
       - id: step-to-true
+        name: Setting estatus to true
         if : ${{ env.LATEST!=env.ACTUAL }}
         run: echo "::set-output name=condition::true"
 
