@@ -8,8 +8,6 @@ on:
 env: 
       ECR_REGISTRY: 837232691946.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPOSITORY: symphony-ecr-aws
-      ACTUAL: ""
-      LASTEST: ""
 
 jobs:
 
@@ -95,32 +93,21 @@ jobs:
           pull: true
           push: true
 
-      # - name: Creating env TAG
-      #   run: echo "TAG=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}/${{ env.ACTUAL}}" >> $GITHUB_ENV
+  updating-values:
 
-      # - name: Setting version in values.yaml
-      #   run: |
-      #     sed -i 's|${{ matrix.image }}-v${{ env.LATEST}}|${{ matrix.image }}-v${{ env.ACTUAL}}|g' values.yaml
-      #     cat values.yaml
+    needs: build-artifact
+    name: Update image tag in values.yaml
+    runs-on: ubuntu-latest
 
-  # updating-yaml:
+    steps:
 
-  #   needs: build-artifact
-  #   name: Update image tag in values.yaml
-  #   runs-on: ubuntu-latest
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-  #   steps:
-
-  #     - name: Checkout repo
-  #       uses: actions/checkout@v2
-
-      # - name: Showing Variables
-      #   run: |
-      #     echo "Latest " ${{ env.LATEST}}
-      #     echo "Actual " ${{ env.ACTUAL}}
-
-      # - name: Setting version in values.yaml
-      #   run: bash script2.sh
+      - name: Setting version in values.yaml
+        run: |
+          yq --version
+          bash script2.sh
 
       # - name: Commit files
       #   run: |

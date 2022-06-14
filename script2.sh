@@ -85,8 +85,7 @@ done
 # sed -i "s|REPOSITORY|$ECR_REPOSITORY|g" values.yaml
 
 for ((n=0;n<num_comp;n++)); do
-  yq eval -i ''${arr[$n,0]}-v${arr[$n,4]}'.image.tag = '${{ env.ACTUAL}}'' values.yaml
-  #sed -i "s|${arr[$n,0]}|${arr[$n,0]}-v${arr[$n,2]}|g" values.yaml
+  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
 done
 
 cat values.yaml
