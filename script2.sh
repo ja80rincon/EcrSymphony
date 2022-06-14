@@ -85,8 +85,8 @@ done
 # sed -i "s|REPOSITORY|$ECR_REPOSITORY|g" values.yaml
 
 for ((n=0;n<num_comp;n++)); do
-  #yq eval -i ''${arr[$n,0]}-tag'.image.tag = "prueba"' values.yaml
-  sed -i "s|${{ env.LATEST}}|${arr[$n,0]}-v${arr[$n,2]}|g" values.yaml
+  yq eval -i ''${arr[$n,0]}-v${arr[$n,4]}'.image.tag = '${{ env.ACTUAL}}'' values.yaml
+  #sed -i "s|${arr[$n,0]}|${arr[$n,0]}-v${arr[$n,2]}|g" values.yaml
 done
 
 cat values.yaml
