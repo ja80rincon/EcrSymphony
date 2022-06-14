@@ -7,7 +7,7 @@ admin:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: admin-v1.2
   networkPolicy:
     allowExternal: false
@@ -68,7 +68,7 @@ async:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: async-v1.3
   nodeSelector: {}
   podAnnotations: {}
@@ -141,8 +141,8 @@ docs:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
-    tag: docs-v1.12
+    repository: ""
+    tag: docs-v1.13
   nodeSelector: {}
   podAnnotations: {}
   probes:
@@ -190,7 +190,7 @@ front:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: front-v1.7
   nodeSelector: {}
   podAnnotations: {}
@@ -270,7 +270,7 @@ graph:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: graph-v1.10
   nodeSelector: {}
   podAnnotations: {}
@@ -327,7 +327,7 @@ graph:
 jobrunner:
   image:
     pullPolicy: null
-    repository: symphony-ecr-aws
+    repository: ""
     tag: jobrunner-v1.6
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
   jobs:
@@ -347,7 +347,7 @@ migrate:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: migrate-v1.5
   securityContext:
     fsGroup: 65534
@@ -393,7 +393,7 @@ store:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: store-v1.4
   nodeSelector: {}
   podAnnotations: {}
@@ -465,5 +465,5 @@ storybook:
   image:
     pullPolicy: IfNotPresent
     registry: 837232691946.dkr.ecr.us-east-2.amazonaws.com
-    repository: symphony-ecr-aws
+    repository: ""
     tag: storybook-v1.9
