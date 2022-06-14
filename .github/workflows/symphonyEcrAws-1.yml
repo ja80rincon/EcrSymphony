@@ -15,7 +15,9 @@ jobs:
     
     name: build ${{ matrix.image }}
     runs-on: ubuntu-latest
-         
+    outputs:
+      update: ${{ steps.step-to-true.outputs.condition }}
+
     strategy:
       matrix:
         include:
@@ -83,6 +85,14 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
+      - id: step-to-true
+        if : ${{ env.LATEST!=env.ACTUAL }}
+        run: echo "::set-output name=condition::true"
+
+
+      - name: Showing condition
+        run: echo ${{ steps.step-to-true.outputs.condition }}
+
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
@@ -104,6 +114,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: Showing condition
+        run: echo ${{needs. build-artifact.outputs.update}}
+      
       - name: Setting version in values.yaml
         run: |
           yq --version
