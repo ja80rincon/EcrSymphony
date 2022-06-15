@@ -61,9 +61,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Extracting version
-        run: echo "ACTUAL=${{ matrix.image }}-v$(cat ${{ matrix.version-file }}version.yml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
       
       - name: Configure AWS Credentials for build and deploy ECR 42
         uses: aws-actions/configure-aws-credentials@v1
@@ -84,10 +81,15 @@ jobs:
       - name: Getting Lastest_dev version in ECR
         run: echo "LATEST_DEV=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV  
 
+      - name: Showing Variables
+        run: |
+          echo "Latest dev " ${{ env.LATEST_DEV}}
+          echo "Latest prod " ${{ env.LATEST_PROD}}
+
       - name: pull imagenes deL ECR AWS
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
+        if : ${{ env.LATEST_DEV!=env.LATEST_PROD }}
+        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
       - name: docker tag  y push al registry
         run: |
-              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
-              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
+              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
+              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
