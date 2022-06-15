@@ -252,4 +252,5 @@ jobs:
           cd chartSymphony
           yq --version
           bash script_prod.sh
+          
             
