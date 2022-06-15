@@ -237,7 +237,13 @@ jobs:
 
       - name: Showing condition
         run: echo ${{needs.publish-image-production.outputs.update}}
-      
+
+      - name: Commit files
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
+        run: |
+          git config --local user.email "${{ secrets.EMAIL_TOKEN }}"
+          git config --local user.name "ja80rincon"
+          
       - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
@@ -252,5 +258,19 @@ jobs:
           cd chartSymphony
           yq --version
           bash script_prod.sh
-          
+
+      - name: Commit files
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
+        run: |
+          git config --local user.email "${{ secrets.EMAIL_TOKEN }}"
+          git config --local user.name "ja80rincon"
+          git add .
+          git commit -m "actualizacion en values.yaml" 
+
+      - name: Push changes
+        if : ${{ needs.build-artifact.outputs.update == 'true' }}
+        uses: ad-m/github-push-action@master
+        with:
+           github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+           branch: ${{ github.ref }}    
             
