@@ -215,9 +215,11 @@ jobs:
           echo "Latest prod " ${{ env.LATEST_PROD}}
 
       - name: pull imagenes deL ECR AWS
-        if : ${{ env.LATEST_DEV!=env.LATEST_PROD }}
+        if: ${{ env.LATEST_DEV!=env.LATEST_PROD }}
         run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }}
+
       - name: docker tag  y push al registry
+        if: ${{ env.LATEST_DEV!=env.LATEST_PROD }}
         run: |
               docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
               docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
