@@ -144,7 +144,7 @@ jobs:
 
     # if: github.event.pull_request.merged == true
     needs: [build-artifact,updating-values]
-    name: Pushing images to production
+    name: Pushing ${{ matrix.image }} to production
     runs-on: ubuntu-latest
  
     strategy:
