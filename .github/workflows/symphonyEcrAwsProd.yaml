@@ -77,10 +77,17 @@ jobs:
         
       - name: Login ECR
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
-    
+      
+      - name: Getting Lastest_prod version in ECR
+        run: echo "LATEST_PROD=$(aws ecr list-images --repository-name $ECR_REPOSITORY_PROD | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+
+      - name: Getting Lastest_dev version in ECR
+        run: echo "LATEST_DEV=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV  
+
       - name: pull imagenes deL ECR AWS
+        if : ${{ env.LATEST!=env.ACTUAL }}
         run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
-      - name: docker tag  
-        run:  docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
-      - name: push image repo prod
-        run:  docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
+      - name: docker tag  y push al registry
+        run: |
+              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
+              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.ACTUAL}}
