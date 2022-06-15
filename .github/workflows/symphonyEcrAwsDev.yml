@@ -216,8 +216,8 @@ jobs:
 
       - name: pull imagenes deL ECR AWS
         if : ${{ env.LATEST_DEV!=env.LATEST_PROD }}
-        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
+        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }}
       - name: docker tag  y push al registry
         run: |
-              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
-              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
+              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
+              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
