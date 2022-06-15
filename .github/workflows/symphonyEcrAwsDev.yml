@@ -224,7 +224,7 @@ jobs:
               docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
               docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
   
-  updating-values:
+  updating-values-prod:
 
     needs: publish-image-production
     name: Update image tag in values.yaml
