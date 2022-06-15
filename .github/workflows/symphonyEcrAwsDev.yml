@@ -221,3 +221,4 @@ jobs:
         run: |
               docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
               docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
+              
