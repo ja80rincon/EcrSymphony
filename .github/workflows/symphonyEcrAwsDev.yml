@@ -8,7 +8,8 @@ on:
 env: 
   ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   ECR_REPOSITORY_DEV: ${{ secrets.ECR_REPOSITORY_DEV }}
-  
+  ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
+
 jobs:
 
   build-artifact:
@@ -138,3 +139,85 @@ jobs:
         with:
            github_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
            branch: ${{ github.ref }}
+
+  publish-image-production:
+
+    # if: github.event.pull_request.merged == true
+    needs: [build-artifact,updating-values]
+    name: Pushing images to production
+    runs-on: ubuntu-latest
+ 
+    strategy:
+      matrix:
+        include:
+          - image: graph
+            context: .
+            file: graph/Dockerfile
+            version-file: graph/
+          - image: admin
+            context: .
+            file: admin/Dockerfile
+            version-file: admin/
+          - image: async
+            context: .
+            file: async/Dockerfile
+            version-file: async/
+          - image: store
+            context: .
+            file: store/Dockerfile
+            version-file: store/
+          - image: migrate
+            context: .
+            file: migrate/Dockerfile
+            version-file: migrate/
+          - image: jobrunner
+            context: .
+            file: jobrunner/Dockerfile
+            version-file: jobrunner/
+          - image: front
+            context: app
+            file: app/fbcnms-projects/platform-server/Dockerfile.prod
+            version-file: app/fbcnms-projects/platform-server/
+          - image: docs
+            context: docs
+            file: docs/Dockerfile
+            version-file: docs/
+          - image: storybook
+            context: app
+            file: app/fbcnms-projects/storybook/Dockerfile
+            version-file: app/fbcnms-projects/storybook/
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Configure AWS Credentials for build and deploy ECR 42
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Amazon ECR "Login" Action for GitHub Actions
+        uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: Login ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
+      
+      - name: Getting Lastest_prod version in ECR
+        run: echo "LATEST_PROD=$(aws ecr list-images --repository-name $ECR_REPOSITORY_PROD | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+
+      - name: Getting Lastest_dev version in ECR
+        run: echo "LATEST_DEV=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV  
+
+      - name: Showing Variables
+        run: |
+          echo "Latest dev " ${{ env.LATEST_DEV}}
+          echo "Latest prod " ${{ env.LATEST_PROD}}
+
+      - name: pull imagenes deL ECR AWS
+        if : ${{ env.LATEST_DEV!=env.LATEST_PROD }}
+        run:  docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
+      - name: docker tag  y push al registry
+        run: |
+              docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ matrix.image }}-v${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
+              docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ matrix.image }}-v${{ env.LATEST_DEV }}
