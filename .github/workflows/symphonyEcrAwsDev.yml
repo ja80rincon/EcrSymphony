@@ -234,6 +234,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Saliendo del repo
+      run: |
+        ls
+        echo "$PWD"
+
     - name: Checkout private tools
       uses: actions/checkout@v3
       with:
@@ -244,9 +249,10 @@ jobs:
     - name: Saliendo del repo
       run: |
         ls
+        echo "$PWD"
         cd .. 
         ls
-        cd repoTest
+        echo "$PWD"
 
       # - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
       #   uses: GuillaumeFalourd/clone-github-repo-action@v2
