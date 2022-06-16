@@ -76,7 +76,7 @@ arr[8,4]=app/fbcnms-projects/storybook/
 ####################
 
 for ((n=0;n<num_comp;n++)); do
-  arr[$n,2]="$(yq eval '.version' EcrSymphony/${arr[$n,4]}version.yml)"
+  arr[$n,2]="$(yq eval '.version' ${arr[$n,4]}version.yml)"
 done
 
 ####################

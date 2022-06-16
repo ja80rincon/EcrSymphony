@@ -231,6 +231,14 @@ jobs:
 
     steps:
           
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+
+      - name: Saliendo del repo
+        run: |
+          cd ..
+
       - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
@@ -247,21 +255,19 @@ jobs:
       - name: Saliendo del repo
         run: |
           cd ..
-      
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setting version in values.yaml
-        run: |
           ls
-          bash script_prod.sh
 
-      - name: Moving to dir repoTest
-        run: |
-          cd ..
-          ls 
-          cd repoTest
-          cat values.yaml
+      # - name: Setting version in values.yaml
+      #   run: |
+      #     ls
+      #     bash script_prod.sh
+
+      # - name: Moving to dir repoTest
+      #   run: |
+      #     cd ..
+      #     ls 
+      #     cd repoTest
+      #     cat values.yaml
 
       # - name: Commit files
       #   run: |
