@@ -237,26 +237,35 @@ jobs:
 
       - name: Saliendo del repo
         run: |
-          cd ..
-
-      - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
-        uses: GuillaumeFalourd/clone-github-repo-action@v2
-        with:
-          owner: 'javiermartinezgi01'
-          repository: 'repoTest'
-          access-token: ${{ secrets.GIT_HUB_TOKEN }} 
-
-      - name: Config emalil and user github
-        run: |
+          cd .. 
+          git clone https://github.com/javiermartinezgi01/repoTest.git
+          ls
           cd repoTest
           git config --local user.email "javiermartinezgi01@gmail.com"
           git config --local user.name "javiermartinezgi01"
+          ls
           cd ..
           ls
 
-      - name: Saliendo del repo
-        run: |
-          ls
+      # - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
+      #   uses: GuillaumeFalourd/clone-github-repo-action@v2
+      #   with:
+      #     owner: 'javiermartinezgi01'
+      #     repository: 'repoTest'
+      #     access-token: ${{ secrets.GIT_HUB_TOKEN }} 
+
+      # - name: Config emalil and user github
+      #   run: |
+
+      #     cd repoTest
+      #     git config --local user.email "javiermartinezgi01@gmail.com"
+      #     git config --local user.name "javiermartinezgi01"
+      #     cd ..
+      #     ls
+
+      # - name: Saliendo del repo
+      #   run: |
+      #     ls
 
       # - name: Setting version in values.yaml
       #   run: |
