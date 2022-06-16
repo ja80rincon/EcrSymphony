@@ -246,6 +246,7 @@ jobs:
         ls
         cd .. 
         ls
+        cd repoTest
 
       # - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
       #   uses: GuillaumeFalourd/clone-github-repo-action@v2
