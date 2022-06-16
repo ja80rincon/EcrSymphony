@@ -250,6 +250,12 @@ jobs:
       run: |
         ls
         echo "$PWD"
+        git status
+        echo "Hola" >> test.txt
+        git status
+        git commit add .
+        git commit -m "test commit"
+        git push
         cd .. 
         ls
         echo "$PWD"
