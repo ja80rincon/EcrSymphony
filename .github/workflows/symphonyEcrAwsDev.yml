@@ -241,8 +241,6 @@ jobs:
           git clone https://github.com/javiermartinezgi01/repoTest.git
           ls
           cd repoTest
-          git config --local user.email "javiermartinezgi01@gmail.com"
-          git config --local user.name "javiermartinezgi01"
           ls
           cd ..
           ls
