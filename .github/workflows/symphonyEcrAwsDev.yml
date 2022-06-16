@@ -249,6 +249,7 @@ jobs:
     - name: Saliendo del repo
       run: |
         ls
+        ls /home/runner/work/EcrSymphony
         echo "$PWD"
         git config user.email "javiermartinezgi01@gmail.com"
         git config user.name "javiermartinezgi01"
