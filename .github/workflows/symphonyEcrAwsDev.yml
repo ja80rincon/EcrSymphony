@@ -250,6 +250,8 @@ jobs:
       run: |
         ls
         echo "$PWD"
+        git config user.email "javiermartinezgi01@gmail.com"
+        git config user.name "javiermartinezgi01"
         git status
         echo "Hola" >> test.txt
         git status
