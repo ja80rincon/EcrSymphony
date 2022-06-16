@@ -231,19 +231,20 @@ jobs:
 
     steps:
           
-      - name: Checkout repo
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Checkout private tools
+      uses: actions/checkout@v3
+      with:
+        repository: javiermartinezgi01/repoTest
+        token: ${{ secrets.GIT_HUB_TOKEN }} # `GH_PAT` is a secret that contains your PAT
 
 
-      - name: Saliendo del repo
-        run: |
-          cd .. 
-          git clone https://github.com/javiermartinezgi01/repoTest.git
-          ls
-          cd repoTest
-          ls
-          cd ..
-          ls
+    - name: Saliendo del repo
+      run: |
+        cd .. 
+        ls
 
       # - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
       #   uses: GuillaumeFalourd/clone-github-repo-action@v2
