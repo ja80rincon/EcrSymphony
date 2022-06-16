@@ -239,6 +239,12 @@ jobs:
           git config --local user.email "javiermartinezgi01@gmail.com"
           git config --local user.name "javiermartinezgi01"
 
+      - name: Setting version in values.yaml
+        run: |
+          ls
+          cd ..
+          ls 
+
       - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
@@ -246,11 +252,16 @@ jobs:
           repository: 'repoTest'
           access-token: ${{ secrets.GIT_HUB_TOKEN }} 
       
+
       - name: Setting version in values.yaml
         run: |
-          ls 
           cd repoTest
-          yq --version
+          ls 
+      # - name: Setting version in values.yaml
+      #   run: |
+      #     ls 
+      #     cd repoTest
+      #     yq --version
       # bash script_prod.sh
 
       # - name: Commit files
@@ -258,9 +269,9 @@ jobs:
       #     git add .
       #     git commit -m "actualizacion en values.yaml" 
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-           github_token: ${{ secrets.GIT_HUB_TOKEN}}
-           branch: main  
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #      github_token: ${{ secrets.GIT_HUB_TOKEN}}
+      #      branch: main  
             
