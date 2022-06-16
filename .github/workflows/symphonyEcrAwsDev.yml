@@ -253,7 +253,7 @@ jobs:
         git status
         echo "Hola" >> test.txt
         git status
-        git commit add .
+        git add .
         git commit -m "test commit"
         git push
         cd .. 
