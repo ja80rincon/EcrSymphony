@@ -251,11 +251,12 @@ jobs:
           cd repoTest
           git config --local user.email "javiermartinezgi01@gmail.com"
           git config --local user.name "javiermartinezgi01"
+          cd ..
+          ls
 
       - name: Saliendo del repo
         run: |
-          cd ..
-          ls -la
+          ls
 
       # - name: Setting version in values.yaml
       #   run: |
