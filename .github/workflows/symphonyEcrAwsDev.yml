@@ -229,7 +229,7 @@ jobs:
     needs: publish-image-production
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
-     permissions: 
+    permissions: 
       contents: read
       packages: write
 
