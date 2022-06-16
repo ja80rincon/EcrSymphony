@@ -283,7 +283,7 @@ jobs:
         run: |
             cd  repoTest
             ls
-            bash script_ptod.sh
+            bash script_prod.sh
             cat values.yaml    
 
       # - name: Config emalil and user github
