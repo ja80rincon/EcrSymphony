@@ -243,6 +243,7 @@ jobs:
 
     - name: Saliendo del repo
       run: |
+        ls
         cd .. 
         ls
 
