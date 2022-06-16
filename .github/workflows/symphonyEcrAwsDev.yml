@@ -231,21 +231,26 @@ jobs:
 
     steps:
 
-      - name: Config emalil and user github
-        run: |
-          git config --local user.email "javiermartinezgi01@gmail.com"
-          git config --local user.name "javiermartinezgi01"
 
-      - name: Setting version in values.yaml
+      - name: Listando
         run: |
           ls
-
+          
       - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
           owner: 'javiermartinezgi01'
           repository: 'repoTest'
           access-token: ${{ secrets.GIT_HUB_TOKEN }} 
+
+      - name: Config emalil and user github
+        run: |
+          git config --local user.email "javiermartinezgi01@gmail.com"
+          git config --local user.name "javiermartinezgi01"
+
+      - name: Saliendo del repo
+        run: |
+          cd ..
       
       - name: Checkout repo
         uses: actions/checkout@v2
