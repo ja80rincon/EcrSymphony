@@ -239,6 +239,12 @@ jobs:
         ls
         echo "$PWD"
         cd ..
+        ls
+      
+    - name: Saliendo del repo
+      run: |
+        ls
+
 
     - name: Checkout private tools
       uses: actions/checkout@v3
@@ -251,6 +257,10 @@ jobs:
       run: |
         ls
         cd..
+        ls
+  
+    - name: Saliendo del repo
+      run: |
         ls
       # ls /home/runner/work/EcrSymphony/EcrSymphony
       # echo "$PWD"
