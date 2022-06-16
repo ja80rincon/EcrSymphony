@@ -108,6 +108,7 @@ jobs:
   updating-values:
 
     needs: build-artifact
+    if : ${{ needs.build-artifact.outputs.update == 'true' }}
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
 
@@ -142,8 +143,8 @@ jobs:
 
   publish-image-production:
 
-    # if: github.event.pull_request.merged == true
     needs: [build-artifact,updating-values]
+    if : ${{ needs.build-artifact.outputs.update == 'true' }}
     name: Pushing ${{ matrix.image }} to production
     runs-on: ubuntu-latest
  
@@ -226,7 +227,8 @@ jobs:
   
   updating-values-prod:
 
-    needs: publish-image-production
+    needs: [build-artifact,updating-values,publish-image-production,publish-image-production]
+    if : ${{ needs.build-artifact.outputs.update == 'true' }}
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
     permissions: 
