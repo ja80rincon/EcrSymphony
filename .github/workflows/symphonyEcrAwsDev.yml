@@ -234,34 +234,34 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Saliendo del repo
-      run: |
-        ls
-        echo "$PWD"
-        cd ..
-        ls
+    # - name: Saliendo del repo
+    #   run: |
+    #     ls
+    #     echo "$PWD"
+    #     cd ..
+    #     ls
       
-    - name: Saliendo del repo
-      run: |
-        ls
+    # - name: Saliendo del repo
+    #   run: |
+    #     ls
 
 
-    - name: Checkout private tools
-      uses: actions/checkout@v3
-      with:
-        repository: javiermartinezgi01/repoTest
-        token: ${{ secrets.GIT_HUB_TOKEN }} # `GH_PAT` is a secret that contains your PAT
+    # - name: Checkout private tools
+    #   uses: actions/checkout@v3
+    #   with:
+    #     repository: javiermartinezgi01/repoTest
+    #     token: ${{ secrets.GIT_HUB_TOKEN }} # `GH_PAT` is a secret that contains your PAT
 
 
-    - name: Saliendo del repo
-      run: |
-        ls
-        cd..
-        ls
+    # - name: Saliendo del repo
+    #   run: |
+    #     ls
+    #     cd..
+    #     ls
   
-    - name: Saliendo del repo
-      run: |
-        ls
+    # - name: Saliendo del repo
+    #   run: |
+    #     ls
       # ls /home/runner/work/EcrSymphony/EcrSymphony
       # echo "$PWD"
       # git config user.email "javiermartinezgi01@gmail.com"
@@ -272,12 +272,19 @@ jobs:
       # git commit -m "test commit"
       # git push
 
-      # - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
-      #   uses: GuillaumeFalourd/clone-github-repo-action@v2
-      #   with:
-      #     owner: 'javiermartinezgi01'
-      #     repository: 'repoTest'
-      #     access-token: ${{ secrets.GIT_HUB_TOKEN }} 
+      - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
+        uses: GuillaumeFalourd/clone-github-repo-action@v2
+        with:
+          owner: 'javiermartinezgi01'
+          repository: 'repoTest'
+          access-token: ${{ secrets.GIT_HUB_TOKEN }}
+
+      - name: ingreso al repo
+        run: |
+            cd  repoTest
+            ls
+            bash script_ptod.sh
+            cat values.yaml    
 
       # - name: Config emalil and user github
       #   run: |
