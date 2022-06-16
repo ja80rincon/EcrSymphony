@@ -231,9 +231,6 @@ jobs:
 
     steps:
 
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
       - name: Config emalil and user github
         run: |
           git config --local user.email "javiermartinezgi01@gmail.com"
@@ -242,8 +239,6 @@ jobs:
       - name: Setting version in values.yaml
         run: |
           ls
-          cd ..
-          ls 
 
       - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
@@ -252,17 +247,18 @@ jobs:
           repository: 'repoTest'
           access-token: ${{ secrets.GIT_HUB_TOKEN }} 
       
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
       - name: Setting version in values.yaml
+        run: bash script_prod.sh
+
+      - name: Moving to dir repoTest
         run: |
-          cd repoTest
+          cd ..
           ls 
-      # - name: Setting version in values.yaml
-      #   run: |
-      #     ls 
-      #     cd repoTest
-      #     yq --version
-      # bash script_prod.sh
+          cd repoTest
+          cat values.yaml
 
       # - name: Commit files
       #   run: |
