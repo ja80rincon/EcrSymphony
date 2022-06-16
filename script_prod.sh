@@ -76,15 +76,15 @@ arr[8,4]=app/fbcnms-projects/storybook/
 ####################
 
 for ((n=0;n<num_comp;n++)); do
-  arr[$n,2]="$(yq eval '.version' ${arr[$n,4]}version.yml)"
+  arr[$n,2]="$(yq eval '.version' $PWD/${arr[$n,4]}version.yml)"
 done
 
 ####################
 
 for ((n=0;n<num_comp;n++)); do
-  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' repoTest/values.yaml
-  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' repoTest/values.yaml
-  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_PROD" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' repoTest/values.yaml
+  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
+  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
+  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_PROD" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' values.yaml
 done
 
 cat values.yaml
