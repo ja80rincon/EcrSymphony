@@ -255,7 +255,7 @@ jobs:
       - name: Saliendo del repo
         run: |
           cd ..
-          ls la
+          ls -la
 
       # - name: Setting version in values.yaml
       #   run: |
