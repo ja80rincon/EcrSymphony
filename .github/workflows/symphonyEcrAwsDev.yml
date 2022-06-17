@@ -104,10 +104,14 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
           pull: true
           push: true
-
-      - name: mensaje error
+      - name: Cancel Previous Runs
         if : ${{ steps.step-to-true.outputs.update == 'true' }}
-        run: echo "::error::Missing semicolon"    
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      # - name: mensaje error
+      #   if : ${{ steps.step-to-true.outputs.update == 'true' }}
+      #   run: echo "::error::Missing semicolon"    
 
      
   updating-values:
