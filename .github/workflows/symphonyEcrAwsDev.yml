@@ -275,13 +275,14 @@ jobs:
           repository: 'repoTest'
           access-token: ${{ secrets.GIT_HUB_TOKEN }}
       - name: list archivos
-        run : ls -la
-      # - name: ingreso al repo
-      #   run: |
-      #       cd  repoTest
-      #       ls
-      #       bash script_prod_1.sh
-      #       cat values.yaml    
+        run : |
+              ls -la
+              bash script_prod_1.sh
+      - name: ingreso al repo
+        run: |
+            cd  repoTest
+            ls
+            cat values.yaml    
 
       # - name: Config emalil and user github
       #   run: |
