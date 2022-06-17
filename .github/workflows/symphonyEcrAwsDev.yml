@@ -105,7 +105,7 @@ jobs:
           pull: true
           push: true
       - name: Cancel Previous Runs
-        if : ${{ steps.step-to-true.outputs.update == 'true' }}
+        # if : ${{ steps.step-to-true.outputs.update == 'true' }}
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
