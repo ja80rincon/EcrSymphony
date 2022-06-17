@@ -91,7 +91,7 @@ jobs:
         name: Setting estatus to true
         if : ${{ env.LATEST!=env.ACTUAL }}
         run: echo "::set-output name=condition::true"
-        run: echo "::error::Actulaizar version del componente"
+        
 
       - name: Showing condition
         #run: echo ${{ steps.step-to-true.outputs.condition }}
