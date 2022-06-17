@@ -93,7 +93,7 @@ jobs:
 
 
       - name: Showing condition
-        run: echo "${{ steps.step-to-true.outputs.condition }}""
+        run: echo "${{ steps.step-to-true.outputs.condition }}"
 
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
