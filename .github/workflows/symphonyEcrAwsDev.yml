@@ -94,7 +94,9 @@ jobs:
 
       - name: Showing condition
         run: echo ${{ steps.step-to-true.outputs.condition }}
-
+      - name: mensaje error
+        if : ${{ env.LATEST!=env.ACTUAL }}
+        run: echo "::error::Missing semicolon" 
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
@@ -105,9 +107,7 @@ jobs:
           pull: true
           push: true
       
-      - name: mensaje error
-        if : ${{ steps.step-to-true.outputs.update == 'false' }}
-        run: echo "::error::Missing semicolon"    
+         
 
      
   updating-values:
