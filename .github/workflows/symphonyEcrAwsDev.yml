@@ -104,7 +104,9 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
           pull: true
           push: true
-
+      - name: mensaje errror
+        if : ${{ env.LATEST!=env.ACTUAL }}
+        run: echo "::error::cambiar la version de la imagen"
   updating-values:
 
     needs: build-artifact
