@@ -87,15 +87,15 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      - id: step-to-true
-        name: Setting estatus to true
-        if : ${{ env.LATEST!=env.ACTUAL }}
-        run: echo "::set-output name=condition::true"
+      # - id: step-to-true
+      #   name: Setting estatus to true
+      #   if : ${{ env.LATEST!=env.ACTUAL }}
+      #   run: echo "::set-output name=condition::true"
         
 
-      - name: Showing condition
-        #run: echo ${{ steps.step-to-true.outputs.condition }}
-        run: echo "::error::Actulaizar version del componente"
+      # - name: Showing condition
+      #   run: echo ${{ steps.step-to-true.outputs.condition }}
+        
         
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
@@ -106,7 +106,8 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
           pull: true
           push: true
- 
+
+      - run: echo "::error::Actulaizar version del componente"
   updating-values:
 
     needs: build-artifact
