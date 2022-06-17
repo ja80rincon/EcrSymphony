@@ -80,7 +80,11 @@ jobs:
 
       - name: Getting Lastest version in ECR
         run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
-  
+      - name: Cancel Previous Runs
+        # if : ${{ steps.step-to-true.outputs.update == 'true' }}
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Showing Variables
         run: |
           echo "Latest " ${{ env.LATEST}}
@@ -104,11 +108,7 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
           pull: true
           push: true
-      - name: Cancel Previous Runs
-        # if : ${{ steps.step-to-true.outputs.update == 'true' }}
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      
       # - name: mensaje error
       #   if : ${{ steps.step-to-true.outputs.update == 'true' }}
       #   run: echo "::error::Missing semicolon"    
