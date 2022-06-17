@@ -284,34 +284,13 @@ jobs:
             ls
             cat values.yaml    
 
-      # - name: Config emalil and user github
-      #   run: |
+      - name: Config emalil and user github
+        run: |
+          cd repoTest
+          git add values.yaml
+          git commit -m "actualizacion values"
+          git push origin main
 
-      #     cd repoTest
-      #     git config --local user.email "javiermartinezgi01@gmail.com"
-      #     git config --local user.name "javiermartinezgi01"
-      #     git commit -m "actualizacion values"
-
-      # - name: Saliendo del repo
-      #   run: |
-      #     ls
-
-      # - name: Setting version in values.yaml
-      #   run: |
-      #     ls
-      #     bash script_prod.sh
-
-      # - name: Moving to dir repoTest
-      #   run: |
-      #     cd ..
-      #     ls 
-      #     cd repoTest
-      #     cat values.yaml
-
-      # - name: Commit files
-      #   run: |
-      #     git add .
-      #     git commit -m "actualizacion en values.yaml" 
 
       # - name: Push changes
       #   uses: ad-m/github-push-action@master
