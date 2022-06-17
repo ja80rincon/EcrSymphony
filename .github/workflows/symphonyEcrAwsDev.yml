@@ -106,7 +106,7 @@ jobs:
           push: true
       
       - name: mensaje error
-        #if : ${{ steps.step-to-true.outputs.update == 'true' }}
+        if : ${{ steps.step-to-true.outputs.update == 'false' }}
         run: echo "::error::Missing semicolon"    
 
      
