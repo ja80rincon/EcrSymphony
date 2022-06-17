@@ -274,21 +274,22 @@ jobs:
           owner: 'javiermartinezgi01'
           repository: 'repoTest'
           access-token: ${{ secrets.GIT_HUB_TOKEN }}
+      - name: list archivos
+        run : ls -la
+      # - name: ingreso al repo
+      #   run: |
+      #       cd  repoTest
+      #       ls
+      #       bash script_prod_1.sh
+      #       cat values.yaml    
 
-      - name: ingreso al repo
-        run: |
-            cd  repoTest
-            ls
-            bash script_prod.sh
-            cat values.yaml    
+      # - name: Config emalil and user github
+      #   run: |
 
-      - name: Config emalil and user github
-        run: |
-
-          cd repoTest
-          git config --local user.email "javiermartinezgi01@gmail.com"
-          git config --local user.name "javiermartinezgi01"
-          git commit -m "actualizacion values"
+      #     cd repoTest
+      #     git config --local user.email "javiermartinezgi01@gmail.com"
+      #     git config --local user.name "javiermartinezgi01"
+      #     git commit -m "actualizacion values"
 
       # - name: Saliendo del repo
       #   run: |
@@ -311,8 +312,8 @@ jobs:
       #     git add .
       #     git commit -m "actualizacion en values.yaml" 
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-           github_token: ${{ secrets.GIT_HUB_TOKEN}}
-           branch: main  
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #      github_token: ${{ secrets.GIT_HUB_TOKEN}}
+      #      branch: main  
