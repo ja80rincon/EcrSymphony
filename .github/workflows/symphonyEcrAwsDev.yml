@@ -9,7 +9,8 @@ env:
   ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   ECR_REPOSITORY_DEV: ${{ secrets.ECR_REPOSITORY_DEV }}
   ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
-
+  EMEAIL_GIT: javiermartinezgi01@gmail.com
+  USER_NAME_GIT: javiermartinezgi01
 jobs:
 
   build-artifact:
@@ -86,19 +87,15 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      # - id: step-to-true
-      #   name: Setting estatus to true
-      #   if : ${{ env.LATEST!=env.ACTUAL }}
-      #   run: echo "::set-output name=condition::true"
-
-
-      # - name: Showing condition
-      #   run: echo ${{ steps.step-to-true.outputs.condition }}
-
-      - name: mensaje error
+      - id: step-to-true
+        name: Setting estatus to true
         if : ${{ env.LATEST!=env.ACTUAL }}
-        run: echo "::error::Missing semicolon" 
+        #run: echo "::set-output name=condition::true"
+        run: echo "::error::Actulaizar version del componente"
 
+      - name: Showing condition
+        run: echo ${{ steps.step-to-true.outputs.condition }}
+        
       - name: Docker build and Push
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
@@ -108,14 +105,11 @@ jobs:
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.ACTUAL}}
           pull: true
           push: true
-      
-         
-
-     
+ 
   updating-values:
 
     needs: build-artifact
-    # if : ${{ needs.build-artifact.outputs.update == 'true' }}
+    if : ${{ needs.build-artifact.outputs.update == 'true' }}
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
 
@@ -132,52 +126,13 @@ jobs:
           access-token: ${{ secrets.GIT_HUB_TOKEN }}
       - name: ejecucion de script
         run : |
-              bash script_prod_1.sh
+              bash script_change_values.sh
 
       - name: push repo github
         run: |
           cd repoTest
-          git config user.email "javiermartinezgi01@gmail.com"
-          git config user.name "javiermartinezgi01"
+          git config user.email "${{env.EMAIL_GIT}}"
+          git config user.name "${{env.USER_NAME_GIT}}"
           git add values.yaml
           git commit -m "actualizacion values"
-          git push origin main
-
-  
-  # updating-values-prod:
-
-  #   needs: [build-artifact,updating-values,publish-image-production,publish-image-production]
-  #   if : ${{ needs.build-artifact.outputs.update == 'true' }}
-  #   name: Update image tag in values.yaml
-  #   runs-on: ubuntu-latest
-  #   steps:
-          
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - name: Clone repository
-  #       uses: GuillaumeFalourd/clone-github-repo-action@v2
-  #       with:
-  #         owner: 'javiermartinezgi01'
-  #         repository: 'repoTest'
-  #         access-token: ${{ secrets.GIT_HUB_TOKEN }}
-  #     - name: ejecucion de script
-  #       run : |
-  #             bash script_prod_1.sh
-  #     # - name: ingreso al repo
-  #     #   run: |
-  #     #       cd  repoTest
-  #     #       ls
-  #     #       cat values.yaml    
-
-  #     - name: push repo github
-  #       run: |
-  #         cd repoTest
-  #         git config user.email "javiermartinezgi01@gmail.com"
-  #         git config user.name "javiermartinezgi01"
-  #         git add values.yaml
-  #         git commit -m "actualizacion values"
-  #         git push origin main
-
-
-     
+          git push origin main     
