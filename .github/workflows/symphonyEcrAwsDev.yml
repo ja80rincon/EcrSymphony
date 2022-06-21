@@ -9,8 +9,9 @@ env:
   ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   ECR_REPOSITORY_DEV: ${{ secrets.ECR_REPOSITORY_DEV }}
   ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
-  EMEAIL_GIT: javiermartinezgi01@gmail.com
-  USER_NAME_GIT: javiermartinezgi01
+  EMEAIL_GITHUB: javiermartinezgi01@gmail.com
+  USER_NAME_GITHUB: javiermartinezgi01
+  REPOSITORY_GITHUB: repoTest
 
 jobs:
 
@@ -93,11 +94,9 @@ jobs:
         if : ${{ env.LATEST!=env.ACTUAL }}
         run: echo "::set-output name=condition::true"
         
-
       - name: Showing condition
         run: echo ${{ steps.step-to-true.outputs.condition }}
         
-      
       - name: Docker build and Push ECR AWS DEV
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
@@ -126,8 +125,6 @@ jobs:
           stopWorkflow=$(actions/checkout@v3)
           echo "::stop-commands::$stopWorkflow"
           
-  
-
   updating-values:
 
     needs: build-artifact
@@ -143,19 +140,19 @@ jobs:
       - name: Clone repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
-          owner: 'javiermartinezgi01'
-          repository: 'repoTest'
+          owner: ${{env.USER_NAME_GITHUB}}
+          repository: ${{env.REPOSITORY_GITHUB}}
           access-token: ${{ secrets.GIT_HUB_TOKEN }}
-      - name: ejecucion de script
-        run : |
-              bash script_change_values.sh
 
-      - name: push repo github
+      - name: script execution
+        run : bash script_change_values.sh
+
+      - name: push repository github chart
         run: |
           cd repoTest
-          git config user.email "${{env.EMAIL_GIT}}"
-          git config user.name "${{env.USER_NAME_GIT}}"
+          git config user.email "${{env.EMAIL_GITHUB}}"
+          git config user.name "${{env.USER_NAME_GITHUB}}"
           git add values.yaml
-          git commit -m "actualizacion values"
+          git commit -m "updating values.yaml"
           git push origin main   
         
