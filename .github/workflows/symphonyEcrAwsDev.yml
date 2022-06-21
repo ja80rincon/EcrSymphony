@@ -110,7 +110,7 @@ jobs:
       - name: Disable workflow commands
         if : ${{ env.LATEST==env.ACTUAL }}
         run: |
-          echo "::error::Change component version"
+          echo "::error::Change component version ${{ matrix.context }} "
           stopStrategy=$(docker/build-push-action@v2)
           echo "::stop-commands::$stopStrategy"
     
