@@ -11,6 +11,7 @@ env:
   ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
   EMEAIL_GIT: javiermartinezgi01@gmail.com
   USER_NAME_GIT: javiermartinezgi01
+
 jobs:
 
   build-artifact:
@@ -122,8 +123,8 @@ jobs:
         if : ${{ needs.build-artifact.outputs.update != 'true' }}
         run: |
           echo "::error::You did not change the version in any component"
-          stopStrategy=$(actions/checkout@v3)
-          echo "::stop-commands::$stopStrategy"
+          stopWorkflow=$(actions/checkout@v3)
+          echo "::stop-commands::$stopWorkflow"
           
   
 
