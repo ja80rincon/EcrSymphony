@@ -111,7 +111,8 @@ jobs:
         if : ${{ env.LATEST==env.ACTUAL }}
         run: |
           echo "::error::Change component version"
-          
+          stopStrategy=$(docker/build-push-action@v2)
+          echo "::stop-commands::$stopStrategy"
     
 
 
