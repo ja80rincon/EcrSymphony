@@ -122,8 +122,8 @@ jobs:
         if : ${{ needs.build-artifact.outputs.update != 'true' }}
         run: |
           stopStrategy=$(actions/checkout@v3)
-          ::stop-commands::$stopStrategy
-          ::error::You did not change the version in any component
+          echo "::stop-commands::$stopStrategy"
+          echo "::error::You did not change the version in any component"
   
 
   updating-values:
