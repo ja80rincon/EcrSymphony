@@ -108,13 +108,13 @@ jobs:
           push: true
 
       - name: Disable workflow commands
-        if : ${{ env.LATEST==env.ACTUAL }}
+        if : ${{ needs.build-artifact.outputs.update != 'true' }}
         run: |
-          echo "::error::Change component version ${{ matrix.context }} "
+          echo "::error::You did not change the version in any component  "
           stopStrategy=$(docker/build-push-action@v2)
           echo "::stop-commands::$stopStrategy"
-    
-
+      
+  
 
   updating-values:
 
