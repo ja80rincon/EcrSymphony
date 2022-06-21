@@ -96,12 +96,12 @@ jobs:
       - name: Showing condition
         run: echo ${{ steps.step-to-true.outputs.condition }}
 
-      - name: Disable workflow commands
-        if : ${{ env.LATEST==env.ACTUAL }}
-        run: |
-          echo '::warning:: This is a warning message, to demonstrate that commands are being processed.'
-          stopMarker=$(strategy)
-          echo "::stop-commands::$stopMarker"
+      # - name: Disable workflow commands
+      #   if : ${{ env.LATEST==env.ACTUAL }}
+      #   run: |
+      #     echo '::warning:: This is a warning message, to demonstrate that commands are being processed.'
+      #     stopMarker=$(strategy)
+      #     echo "::stop-commands::$stopMarker"
         
       - name: Docker build and Push ECR AWS DEV
         if : ${{ env.LATEST!=env.ACTUAL }}
