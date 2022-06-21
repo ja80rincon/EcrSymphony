@@ -97,7 +97,7 @@ jobs:
         run: echo ${{ steps.step-to-true.outputs.condition }}
 
       - name: Disable workflow commands
-         if : ${{ env.LATEST==env.ACTUAL }}
+        if : ${{ env.LATEST==env.ACTUAL }}
         run: |
           echo '::warning:: This is a warning message, to demonstrate that commands are being processed.'
           stopMarker=$(strategy)
