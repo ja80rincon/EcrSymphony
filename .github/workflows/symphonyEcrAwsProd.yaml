@@ -80,10 +80,10 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
       
       - name: Getting Lastest_prod version in ECR
-        run: echo "LATEST_PROD=$(aws ecr list-images --repository-name $ECR_REPOSITORY_PROD | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+        run: echo "LATEST_PROD=$(aws ecr list-images --repository-name $ECR_REPOSITORY_PROD | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | head -1)" >> $GITHUB_ENV
 
       - name: Getting Lastest_dev version in ECR
-        run: echo "LATEST_DEV=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV  
+        run: echo "LATEST_DEV=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | head -1)" >> $GITHUB_ENV  
 
       - name: Showing Variables
         run: |
@@ -100,34 +100,6 @@ jobs:
               docker tag ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_DEV }}:${{ env.LATEST_DEV }} ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
               docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY_PROD }}:${{ env.LATEST_DEV }}
 
-  updating-values:
-
-    needs: publish-image-production
-    name: Update image tag in values.yaml
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Showing condition
-        run: echo ${{needs.publish-image-production.outputs.update}}
-      
-      - name: Clone GuillaumeFalourd/formulas-training PRIVATE repository
-        uses: GuillaumeFalourd/clone-github-repo-action@v2
-        with:
-          owner: 'kelly1311'
-          repository: 'chartSymphony'
-          access-token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} 
-      
-      - name: Setting version in values.yaml
-        id: Setting
-        if : ${{ needs.publish-image-production.outputs.update == 'true' }}
-        run: |
-          cd chartSymphony
-          yq --version
-          bash script_prod.sh
-
+  
            
               

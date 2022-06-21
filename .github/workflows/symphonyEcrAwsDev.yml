@@ -107,13 +107,6 @@ jobs:
           pull: true
           push: true
 
-      # - name: Disable workflow commands
-      #   if : ${{ needs.build-artifact.outputs.update != 'true' }}
-      #   run: |
-      #     echo "::error::You did not change the version in any component  "
-      #     stopStrategy=$(docker/build-push-action@v2)
-      #     echo "::stop-commands::$stopStrategy"
-
   validate:
 
     needs: build-artifact
@@ -128,9 +121,9 @@ jobs:
       - name: Disable workflow commands
         if : ${{ needs.build-artifact.outputs.update != 'true' }}
         run: |
-          echo "::error::You did not change the version in any component  "
           stopStrategy=$(actions/checkout@v3)
-          echo "::stop-commands::$stopStrategy"
+          ::stop-commands::$stopStrategy
+          ::error::You did not change the version in any component
   
 
   updating-values:
