@@ -87,17 +87,23 @@ jobs:
           echo "Latest " ${{ env.LATEST}}
           echo "Actual " ${{ env.ACTUAL}}
 
-      # - id: step-to-true
-      #   name: Setting estatus to true
-      #   if : ${{ env.LATEST!=env.ACTUAL }}
-      #   run: echo "::set-output name=condition::true"
+      - id: step-to-true
+        name: Setting estatus to true
+        if : ${{ env.LATEST!=env.ACTUAL }}
+        run: echo "::set-output name=condition::true"
         
 
-      # - name: Showing condition
-      #   run: echo ${{ steps.step-to-true.outputs.condition }}
+      - name: Showing condition
+        run: echo ${{ steps.step-to-true.outputs.condition }}
+
+      - name: Disable workflow commands
+         if : ${{ env.LATEST==env.ACTUAL }}
+        run: |
+          echo '::warning:: This is a warning message, to demonstrate that commands are being processed.'
+          stopMarker=$(strategy)
+          echo "::stop-commands::$stopMarker"
         
-        
-      - name: Docker build and Push
+      - name: Docker build and Push ECR AWS DEV
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
         with:
@@ -107,10 +113,11 @@ jobs:
           pull: true
           push: true
 
+
   updating-values:
 
     needs: build-artifact
-    #if : ${{ needs.build-artifact.outputs.update == 'true' }}
+    if : ${{ needs.build-artifact.outputs.update == 'true' }}
     name: Update image tag in values.yaml
     runs-on: ubuntu-latest
 
@@ -136,5 +143,4 @@ jobs:
           git config user.name "${{env.USER_NAME_GIT}}"
           git add values.yaml
           git commit -m "actualizacion values"
-          echo "::error::Actulaizar version del componente"
           git push origin main     
