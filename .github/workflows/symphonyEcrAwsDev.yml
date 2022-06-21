@@ -121,9 +121,10 @@ jobs:
       - name: Disable workflow commands
         if : ${{ needs.build-artifact.outputs.update != 'true' }}
         run: |
+          echo "::error::You did not change the version in any component"
           stopStrategy=$(actions/checkout@v3)
           echo "::stop-commands::$stopStrategy"
-          echo "::error::You did not change the version in any component"
+          
   
 
   updating-values:
