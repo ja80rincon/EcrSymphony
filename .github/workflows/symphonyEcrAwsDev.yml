@@ -95,14 +95,14 @@ jobs:
 
       - name: Showing condition
         run: echo ${{ steps.step-to-true.outputs.condition }}
-
+        
       - name: Disable workflow commands
-        if : ${{ env.LATEST==env.ACTUAL }}
+        if : ${{ steps.step-to-true.outputs.update == 'true'}}
         run: |
           echo "::error::Change component version"
           stopStrategy=$(docker/build-push-action@v2)
           echo "::stop-commands::$stopStrategy"
-        
+
       - name: Docker build and Push ECR AWS DEV
         if : ${{ env.LATEST!=env.ACTUAL }}
         uses: docker/build-push-action@v2
