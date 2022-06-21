@@ -80,7 +80,7 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: Getting Lastest version in ECR
-        run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | tail -n 1)" >> $GITHUB_ENV
+        run: echo "LATEST=$(aws ecr list-images --repository-name $ECR_REPOSITORY_DEV | jq '.imageIds | map (.imageTag) | .[]' | grep ${{ matrix.image }} | sed 's/"//g' | head -1)" >> $GITHUB_ENV
 
       - name: Showing Variables
         run: |
