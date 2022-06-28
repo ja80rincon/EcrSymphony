@@ -82,9 +82,9 @@ done
 ####################
 
 for ((n=0;n<num_comp;n++)); do
-  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./repoTest/values.yaml
-  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./repoTest/values.yaml
-  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_DEV" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./repoTest/values.yaml
+  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./symphony/values.yaml
+  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./symphony/values.yaml
+  # pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_DEV" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./symphony/values.yaml
 done
 
-cat ./repoTest/values.yaml
+cat ./symphony/values.yaml

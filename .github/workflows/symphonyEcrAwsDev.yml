@@ -9,9 +9,9 @@ env:
   ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   ECR_REPOSITORY_DEV: ${{ secrets.ECR_REPOSITORY_DEV }}
   ECR_REPOSITORY_PROD: ${{ secrets.ECR_REPOSITORY_PROD }}
-  EMEAIL_GITHUB: javiermartinezgi01@gmail.com
-  USER_NAME_GITHUB: javiermartinezgi01
-  REPOSITORY_GITHUB: repoTest
+  EMEAIL_GITHUB: kellyjohanarestrepouribe@gmail.com
+  USER_NAME_GITHUB: kelly1311
+  REPOSITORY_GITHUB: chart-symphony
 
 jobs:
 
@@ -142,7 +142,7 @@ jobs:
         with:
           owner: ${{env.USER_NAME_GITHUB}}
           repository: ${{env.REPOSITORY_GITHUB}}
-          access-token: ${{ secrets.GIT_HUB_TOKEN }}
+          access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: script execution
         run : bash script_change_values.sh
