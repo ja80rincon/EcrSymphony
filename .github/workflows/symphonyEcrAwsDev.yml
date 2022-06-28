@@ -149,7 +149,7 @@ jobs:
 
       - name: push repository github chart
         run: |
-          cd repoTest
+          cd ${{env.REPOSITORY_GITHUB}}
           git config user.email "${{env.EMAIL_GITHUB}}"
           git config user.name "${{env.USER_NAME_GITHUB}}"
           git add values.yaml
