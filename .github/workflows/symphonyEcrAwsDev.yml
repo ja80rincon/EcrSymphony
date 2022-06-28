@@ -152,6 +152,7 @@ jobs:
           cd ${{env.REPOSITORY_GITHUB}}
           git config user.email "${{env.EMAIL_GITHUB}}"
           git config user.name "${{env.USER_NAME_GITHUB}}"
+          git status
           git add values.yaml
           git commit -m "updating values.yaml"
           git push origin main   
