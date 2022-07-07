@@ -82,11 +82,11 @@ done
 ####################
 
 for ((n=0;n<num_comp;n++)); do
-  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./${{REPOSITORY_GITHUB}}/symphony/prueba_values.yaml
-  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./${{REPOSITORY_GITHUB}}/symphony/prueba_values.yaml
-  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_DEV" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./${{REPOSITORY_GITHUB}}/prueba_values.yaml
-  pathEnv=".version"  valueEnv="$ACTUAL_SYMPHONY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./${{REPOSITORY_GITHUB}}/prueba_Chart.yaml
+  pathEnv=".${arr[$n,0]}.image.tag"  valueEnv="${arr[$n,0]}-v${arr[$n,2]}" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./chart-symphony/symphony/prueba_values.yaml
+  pathEnv=".${arr[$n,0]}.image.registry"  valueEnv="$ECR_REGISTRY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./chart-symphony/symphony/prueba_values.yaml
+  pathEnv=".${arr[$n,0]}.image.repository"  valueEnv="$ECR_REPOSITORY_DEV" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./chart-symphony/prueba_values.yaml
+  pathEnv=".version"  valueEnv="$ACTUAL_SYMPHONY" yq -i 'eval(strenv(pathEnv)) = strenv(valueEnv)' ./chart-symphony/prueba_Chart.yaml
 done
 
-cat ./${{REPOSITORY_GITHUB}}/symphony/prueba_values.yaml
-cat ./${{REPOSITORY_GITHUB}}/symphony/prueba_Chart.yaml
+cat ./chart-symphony/symphony/prueba_values.yaml
+cat ./chart-symphony/symphony/prueba_Chart.yaml
