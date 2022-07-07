@@ -158,7 +158,7 @@ jobs:
           cd ${{env.REPOSITORY_GITHUB}}
           git config user.email "${{env.EMAIL_GITHUB}}"
           git config user.name "${{env.USER_NAME_GITHUB}}"
-          git add symphony/prueba_values.yaml prueba_Chart.yaml
+          git add symphony/prueba_values.yaml
           git add symphony/prueba_Chart.yaml
           git commit -m "updating values.yaml"
           git push origin main 
