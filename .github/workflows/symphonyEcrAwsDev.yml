@@ -140,6 +140,9 @@ jobs:
       - name: Extracting version symphony
         run: echo "ACTUAL_SYMPHONY=$(cat .version version_symphony.yaml | sed 's/version//g' | sed 's/://g' | sed 's/ //g')" >> $GITHUB_ENV
       
+      - name: variable 
+        run: echo "actual_symphony " ${{ env.ACTUAL_SYMPHONY }}
+
       - name: Clone repository
         uses: GuillaumeFalourd/clone-github-repo-action@v2
         with:
